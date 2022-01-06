@@ -17,115 +17,241 @@ tags:
   description: Regular user using web service
 
 paths:
-  /inventory:
-    get:
-      tags:
-      - developers
-      summary: searches inventory
-      operationId: searchInventory
-      description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
-      produces:
-      - application/json
-      parameters:
-      - in: query
-        name: searchString
-        description: pass an optional search string for looking up inventory
-        required: false
-        type: string
-      - in: query
-        name: skip
-        description: number of records to skip for pagination
-        type: integer
-        format: int32
-        minimum: 0
-      - in: query
-        name: limit
-        description: maximum number of records to return
-        type: integer
-        format: int32
-        minimum: 0
-        maximum: 50
-      responses:
-        200:
-          description: search results matching criteria
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/InventoryItem'
-        400:
-          description: bad input parameter
+  /register:
     post:
       tags:
-      - admins
-      summary: adds an inventory item
-      operationId: addInventory
-      description: Adds an item to the system
-      consumes:
-      - application/json
-      produces:
-      - application/json
+      - users
+      summary: register 
+      operationId: register
+      description: |
+        Registers a new user
       parameters:
-      - in: body
-        name: inventoryItem
-        description: Inventory item to add
-        schema:
-          $ref: '#/definitions/InventoryItem'
+      - in: query
+        name: username
+        description: The desired username for the new user
+        required: true
+        type: string
+      - in: query
+        name: mail
+        description: The desired mail for the new user
+        required: true
+        type: string        
+      - in: query
+        name: password
+        description: The desired password's hash for the new user
+        required: true
+        type: string
       responses:
         201:
-          description: item created
+          description: user created
         400:
           description: invalid input, object invalid
         409:
-          description: an existing item already exists
-definitions:
-  Connection:
-    type: object
-    required:
-    - id
-    - password
-    properties:
-      id:
+          description: an existing user already exists
+  /login:
+    post:
+      tags:
+      - users
+      summary: login   
+      operationId: login
+      description: |
+        Logs an user
+      parameters:
+      - in: query
+        name: username
+        description: The user's usernam
+        required: true
         type: string
-      password:
+      - in: query
+        name: password
+        description: The user's password's hash
+        required: true
         type: string
-    
-  InventoryItem:
-    type: object
-    required:
-    - id
-    - name
-    - manufacturer
-    - releaseDate
-    properties:
-      id:
+      responses:
+        201:
+          description: login successful
+        400:
+          description: invalid input, object invalid
+  /user/update:
+    put:
+      tags:
+      - users
+      summary: update user 
+      operationId: userUpdate
+      description: |
+        Registers a new user
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      - in: query
+        name: username
+        description: The desired username for the updated user
+        required: false
         type: string
-        format: uuid
-        example: d290f1ee-6c54-4b01-90e6-d701748f0851
-      name:
+      - in: query
+        name: mail
+        description: The desired mail for the updated user
+        required: false
+        type: string        
+      - in: query
+        name: password
+        description: The desired password's hash for the updated user
+        required: false
         type: string
-        example: Widget Adapter
-      releaseDate:
+      responses:
+        201:
+          description: user updated
+        400:
+          description: invalid input, object invalid
+          
+  /user/providers:
+    post:
+      tags:
+      - users
+      summary: create provider connection
+      operationId: createProvider
+      description: |
+        Registers a new provider connection
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      - in: query
+        name: provider
+        description: The requested provider
+        required: true
         type: string
-        format: date-time
-        example: 2016-08-29T09:12:33.001Z
-      manufacturer:
-        $ref: '#/definitions/Manufacturer'
-  Manufacturer:
-    required:
-    - name
-    properties:
-      name:
+      - in: query
+        name: credentials
+        description: The required credentials
+        required: true
+        type: array
+        items: {}
+      responses:
+        201:
+          description: provider connection created
+        400:
+          description: invalid input, object invalid
+        
+    put:
+      tags:
+      - users
+      summary: update provider connection
+      operationId: updateProvider
+      description: |
+        Updates an existing provider connection
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      - in: query
+        name: provider
+        description: The requested provider
+        required: true
         type: string
-        example: ACME Corporation
-      homePage:
+      - in: query
+        name: credentials
+        description: The required credentials
+        required: true
+        type: array
+        items: {}
+      responses:
+        201:
+          description: provider connection updated
+        400:
+          description: invalid input, object invalid
+          
+    delete:
+      tags:
+      - users
+      summary: delete provider connection
+      operationId: deleteProvider
+      description: |
+        Deletes an existing provider connection
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      - in: query
+        name: provider
+        description: The requested provider
+        required: true
         type: string
-        format: url
-        example:  https://www.acme-corp.com
-      phone:
-        type: string
-        example: 408-867-5309
+      responses:
+        201:
+          description: provider connection deleted
+        400:
+          description: invalid input, object invalid
+          
+  /active-services:
+    get:
+      tags:
+      - users
+      summary: get active services
+      operationId: getActiveServices
+      description: |
+        Gets all users' active services
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      responses:
+        201:
+          description: provider connection created
+        400:
+          description: invalid input, object invalid
+  
+  /active-services/refresh:
+    post:
+      tags:
+      - users
+      summary: refresh active services
+      operationId: refreshActiveServices
+      description: |
+        Sends a job to the workers queue
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      responses:
+        201:
+          description: job successfully sent
+        400:
+          description: invalid input, object invalid
+
+  /active-services/check-update:
+    get:
+      tags:
+      - users
+      summary: check user status
+      operationId: checkUserStatus
+      description: |
+        Sends a job to the workers queue
+      parameters:
+      - in: query
+        name: id
+        description: The requested user's id
+        required: true
+        type: integer
+      responses:
+        201:
+          description: job successfully sent
+        400:
+          description: invalid input, object invalid
+        
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 basePath: /Flamingo8/flamingops_base_api/1.0.0
