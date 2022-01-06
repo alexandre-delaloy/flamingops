@@ -1,0 +1,22 @@
+go:
+  - "**/*.go"
+  - "**/go.*"
+
+bash:
+  - "**/*.sh"
+  - "**/Makefile"
+
+docker:
+  - "**/Dockerfile"
+  - "**/docker-compose.*"
+
+cicd:
+  - ".github/**/*.yml"
+
+infra:
+  - "**/env/**/*.env"
+  - "**/env/**/*.env.*"
+
+doc:
+  - "**/*.md"
+  - "**/assets/**/*"
