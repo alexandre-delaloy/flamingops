@@ -34,3 +34,5 @@
 - Vue: dashboard
 - Vue: gestion de compte
 - Possibilité de trigger un refresh
+
+- Possibilité d'export les données
