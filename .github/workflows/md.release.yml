@@ -48,7 +48,7 @@ jobs:
           push: true
           context: .
           file: build/package/sample-api/Dockerfile
-          tags: ghcr.io/blyndusk/go-yave_sample-api:${{ github.event.inputs.tag }}
+          tags: ghcr.io/blyndusk/flamingops_sample-api:${{ github.event.inputs.tag }}
           target: prod_build
 
         # output the logs
@@ -80,7 +80,7 @@ jobs:
           prWoLabels: true
           stripGeneratorNotice: true
           verbose: true
-          
+
       # create release according to tag input
       - name: 3 - CREATE RELEASE
         uses: actions/create-release@v1
@@ -92,4 +92,3 @@ jobs:
           body: ${{ steps.changelog_id.outputs.changelog }}
           draft: false
           prerelease: false
-

@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - '**/*.go'
-      - '**/go.*'
+      - "**/*.go"
+      - "**/go.*"
 jobs:
   DOCKER:
     name: DOCKER
@@ -32,7 +32,7 @@ jobs:
           push: true
           context: .
           file: build/package/sample-api/Dockerfile
-          tags: ghcr.io/blyndusk/go-yave_sample-api:latest
+          tags: ghcr.io/blyndusk/flamingops_sample-api:latest
           target: prod_build
 
         # output the logs

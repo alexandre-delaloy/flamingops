@@ -3,9 +3,9 @@ package middlewares
 import (
 	"net/http"
 
-	"github.com/blyndusk/go-yave/internal/database"
-	"github.com/blyndusk/go-yave/pkg/helpers"
-	"github.com/blyndusk/go-yave/pkg/models"
+	"github.com/blyndusk/flamingops/internal/database"
+	"github.com/blyndusk/flamingops/pkg/helpers"
+	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )

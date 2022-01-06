@@ -1,6 +1,6 @@
 labels:
-  - name: "bash"
-    color: "#051400"
+  - name: "react"
+    color: "#05819C"
     description: "Related to Bash files modifications"
   - name: "go"
     color: "#1D76DB"
@@ -20,9 +20,6 @@ labels:
     color: "#0E8A16"
     description: "Related to new features and implementations"
   
-  - name: "explo"
-    color: "#D93F0B"
-    description: "Related to new things I don't know how to do"
   - name: "cicd" 
     color: "#006B75"
     description: "Related to CI/CD files modifications"

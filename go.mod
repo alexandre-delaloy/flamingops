@@ -1,4 +1,4 @@
-module github.com/blyndusk/go-yave
+module github.com/blyndusk/flamingops
 
 go 1.13
 

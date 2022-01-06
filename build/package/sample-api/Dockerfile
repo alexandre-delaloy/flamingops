@@ -8,7 +8,7 @@ FROM golang:alpine as dev_build
 ENV GO111MODULE=on
 
 # Set the current working with go absolute path
-WORKDIR /go/src/github.com/blyndusk/go-yave
+WORKDIR /go/src/github.com/blyndusk/flamingops
 
 # ----- INSTALL -----
 
@@ -32,7 +32,7 @@ RUN ls -la
 RUN go get -u github.com/cosmtrek/air
 
 # Use the excutable
-ENTRYPOINT ["/go/bin/air", "-d", "-c", "/go/src/github.com/blyndusk/go-yave/build/package/sample-api/.air.conf" ]
+ENTRYPOINT ["/go/bin/air", "-d", "-c", "/go/src/github.com/blyndusk/flamingops/build/package/sample-api/.air.conf" ]
 
 # PROD BUILD --------------------------------------------------------------------------------------
 
@@ -41,13 +41,13 @@ FROM golang:alpine as prod_build
 # ----- SETUP -----
 
 # Set the image source for ghcr.io
-LABEL org.opencontainers.image.source = "https://github.com/blyndusk/go-yave"
+LABEL org.opencontainers.image.source = "https://github.com/blyndusk/flamingops"
 
 # Enable Go modules
 ENV GO111MODULE=on
 
 # Set the current working with go absolute path
-WORKDIR /go/src/github.com/blyndusk/go-yave
+WORKDIR /go/src/github.com/blyndusk/flamingops
 
 # ----- INSTALL -----
 
@@ -72,10 +72,10 @@ RUN go build -o ./tmp/main ./cmd/sample-api/main.go
 FROM alpine
 
 # Copy binary
-COPY --from=prod_builder /go/src/github.com/blyndusk/go-yave/ /go-yave/
+COPY --from=prod_builder /go/src/github.com/blyndusk/flamingops/ /flamingops/
 
 # Set current directory
-WORKDIR /go-yave/
+WORKDIR /flamingops/
 
 # Use executable
-ENTRYPOINT [ "/go-yave/tmp/main" ]
+ENTRYPOINT [ "/flamingops/tmp/main" ]

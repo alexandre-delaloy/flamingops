@@ -2,9 +2,10 @@ go:
   - "**/*.go"
   - "**/go.*"
 
-bash:
-  - "**/*.sh"
-  - "**/Makefile"
+react:
+  - "web/src/**/*.js"
+  - "web/src/**/*.jsx"
+  - "web/package*"
 
 docker:
   - "**/Dockerfile"

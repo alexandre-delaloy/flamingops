@@ -10,7 +10,7 @@ services:
     ports:
       - 3333:3333
     volumes:
-      - ./:/go/src/github.com/blyndusk/go-yave/
+      - ./:/go/src/github.com/blyndusk/flamingops/
     networks:
       - main
 

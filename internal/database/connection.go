@@ -8,7 +8,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/blyndusk/go-yave/pkg/helpers"
+	"github.com/blyndusk/flamingops/pkg/helpers"
 )
 
 var Db *gorm.DB
