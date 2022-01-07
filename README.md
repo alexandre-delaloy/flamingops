@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/guava.png" width="256"><br/>
+  <img src="./assets/flamingo_v2.png" width="256"><br/>
     <br/>
     <a href="https://github.com/blyndusk/flamingops/releases">
       <img src="https://img.shields.io/github/v/release/blyndusk/flamingops"/>
