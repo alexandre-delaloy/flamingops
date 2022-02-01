@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/blyndusk/flamingops/internal/middlewares"
-	"github.com/blyndusk/flamingops/pkg/models"
+	// "github.com/blyndusk/flamingops/pkg/models"
 )
 
 func GetSecretByName(c *gin.Context) {
