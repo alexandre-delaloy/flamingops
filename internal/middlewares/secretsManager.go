@@ -3,13 +3,13 @@ package middlewares
 import (
 	"net/http"
 
-	"github.com/blyndusk/flamingops/internal/database"
+	// "github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/pkg/helpers"
-	"github.com/blyndusk/flamingops/pkg/models"
+	// "github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
+	// log "github.com/sirupsen/logrus"
 
-	"encoding/base64"
+	// "encoding/base64"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -56,7 +56,7 @@ func GetSecretByName(c *gin.Context) {
 func CreateSecret(c *gin.Context) {
 	svc := secretsmanager.New(session.New())
 	input := &secretsmanager.CreateSecretInput{
-		ClientRequestToken: aws.String(helpers.RandomString(10)),
+		ClientRequestToken: aws.String("flamingopstoken"),
 		Description:        aws.String(""),
 		Name:               aws.String(c.Params.ByName("secretName")),
 		SecretString:       aws.String(c.Params.ByName("secretString")),
@@ -104,7 +104,7 @@ func CreateSecret(c *gin.Context) {
 func UpdateSecret(c *gin.Context) {
 	svc := secretsmanager.New(session.New())
 	input := &secretsmanager.PutSecretValueInput{
-		ClientRequestToken: aws.String(helpers.RandomString(10)),
+		ClientRequestToken: aws.String("flamingopstoken"),
 		SecretId:           aws.String(c.Params.ByName("secretName")),
 		SecretString:       aws.String(c.Params.ByName("secretString")),
 	}
