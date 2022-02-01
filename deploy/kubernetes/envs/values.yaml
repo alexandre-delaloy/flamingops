@@ -1,14 +1,14 @@
 # - SVC ---------------------------------------------------------------- #
 svc:
   type: ClusterIP
-  gaApi:
+  go:
     name: svc-go
     ports:
       - name: svc-go
         protocol: TCP
         port: 80
         targetPort: 8080
-  gaApp:
+  node:
     name: svc-node
     ports:
       - name: svc-node
@@ -21,24 +21,24 @@ deploy:
   replicaCount: 1
   autoscaling:
     enabled: false
-  gaApp:
-    name: deploy-node
-  gaApi:
+  go:
     name: deploy-go
+  node:
+    name: deploy-node
 
 # - IMAGES ------------------------------------------------------------- #
 images:
   pullPolicy: Always
   restartPolicy: Always
-  gaApi:
+  go:
     name: go
     repository: ghcr.io/blyndusk/flamingops_go
     tag: "latest"
     svc:
       name: svc-go
-      port: 8080
+      port: 3333
       protocol: TCP
-  gaApp:
+  node:
     name: node
     repository: ghcr.io/blyndusk/flamingops_node
     tag: "latest"

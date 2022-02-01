@@ -1,0 +1,198 @@
+---
+# Source: flamingops/templates/regsec.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-secret
+  labels:
+    helm.sh/chart: 0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJkb2NrZXIucGtnLmdpdGh1Yi5jb20iOiB7CgkJCSJhdXRoIjogIllteDVibVIxYzJzNloyaHdYekZ3UlhKblZtVnBTWGhDV1d4V2RVNVViVWhRZUd4MFoyaHNha1JWYURGYWMwRjVVdz09IgoJCX0sCgkJImdoY3IuaW8iOiB7CgkJCSJhdXRoIjogIlJtOW5ieTFEWVhCcGRHRnNPbWRvY0Y5Q1JEZFdhemxNWWtaSVVXdEVUelZDWmxaTFpraDRlVE5DU205cmVFUXdZVzVXVkVjPSIKCQl9Cgl9Cn0=
+---
+# Source: flamingops/templates/svc/go.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-go
+  labels:
+    helm.sh/chart: 0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/scope: flamingops-go
+spec:
+  type: ClusterIP
+  ports:
+    - name: svc-go
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    
+  selector:
+    app.kubernetes.io/scope: flamingops-go
+---
+# Source: flamingops/templates/svc/node.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-node
+  labels:
+    helm.sh/chart: 0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/scope: flamingops-node
+spec:
+  type: ClusterIP
+  ports:
+    - name: svc-node
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    
+  selector:
+    app.kubernetes.io/scope: flamingops-node
+---
+# Source: flamingops/templates/deploy/go.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-go
+  labels:
+    helm.sh/chart: 0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/scope: flamingops-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/scope: flamingops-go
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: 0.1.0
+        app.kubernetes.io/version: "1.0"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/scope: flamingops-go
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registry-secret
+      containers:
+        - name: go
+          image: ghcr.io/blyndusk/flamingops_go:latest
+          imagePullPolicy: Always
+          ports:
+            - name: svc-go
+              containerPort: 8080
+              protocol: TCP
+---
+# Source: flamingops/templates/deploy/node.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-node
+  labels:
+    helm.sh/chart: 0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/scope: flamingops-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/scope: flamingops-node
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: 0.1.0
+        app.kubernetes.io/version: "1.0"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/scope: flamingops-node
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registry-secret
+      containers:
+        - name: node
+          image: ghcr.io/blyndusk/flamingops_node:latest
+          imagePullPolicy: Always
+          ports:
+            - name: svc-node
+              containerPort: 80
+              protocol: TCP
+---
+# Source: flamingops/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  labels:
+    helm.sh/chart: 0.1.0
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    cert-manager.io/issuer: issuer
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+        - api.flamingops.com
+        - flamingops.com
+      secretName: tls-secret
+  rules:
+    - host: "api.flamingops.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-go
+                port:
+                  number: 80
+    - host: "flamingops.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-node
+                port:
+                  number: 80
+---
+# Source: flamingops/templates/cert.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate
+  namespace: default
+spec:
+  secretName: tls-secret
+  dnsNames:
+    - api.flamingops.com
+    - flamingops.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
+# Source: flamingops/templates/issuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: adelaloy@nextroad.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name:  letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
