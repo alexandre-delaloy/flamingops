@@ -18,7 +18,7 @@ func CreateSecret(c *gin.Context) {
 }
 
 func UpdateSecret(c *gin.Context) {
-	middlewares.UpdateSecret(c))
+	middlewares.UpdateSecret(c)
 }
 
 func DeleteSecret(c *gin.Context) {
