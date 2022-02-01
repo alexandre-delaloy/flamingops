@@ -22,6 +22,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/scope: {{ printf "%s-go" .Chart.Name }}
 {{- end }}
 
-{{- define "flamingops.react-scope" -}}
-app.kubernetes.io/scope: {{ printf "%s-react" .Chart.Name }}
+{{- define "flamingops.node-scope" -}}
+app.kubernetes.io/scope: {{ printf "%s-node" .Chart.Name }}
 {{- end }}
