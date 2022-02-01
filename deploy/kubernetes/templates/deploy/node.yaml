@@ -1,0 +1,34 @@
+{{- $image := printf "%s:%s" .Values.images.node.repository .Values.images.node.tag -}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy.node.name }}
+  labels:
+    {{- include "flamingops.labels" . | nindent 4 }}
+    {{- include "flamingops.node-scope" . | nindent 4 }}
+spec:
+  {{- if not .Values.deploy.autoscaling.enabled }}
+  replicas: {{ .Values.deploy.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "flamingops.node-scope" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "flamingops.labels" . | nindent 8 }}
+        {{- include "flamingops.node-scope" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.images.restartPolicy }}
+      imagePullSecrets:
+        - name: {{ .Values.regsec.name }}
+      containers:
+        - name: {{ .Values.images.node.name }}
+          image: {{ $image }}
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          ports:
+            - name: {{ .Values.images.node.svc.name }}
+              containerPort: {{ .Values.images.node.svc.port }}
+              protocol: {{ .Values.images.node.svc.protocol }}
+      
