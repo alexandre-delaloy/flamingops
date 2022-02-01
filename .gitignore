@@ -3,3 +3,6 @@
 **/.env.old
 /docker-compose.yml
 .vscode
+
+kubeconfig
+kubeconfig.base64
