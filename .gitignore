@@ -3,3 +3,29 @@
 **/.env.old
 /docker-compose.yml
 .vscode
+
+# dependencies
+web/node_modules
+web/.pnp
+web/.pnp.js
+
+# testing
+web/coverage
+
+# production
+web/build
+web/out
+web/.next
+
+# misc
+web/.DS_Store
+web/.eslintcache
+web/.env
+web/.env.local
+web/.env.development.local
+web/.env.test.local
+web/.env.production.local
+
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
