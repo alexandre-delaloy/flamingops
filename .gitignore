@@ -3,3 +3,4 @@
 **/.env.old
 /docker-compose.yml
 .vscode
+**/.aws/credentials
