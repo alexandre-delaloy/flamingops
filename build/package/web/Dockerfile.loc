@@ -1,0 +1,27 @@
+FROM node:lts-alpine 
+
+LABEL org.opencontainers.image.source = "https://github.com/blyndusk/flamingops"
+
+# ----- SETUP -----
+
+# Set the current working with go absolute path
+WORKDIR /app
+
+# ----- INSTALL -----
+
+# Copy package.json + package-lock.json for install before full copy
+COPY web/package*.json ./
+
+# Install all dependencies
+RUN npm install
+
+# ----- COPY + RUN -----
+
+# Copy the source from the current directory to the container
+COPY web/ .
+
+# Expose default app port
+EXPOSE 3000
+
+# Start the web server
+CMD ["npm", "run", "start"]
