@@ -1,4 +1,4 @@
-name: "[CD] DOCKER"
+name: "[CD] GO"
 
 on:
   push:
