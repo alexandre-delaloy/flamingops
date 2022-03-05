@@ -3,7 +3,7 @@
 // 3. - Executer les calls demandées
 // 4. - Stocker les résultats dans rds
 
-import servicesCalls from "./servicesCalls";
+import awsServicesCalls from "./servicesCalls/aws";
 const SecretsManager = require('./SecretsManager.js');
 
 exports.handler = async function(event) {
