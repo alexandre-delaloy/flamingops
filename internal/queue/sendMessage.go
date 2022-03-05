@@ -54,7 +54,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 	return result, nil
 }
 
-func SendMsg(sess *session.Session, queueURL *string, clientName *string) error {
+func SendMsg(sess *session.Session, queueURL *string, clientName *string, requestedServices []string, requestedRegion *string) error {
 	// Create an SQS service client
 	// snippet-start:[sqs.go.send_message.call]
 	svc := sqs.New(sess)
@@ -66,10 +66,14 @@ func SendMsg(sess *session.Session, queueURL *string, clientName *string) error 
 							DataType:    aws.String("String"),
 							StringValue: aws.String(clientName),
 					},
-					"ClientName": &sqs.MessageAttributeValue{
+					"RequestedServices": &sqs.MessageAttributeValue{
 						DataType:    aws.String("String"),
-						StringValue: aws.String(clientName),
-				},
+						StringValue: aws.String(requestedServices),
+					},
+					"RequestedRegion": &sqs.MessageAttributeValue{
+						DataType:    aws.String("String"),
+						StringValue: aws.String(requestedRegion),
+					},
 			},
 			MessageBody: aws.String(""),
 			QueueUrl:    queueURL,
