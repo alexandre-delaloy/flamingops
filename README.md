@@ -22,12 +22,16 @@
   <a href="https://github.com/blyndusk/flamingops/actions/workflows/ci.go.yml">
       <img src="https://github.com/blyndusk/flamingops/actions/workflows/ci.go.yml/badge.svg"/>
     </a>
-     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.docker.yml">
-      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.docker.yml/badge.svg"/>
+     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.go.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.go.yml/badge.svg"/>
     </a>
-     <a href="https://github.com/blyndusk/flamingops/actions/workflows/md.release.yml">
-      <img src="https://github.com/blyndusk/flamingops/actions/workflows/md.release.yml/badge.svg"/>
+    <a href="https://github.com/blyndusk/flamingops/actions/workflows/ci.web.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/ci.web.yml/badge.svg"/>
     </a>
+     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.web.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.web.yml/badge.svg"/>
+    </a>
+   
 </p>
 
 <p align="center">

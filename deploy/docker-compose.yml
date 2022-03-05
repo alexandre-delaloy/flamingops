@@ -14,8 +14,18 @@ services:
     networks:
       - main
 
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: build/package/web/Dockerfile.loc
+    ports:
+      - 3000:3000
+    networks:
+      - main
+
   postgres:
-    image: postgres:latest
+    image: postgres:alpine
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
