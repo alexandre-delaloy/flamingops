@@ -17,12 +17,10 @@ import type { AppBarProps } from '@mui/material';
 import { Menu as MenuIcon } from '../../icons/menu';
 import { AccountPopover } from './account-popover';
 import { ContactsPopover } from './contacts-popover';
-import { ContentSearchDialog } from './content-search-dialog';
 import { NotificationsPopover } from './notifications-popover';
 import { LanguagePopover } from './language-popover';
 import { Bell as BellIcon } from '../../icons/bell';
 import { UserCircle as UserCircleIcon } from '../../icons/user-circle';
-import { Search as SearchIcon } from '../../icons/search';
 import { Users as UsersIcon } from '../../icons/users';
 
 interface DashboardNavbarProps extends AppBarProps {
@@ -94,35 +92,6 @@ const LanguageButton = () => {
         anchorEl={anchorRef.current}
         onClose={handleClosePopover}
         open={openPopover}
-      />
-    </>
-  );
-};
-
-const ContentSearchButton = () => {
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-
-  const handleOpenSearchDialog = (): void => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseSearchDialog = (): void => {
-    setOpenDialog(false);
-  };
-
-  return (
-    <>
-      <Tooltip title="Search">
-        <IconButton
-          onClick={handleOpenSearchDialog}
-          sx={{ ml: 1 }}
-        >
-          <SearchIcon fontSize="small" />
-        </IconButton>
-      </Tooltip>
-      <ContentSearchDialog
-        onClose={handleCloseSearchDialog}
-        open={openDialog}
       />
     </>
   );
@@ -291,7 +260,6 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <LanguageButton />
-          <ContentSearchButton />
           <ContactsButton />
           <NotificationsButton />
           <AccountButton />

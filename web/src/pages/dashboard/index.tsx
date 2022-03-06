@@ -16,7 +16,6 @@ import {
 } from '@mui/material';
 import { AuthGuard } from '../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../components/dashboard/dashboard-layout';
-import { OverviewBanner } from '../../components/dashboard/overview/overview-banner';
 import { OverviewCryptoWallet } from '../../components/dashboard/overview/overview-crypto-wallet';
 import { OverviewInbox } from '../../components/dashboard/overview/overview-inbox';
 import { OverviewLatestTransactions } from '../../components/dashboard/overview/overview-latest-transactions';
@@ -119,14 +118,6 @@ const Overview: NextPage = () => {
             container
             spacing={4}
           >
-            {displayBanner && (
-              <Grid
-                item
-                xs={12}
-              >
-                <OverviewBanner onDismiss={handleDismissBanner} />
-              </Grid>
-            )}
             <Grid
               item
               md={6}
