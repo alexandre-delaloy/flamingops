@@ -1,7 +1,6 @@
 package queue
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -30,7 +29,7 @@ func main() {
 
 	queueURL := result.QueueUrl
 
-	err = SendMsg(sess, queueURL, "test", []string{"test"}, "test")
+	err = SendMsg(sess, queueURL, "test", []*string{"test"}, "test")
 	if err != nil {
 			fmt.Println("Got an error sending the message:")
 			fmt.Println(err)
@@ -54,7 +53,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 	return result, nil
 }
 
-func SendMsg(sess *session.Session, queueURL *string, clientName string, requestedServices []string, requestedRegion string) error {
+func SendMsg(sess *session.Session, queueURL *string, clientName string, requestedServices []*string, requestedRegion string) error {
 	// Create an SQS service client
 	// snippet-start:[sqs.go.send_message.call]
 	svc := sqs.New(sess)
@@ -64,7 +63,7 @@ func SendMsg(sess *session.Session, queueURL *string, clientName string, request
 			MessageAttributes: map[string]*sqs.MessageAttributeValue{
 					"ClientName": &sqs.MessageAttributeValue{
 							DataType:    aws.String("String"),
-							StringValue: clientName,
+							StringValue: aws.String(clientName),
 					},
 					"RequestedServices": &sqs.MessageAttributeValue{
 							DataType:    aws.String("StringList"),
@@ -72,7 +71,7 @@ func SendMsg(sess *session.Session, queueURL *string, clientName string, request
 					},
 					"RequestedRegion": &sqs.MessageAttributeValue{
 							DataType:    aws.String("String"),
-							StringValue: requestedRegion,
+							StringValue: aws.String(requestedRegion),
 					},
 			},
 			MessageBody: aws.String(""),
