@@ -29,7 +29,8 @@ func main() {
 
 	queueURL := result.QueueUrl
 
-	err = SendMsg(sess, queueURL, "test", []*string{"test"}, "test")
+	test := "test"
+	err = SendMsg(sess, queueURL, "test", []*string{&test}, "test")
 	if err != nil {
 			fmt.Println("Got an error sending the message:")
 			fmt.Println(err)
