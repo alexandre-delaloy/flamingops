@@ -21,7 +21,7 @@ func main() {
 	}))
 
 	// Get URL of queue
-	result, err := GetQueueURL(sess, queue)
+	result, err := GetQueueURL(sess, &queue)
 	if err != nil {
 			fmt.Println("Got an error getting the queue URL:")
 			fmt.Println(err)
@@ -30,7 +30,7 @@ func main() {
 
 	queueURL := result.QueueUrl
 
-	err = SendMsg(sess, queueURL)
+	err = SendMsg(sess, &queueURL, "test", []string{"test"}, "test")
 	if err != nil {
 			fmt.Println("Got an error sending the message:")
 			fmt.Println(err)
@@ -64,15 +64,15 @@ func SendMsg(sess *session.Session, queueURL *string, clientName *string, reques
 			MessageAttributes: map[string]*sqs.MessageAttributeValue{
 					"ClientName": &sqs.MessageAttributeValue{
 							DataType:    aws.String("String"),
-							StringValue: aws.String(clientName),
+							StringValue: clientName,
 					},
 					"RequestedServices": &sqs.MessageAttributeValue{
-						DataType:    aws.String("String"),
-						StringValue: aws.String(requestedServices),
+							DataType:    aws.String("StringList"),
+							StringListValues: requestedServices,
 					},
 					"RequestedRegion": &sqs.MessageAttributeValue{
-						DataType:    aws.String("String"),
-						StringValue: aws.String(requestedRegion),
+							DataType:    aws.String("String"),
+							StringValue: requestedRegion,
 					},
 			},
 			MessageBody: aws.String(""),
