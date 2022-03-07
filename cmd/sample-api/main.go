@@ -30,6 +30,6 @@ func setupServer() *gin.Engine {
 		})
 	})
 	router.Setup(r)
-	r.Run(":3333")
+	r.Run(":3335")
 	return r
 }

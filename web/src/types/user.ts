@@ -1,8 +1,13 @@
 export interface User {
-  id: string;
-  avatar: string;
+  id: number;
+  username: string;
+  full_name: string;
   email: string;
-  name: string;
+  disabled: boolean;
+  role_label: string;
+  role_action: string[];
+}
 
-  [key: string]: any;
+export interface Users {
+  users: User;
 }
