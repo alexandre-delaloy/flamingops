@@ -18,12 +18,14 @@ import (
 )
 
 func GetSecretByName(c *gin.Context) {
+	// create a Secrets Manager client using our environment variables for the AWS credentials and region
 	svc := secretsmanager.New(session.New())
 	input := &secretsmanager.GetSecretValueInput{
 		SecretId:     aws.String(c.Params.ByName("secretName")),
 		VersionStage: aws.String("AWSPREVIOUS"),
 	}
 
+	// retrieves the required secret
 	result, err := svc.GetSecretValue(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
@@ -54,6 +56,7 @@ func GetSecretByName(c *gin.Context) {
 }
 
 func CreateSecret(c *gin.Context) {
+	// create a Secrets Manager client using our environment variables for the AWS credentials and region
 	svc := secretsmanager.New(session.New())
 	input := &secretsmanager.CreateSecretInput{
 		ClientRequestToken: aws.String("flamingopstoken"),
@@ -62,6 +65,7 @@ func CreateSecret(c *gin.Context) {
 		SecretString:       aws.String(c.Params.ByName("secretString")),
 	}
 
+	// creates the secret
 	result, err := svc.CreateSecret(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
@@ -102,6 +106,7 @@ func CreateSecret(c *gin.Context) {
 }
 
 func UpdateSecret(c *gin.Context) {
+	// create a Secrets Manager client using our environment variables for the AWS credentials and region
 	svc := secretsmanager.New(session.New())
 	input := &secretsmanager.PutSecretValueInput{
 		ClientRequestToken: aws.String("flamingopstoken"),
@@ -109,6 +114,7 @@ func UpdateSecret(c *gin.Context) {
 		SecretString:       aws.String(c.Params.ByName("secretString")),
 	}
 
+	// updates the secret
 	result, err := svc.PutSecretValue(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
@@ -145,6 +151,7 @@ func UpdateSecret(c *gin.Context) {
 }
 
 func DeleteSecret(c *gin.Context) {
+	// create a Secrets Manager client using our environment variables for the AWS credentials and region
 	svc := secretsmanager.New(session.New())
 	input := &secretsmanager.DeleteSecretInput{
 		RecoveryWindowInDays: aws.Int64(7),
