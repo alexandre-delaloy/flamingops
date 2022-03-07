@@ -27,7 +27,7 @@ func secretsManagerRoute(r *gin.Engine) {
 	r.POST("/secrets", controllers.CreateSecret)
 
 	r.GET("/secrets/:secretName", controllers.GetSecretByName)
-	users
+	
 	r.PUT("/secrets/:secretName", controllers.UpdateSecret)
 
 	r.DELETE("/secrets/:secretName", controllers.DeleteSecret)
