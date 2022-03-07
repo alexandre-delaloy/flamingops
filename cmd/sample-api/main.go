@@ -2,7 +2,9 @@ package main
 
 import (
 	"net/http"
+	"fmt"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/internal/router"
 	"github.com/gin-gonic/gin"
@@ -39,7 +41,9 @@ func setupServer() *gin.Engine {
 }
 
 func setupAwsSession() {
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("eu-west-3")},
-	)
+	sess := session.Must(session.NewSession(&aws.Config{
+		Region: aws.String("us-east-1"),
+	}))
+	fmt.Println(sess)
+	log.Info("AWS Session created")
 }
