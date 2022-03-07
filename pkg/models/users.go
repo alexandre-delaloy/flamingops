@@ -4,8 +4,9 @@ import "time"
 
 type User struct {
 	Id        uint      `json:"id"`
-	Name      string    `json:"name"`
-	Age       uint      `json:"age"`
+	Username  string    `json:"username"`
+	Mail      string      `json:"mail"`
+	Password  string    `json:"password"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -13,6 +14,7 @@ type User struct {
 type Users []User
 
 type UserInput struct {
-	Name string `json:"name"`
-	Age  uint   `json:"age"`
+	Username string `json:"username"`
+	Mail     string   `json:"mail"`
+	Password string `json:"password"`
 }

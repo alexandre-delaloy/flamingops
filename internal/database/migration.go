@@ -6,6 +6,13 @@ import (
 )
 
 func Migrate() {
-	_ = Db.AutoMigrate(&models.User{})
+	_ = Db.AutoMigrate(
+		&models.User{},
+		&models.DisplayPreference{},
+		&models.SwServicesData{},
+		&models.AwsServicesData{},
+		&models.SwCredential{},
+		&models.AwsCredential{},
+	)
 	logrus.Info("Migrations done !")
 }
