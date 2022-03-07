@@ -16,5 +16,5 @@ type SwCredentials []SwCredential
 
 type SwCredentialInput struct {
 	UserId      string `json:"userid"`
-	Credentials string
+	Credentials string `json:"credentials"`
 }

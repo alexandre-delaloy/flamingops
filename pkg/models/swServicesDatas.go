@@ -15,4 +15,5 @@ type SwServicesDatas []SwServicesData
 
 type SwServicesDataInput struct {
 	SwCredentialId string `json:"swcredentialid"`
+	Data           string `json:"data"`
 }

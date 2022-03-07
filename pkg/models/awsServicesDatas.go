@@ -15,4 +15,5 @@ type AwsServicesDatas []AwsServicesData
 
 type AwsServicesDataInput struct {
 	AwsCredentialId string `json:"awscredentialid"`
+	Data            string `json:"data"`
 }

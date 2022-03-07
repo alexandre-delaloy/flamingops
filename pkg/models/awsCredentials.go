@@ -16,5 +16,5 @@ type AwsCredentials []AwsCredential
 
 type AwsCredentialInput struct {
 	UserId      string `json:"userid"`
-	Credentials string
+	Credentials string `json:"credentials"`
 }
