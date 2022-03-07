@@ -2,18 +2,16 @@ package models
 
 import "time"
 
-type DisplayPreference struct {
-	Id        uint `json:"id"`
-	UserId    uint `json:"userid"`
+type DisplayPreferences struct {
+	Id        uint 			`json:"id"`
+	UserId    uint 			`json:"userid"`
 	User      User
-	Content	 	string `json:"content"`
+	Content	 	string 		`json:"content"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type DisplayPreferences []DisplayPreference
-
-type DisplayPreferenceInput struct {
+type DisplayPreferencesInput struct {
 	UserId 	string `json:"userid"`
 	Content string `json:"content"`
 }

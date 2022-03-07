@@ -3,8 +3,8 @@ package models
 import "time"
 
 type SwCredential struct {
-	Id          uint `json:"id"`
-	UserId      uint `json:"userid"`
+	Id          uint 			`json:"id"`
+	UserId      uint 			`json:"userid"`
 	User        User
 	Credentials string    `json:"credentials"`
 	CreatedAt   time.Time `json:"created_at"`
