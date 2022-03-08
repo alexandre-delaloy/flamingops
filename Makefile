@@ -13,8 +13,11 @@ stop: ## Down the docker-compose
 logs: ## Display logs of your containers 
 	docker-compose logs --follow
 
-lint:
+lint: ## Lint go files
 	gofmt -e -l -s -w .
+
+build: ## build the go app
+	go build cmd/sample-api/main.go
 
 init:
 	make setup-env

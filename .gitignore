@@ -4,3 +4,6 @@
 docker-compose.yml
 .vscode
 **/.aws/credentials
+
+cmd/sample-api/sample-api
+main
