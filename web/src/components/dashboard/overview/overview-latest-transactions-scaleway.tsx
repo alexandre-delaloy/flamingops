@@ -29,7 +29,7 @@ interface Transaction {
 const transactions: Transaction[] = [
   {
     id: 'd46800328cd510a668253b45',
-    name: 'AWS',
+    name: 'Scaleway',
     type: 'IoT',
     status: 'running',
     creationDate: '3 months ago',
@@ -49,7 +49,7 @@ const transactions: Transaction[] = [
   },
   {
     id: 'd4682328cd510a668253b45',
-    name: 'AWS',
+    name: 'Scaleway',
     type: 'IoT',
     status: 'running',
     creationDate: '1 month ago',
@@ -59,7 +59,7 @@ const transactions: Transaction[] = [
   },
   {
     id: 'd46800328cd510a6682ghb45',
-    name: 'Azure',
+    name: 'Ubuntu 18.04 Bionic Beaver',
     type: 'IoT',
     status: 'running',
     creationDate: '2 weeks ago',
@@ -69,7 +69,7 @@ const transactions: Transaction[] = [
   },
   {
     id: 'd46800328cd510a668253b42',
-    name: 'AWS',
+    name: 'Scaleway',
     type: 'S3 Bucket',
     status: 'running',
     creationDate: '5 days ago',
@@ -79,7 +79,7 @@ const transactions: Transaction[] = [
   },
 ];
 
-export const OverviewLatestTransactions: FC = (props) => (
+export const OverviewLatestTransactionsScaleway: FC = (props) => (
   <Card {...props}>
     <CardHeader title="Instances" />
     <Scrollbar>

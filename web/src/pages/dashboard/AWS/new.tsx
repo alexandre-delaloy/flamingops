@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { Box, Breadcrumbs, Container, Link, Typography } from '@mui/material';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
-import { ProductCreateForm } from '../../../components/dashboard/product/product-create-form';
+import { ProductCreateForm } from '../../../components/dashboard/AWS/product-create-form';
 import { gtm } from '../../../lib/gtm';
 
 const ProductCreate: NextPage = () => {
