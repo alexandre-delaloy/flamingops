@@ -1,7 +1,7 @@
 labels:
   - name: "react"
     color: "#05819C"
-    description: "Related to Bash files modifications"
+    description: "Related to React files modifications"
   - name: "go"
     color: "#1D76DB"
     description: "Related to Golang files modifications"

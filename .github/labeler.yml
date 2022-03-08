@@ -3,8 +3,8 @@ go:
   - "**/go.*"
 
 react:
-  - "web/src/**/*.js"
-  - "web/src/**/*.jsx"
+  - "**/*.ts"
+  - "**/*.tsx"
   - "web/package*"
 
 docker:
