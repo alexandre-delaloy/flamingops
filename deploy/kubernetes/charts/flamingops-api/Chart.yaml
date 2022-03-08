@@ -1,0 +1,10 @@
+apiVersion: v2
+name: flamingops-api
+description: The Flamingops API, built with Golang
+type: application
+version: 0.1.0 # chart version (this actual chart, not the app inside)
+appVersion: "1.0"
+
+maintainers:
+  - name: Alexandre Delaloy
+    email: adelaloy@nextroad.com
