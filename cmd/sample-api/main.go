@@ -1,13 +1,13 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/internal/router"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"

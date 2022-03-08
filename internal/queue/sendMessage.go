@@ -16,15 +16,15 @@ func main() {
 	// Create a session that gets credential values from ~/.aws/credentials
 	// and the default region from ~/.aws/config
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
-			SharedConfigState: session.SharedConfigEnable,
+		SharedConfigState: session.SharedConfigEnable,
 	}))
 
 	// Get URL of queue
 	result, err := GetQueueURL(sess, &queue)
 	if err != nil {
-			fmt.Println("Got an error getting the queue URL:")
-			fmt.Println(err)
-			return
+		fmt.Println("Got an error getting the queue URL:")
+		fmt.Println(err)
+		return
 	}
 
 	queueURL := result.QueueUrl
@@ -32,9 +32,9 @@ func main() {
 	test := "test"
 	err = SendMsg(sess, queueURL, "test", []*string{&test}, "test")
 	if err != nil {
-			fmt.Println("Got an error sending the message:")
-			fmt.Println(err)
-			return
+		fmt.Println("Got an error sending the message:")
+		fmt.Println(err)
+		return
 	}
 
 	fmt.Println("Sent message to queue ")
@@ -45,10 +45,10 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 	svc := sqs.New(sess)
 
 	result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-			QueueName: queue,
+		QueueName: queue,
 	})
 	if err != nil {
-			return nil, err
+		return nil, err
 	}
 
 	return result, nil
@@ -60,27 +60,27 @@ func SendMsg(sess *session.Session, queueURL *string, clientName string, request
 	svc := sqs.New(sess)
 
 	_, err := svc.SendMessage(&sqs.SendMessageInput{
-			DelaySeconds: aws.Int64(10),
-			MessageAttributes: map[string]*sqs.MessageAttributeValue{
-					"ClientName": &sqs.MessageAttributeValue{
-							DataType:    aws.String("String"),
-							StringValue: aws.String(clientName),
-					},
-					"RequestedServices": &sqs.MessageAttributeValue{
-							DataType:    aws.String("StringList"),
-							StringListValues: requestedServices,
-					},
-					"RequestedRegion": &sqs.MessageAttributeValue{
-							DataType:    aws.String("String"),
-							StringValue: aws.String(requestedRegion),
-					},
+		DelaySeconds: aws.Int64(10),
+		MessageAttributes: map[string]*sqs.MessageAttributeValue{
+			"ClientName": {
+				DataType:    aws.String("String"),
+				StringValue: aws.String(clientName),
 			},
-			MessageBody: aws.String(""),
-			QueueUrl:    queueURL,
+			"RequestedServices": {
+				DataType:         aws.String("StringList"),
+				StringListValues: requestedServices,
+			},
+			"RequestedRegion": {
+				DataType:    aws.String("String"),
+				StringValue: aws.String(requestedRegion),
+			},
+		},
+		MessageBody: aws.String(""),
+		QueueUrl:    queueURL,
 	})
 
 	if err != nil {
-			return err
+		return err
 	}
 
 	return nil

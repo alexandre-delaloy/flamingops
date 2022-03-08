@@ -70,7 +70,7 @@ func DeleteUser(c *gin.Context, user *models.User) {
 func hydrateUser(input *models.UserInput) models.User {
 	return models.User{
 		Username: input.Username,
-		Mail:  input.Mail,
-		Password:  input.Password,
+		Mail:     input.Mail,
+		Password: input.Password,
 	}
 }

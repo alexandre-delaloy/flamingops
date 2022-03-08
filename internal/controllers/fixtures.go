@@ -11,8 +11,8 @@ import (
 func LoadData(c *gin.Context) {
 	user := models.User{
 		Username: "Alex",
-		Mail:  "contact@flamingops.com",
-		Password:  "azertyuiop",
+		Mail:     "contact@flamingops.com",
+		Password: "azertyuiop",
 	}
 	database.Db.Create(&user)
 	c.JSON(http.StatusOK, user)
