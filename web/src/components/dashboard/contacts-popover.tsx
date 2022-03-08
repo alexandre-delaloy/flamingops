@@ -30,7 +30,7 @@ export const ContactsPopover: FC<ContactsPopoverProps> = (props) => {
 
   useEffect(
     () => {
-      dispatch(getContacts());
+      // dispatch(getContacts());
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
