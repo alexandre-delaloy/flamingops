@@ -103,7 +103,7 @@ const Login: NextPage = () => {
               }}
             >
               <NextLink
-                href="/"
+                href="/dashboard"
                 passHref
               >
                 <a>

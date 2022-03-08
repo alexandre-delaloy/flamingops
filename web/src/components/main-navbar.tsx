@@ -29,7 +29,7 @@ export const MainNavbar: FC<MainNavbarProps> = (props) => {
           sx={{ minHeight: 64 }}
         >
           <NextLink
-            href="/"
+            href="/dashboard"
             passHref
           >
             <a>
