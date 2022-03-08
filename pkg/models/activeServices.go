@@ -12,7 +12,7 @@ type ActiveServices struct {
 	UpdatedAt		 time.Time 	`json:"updated_at"`
 }
 
-type ActiveServiceInput struct {
+type ActiveServicesInput struct {
 	UserId 			string 	`json:"userid"`
 	AwsServices string 	`json:"content"`
 	SwServices 	string 	`json:"content"`

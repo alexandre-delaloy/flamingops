@@ -50,7 +50,7 @@ func UpdateActiveServices(c *gin.Context, activeServices *models.ActiveServices,
 }
 
 func DeleteActiveServices(c *gin.Context, activeServices *models.ActiveServices) {
-	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&ActiveServices).Delete(&activeServices).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&activeServices).Delete(&activeServices).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)

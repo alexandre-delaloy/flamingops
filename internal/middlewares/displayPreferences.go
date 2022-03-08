@@ -50,7 +50,7 @@ func UpdateDisplayPreferences(c *gin.Context, displayPreferences *models.Display
 }
 
 func DeleteDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences) {
-	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&DisplayPreferences).Delete(&displayPreferences).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&displayPreferences).Delete(&displayPreferences).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
