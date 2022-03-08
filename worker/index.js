@@ -1,0 +1,42 @@
+// 1. - Récupérer le payload du message
+// 2. - Récupérer les credentials de l'utilisateur sur Secrets Manager
+// 3. - Executer les calls demandées
+// 4. - Stocker les résultats dans rds
+
+import awsServicesCalls from "./servicesCalls/aws";
+import swServicesCalls from "./servicesCalls/sw";
+const SecretsManager = require('./SecretsManager.js.js');
+
+exports.handler = async function(event) {
+  // 1. - Récupérer le payload du message
+  const clientName = event.clientName;
+  const requestedServices = event.requestedServices;
+  const requestedAwsRegion = event.requestedAwsRegion;
+  const requestedSwRegion = event.requestedSwRegion;
+
+  // 2. - Récupérer les credentials de l'utilisateur sur Secrets Manager
+  const AwsSecretName = `${clientName}_aws_iam`;
+  const ScalewaySecretName = `${clientName}_sw`;
+  const awsSecret = await SecretsManager.getSecret(AwsSecretName, requestedAwsRegion);
+  const swSecret = await SecretsManager.getSecret(ScalewaySecretName, requestedSwRegion);
+
+  //3. - Executer les calls demandés
+  let servicesData = {
+    aws: {},
+    sw: {},
+  };
+  foreach(requestedServices, function(service) {
+    switch(service) {
+      case '':
+        break;
+    }
+  });
+
+  // 4. - Stocker les résultats dans rds
+
+  const response = {
+      statusCode: 200,
+      body: JSON.stringify('Hello from Lambda!'),
+  };
+  return response;
+}
