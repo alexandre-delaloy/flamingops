@@ -1,37 +1,23 @@
 import { useRef, useState } from 'react';
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import {
   AppBar,
   Avatar,
-  Badge,
   Box,
   ButtonBase,
   IconButton,
   Toolbar,
-  Tooltip
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import type { AppBarProps } from '@mui/material';
 import { Menu as MenuIcon } from '../../icons/menu';
 import { AccountPopover } from './account-popover';
-import { ContactsPopover } from './contacts-popover';
-import { NotificationsPopover } from './notifications-popover';
-import { LanguagePopover } from './language-popover';
-import { Bell as BellIcon } from '../../icons/bell';
 import { UserCircle as UserCircleIcon } from '../../icons/user-circle';
-import { Users as UsersIcon } from '../../icons/users';
 
 interface DashboardNavbarProps extends AppBarProps {
   onOpenSidebar?: () => void;
 }
-
-const languages = {
-  en: '/static/icons/uk_flag.svg',
-  de: '/static/icons/de_flag.svg',
-  es: '/static/icons/es_flag.svg'
-};
 
 const DashboardNavbarRoot = styled(AppBar)(
   ({ theme }) => ({
@@ -52,127 +38,6 @@ const DashboardNavbarRoot = styled(AppBar)(
   })
 );
 
-const LanguageButton = () => {
-  const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const { i18n } = useTranslation();
-  const [openPopover, setOpenPopover] = useState<boolean>(false);
-
-  const handleOpenPopover = (): void => {
-    setOpenPopover(true);
-  };
-
-  const handleClosePopover = (): void => {
-    setOpenPopover(false);
-  };
-
-  return (
-    <>
-      <IconButton
-        onClick={handleOpenPopover}
-        ref={anchorRef}
-        sx={{ ml: 1 }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            height: 20,
-            width: 20,
-            '& img': {
-              width: '100%'
-            }
-          }}
-        >
-          <img
-            alt=""
-            src={languages[i18n.language]}
-          />
-        </Box>
-      </IconButton>
-      <LanguagePopover
-        anchorEl={anchorRef.current}
-        onClose={handleClosePopover}
-        open={openPopover}
-      />
-    </>
-  );
-};
-
-const ContactsButton = () => {
-  const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const [openPopover, setOpenPopover] = useState<boolean>(false);
-
-  const handleOpenPopover = (): void => {
-    setOpenPopover(true);
-  };
-
-  const handleClosePopover = (): void => {
-    setOpenPopover(false);
-  };
-
-  return (
-    <>
-      <Tooltip title="Contacts">
-        <IconButton
-          onClick={handleOpenPopover}
-          sx={{ ml: 1 }}
-          ref={anchorRef}
-        >
-          <UsersIcon fontSize="small" />
-        </IconButton>
-      </Tooltip>
-      <ContactsPopover
-        anchorEl={anchorRef.current}
-        onClose={handleClosePopover}
-        open={openPopover}
-      />
-    </>
-  );
-};
-
-const NotificationsButton = () => {
-  const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const [unread, setUnread] = useState<number>(0);
-  const [openPopover, setOpenPopover] = useState<boolean>(false);
-  // Unread notifications should come from a context and be shared with both this component and
-  // notifications popover. To simplify the demo, we get it from the popover
-
-  const handleOpenPopover = (): void => {
-    setOpenPopover(true);
-  };
-
-  const handleClosePopover = (): void => {
-    setOpenPopover(false);
-  };
-
-  const handleUpdateUnread = (value: number): void => {
-    setUnread(value);
-  };
-
-  return (
-    <>
-      <Tooltip title="Notifications">
-        <IconButton
-          ref={anchorRef}
-          sx={{ ml: 1 }}
-          onClick={handleOpenPopover}
-        >
-          <Badge
-            color="error"
-            badgeContent={unread}
-          >
-            <BellIcon fontSize="small" />
-          </Badge>
-        </IconButton>
-      </Tooltip>
-      <NotificationsPopover
-        anchorEl={anchorRef.current}
-        onClose={handleClosePopover}
-        onUpdateUnread={handleUpdateUnread}
-        open={openPopover}
-      />
-    </>
-  );
-};
 
 const AccountButton = () => {
   const anchorRef = useRef<HTMLButtonElement | null>(null);
@@ -259,9 +124,6 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = (props) => {
             <MenuIcon fontSize="small" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <LanguageButton />
-          <ContactsButton />
-          <NotificationsButton />
           <AccountButton />
         </Toolbar>
       </DashboardNavbarRoot>

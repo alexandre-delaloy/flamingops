@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Box, Button, Chip, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import type { Theme } from '@mui/material';
 import { Calendar as CalendarIcon } from '../../icons/calendar';
 import { Cash as CashIcon } from '../../icons/cash';
@@ -78,50 +78,58 @@ const getSections = (t: TFunction): Section[] => [
     items: [
       {
         title: t('Scaleway settings'),
-        path: '/dashboard/customers',
+        path: '/dashboard/scaleway',
         icon: <UsersIcon fontSize="small" />,
         children: [
           {
             title: t('List'),
-            path: '/dashboard/customers'
+            path: '/dashboard/scaleway'
           },
           {
             title: t('Details'),
-            path: '/dashboard/customers/1'
+            path: '/dashboard/scaleway/1'
           },
           {
             title: t('Edit'),
-            path: '/dashboard/customers/1/edit'
+            path: '/dashboard/scaleway/1/edit'
           }
         ]
       },
       {
         title: t('AWS settings'),
         path: '/dashboard/products',
-        icon: <ShoppingBagIcon fontSize="small" />,
+        icon: <UsersIcon fontSize="small" />,
         children: [
           {
             title: t('List'),
-            path: '/dashboard/products'
+            path: '/dashboard/AWS'
           },
           {
-            title: t('Create'),
-            path: '/dashboard/products/new'
+            title: t('Details'),
+            path: '/dashboard/AWS/1'
+          },
+          {
+            title: t('Edit'),
+            path: '/dashboard/AWS/1/edit'
           }
         ]
       },
       {
         title: t('Azure settings'),
-        icon: <ShoppingCartIcon fontSize="small" />,
+        icon: <UsersIcon fontSize="small" />,
         path: '/dashboard/orders',
         children: [
           {
             title: t('List'),
-            path: '/dashboard/orders'
+            path: '/dashboard/azure'
           },
           {
             title: t('Details'),
-            path: '/dashboard/orders/1'
+            path: '/dashboard/azure/1'
+          },
+          {
+            title: t('Edit'),
+            path: '/dashboard/azure/1/edit'
           }
         ]
       },
@@ -145,8 +153,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
     }
   );
   const sections = useMemo(() => getSections(t), [t]);
-  const organizationsRef = useRef<HTMLButtonElement | null>(null);
-  const [openOrganizationsPopover, setOpenOrganizationsPopover] = useState<boolean>(false);
 
   const handlePathChange = () => {
     if (!router.isReady) {
@@ -163,14 +169,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.isReady, router.asPath]
   );
-
-  const handleOpenOrganizationsPopover = (): void => {
-    setOpenOrganizationsPopover(true);
-  };
-
-  const handleCloseOrganizationsPopover = (): void => {
-    setOpenOrganizationsPopover(false);
-  };
 
   const content = (
     <>
@@ -192,7 +190,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
           <div>
             <Box sx={{ p: 3 }}>
               <NextLink
-                href="/"
+                href="/dashboard"
                 passHref
               >
                 <a>
@@ -207,17 +205,14 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
             </Box>
             <Box sx={{ px: 2 }}>
               <Box
-                onClick={handleOpenOrganizationsPopover}
-                ref={organizationsRef}
                 sx={{
                   alignItems: 'center',
                   backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  cursor: 'pointer',
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   px: 3,
                   py: '11px',
-                  borderRadius: 1
+                  borderRadius: 1,
                 }}
               >
                 <div>
@@ -227,22 +222,14 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
                   >
                     Corentin Boulanouar
                   </Typography>
-                  <Typography
-                    color="neutral.400"
-                    variant="body2"
-                  >
-                    {t('Your tier')}
-                    {' '}
-                    : Premium
-                  </Typography>
                 </div>
-                <SelectorIcon
+                {/* <SelectorIcon
                   sx={{
                     color: 'neutral.500',
                     width: 14,
                     height: 14
                   }}
-                />
+                /> */}
               </Box>
             </Box>
           </div>
@@ -274,11 +261,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
           />
         </Box>
       </Scrollbar>
-      <OrganizationPopover
-        anchorEl={organizationsRef.current}
-        onClose={handleCloseOrganizationsPopover}
-        open={openOrganizationsPopover}
-      />
     </>
   );
 

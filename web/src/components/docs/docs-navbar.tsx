@@ -22,7 +22,7 @@ export const DocsNavbar: FC<DocsNavbarProps> = ({ onOpenSidebar }) => (
   >
     <Toolbar sx={{ height: 64 }}>
       <NextLink
-        href="/"
+        href="/dashboard"
         passHref
       >
         <a>

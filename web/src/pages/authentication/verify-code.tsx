@@ -100,7 +100,7 @@ const VerifyCode: NextPage = () => {
               }}
             >
               <NextLink
-                href="/"
+                href="/dashboard"
                 passHref
               >
                 <a>
