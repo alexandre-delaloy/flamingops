@@ -5,7 +5,7 @@
 
 import awsServicesCalls from "./servicesCalls/aws";
 import swServicesCalls from "./servicesCalls/sw";
-const SecretsManager = require('./SecretsManager.js');
+const SecretsManager = require('./SecretsManager.js.js');
 
 exports.handler = async function(event) {
   // 1. - Récupérer le payload du message
