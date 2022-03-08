@@ -18,8 +18,8 @@ func CreateActiveServices(c *gin.Context, input *models.ActiveServicesInput) {
 		return
 	}
 
-	displayPreferences := hydrateActiveServices(input)
-	if err := database.Db.Create(&displayPreferences).Error; err != nil {
+	activeServices := hydrateActiveServices(input)
+	if err := database.Db.Create(&activeServices).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -27,8 +27,8 @@ func CreateActiveServices(c *gin.Context, input *models.ActiveServicesInput) {
 	}
 }
 
-func GetAllActiveServices(c *gin.Context, displayPreferences *models.ActiveServices) {
-	if err := database.Db.Find(&displayPreferences).Error; err != nil {
+func GetActiveServices(c *gin.Context, activeServices *models.ActiveServices) {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&activeServices).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -36,17 +36,8 @@ func GetAllActiveServices(c *gin.Context, displayPreferences *models.ActiveServi
 	}
 }
 
-func GetActiveServicesById(c *gin.Context, displayPreferences *models.ActiveServices) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&displayPreferences).Error; err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
-	}
-}
-
-func UpdateActiveServices(c *gin.Context, displayPreferences *models.ActiveServices, input *models.ActiveServicesInput) {
-	GetActiveServicesById(c, displayPreferences)
+func UpdateActiveServices(c *gin.Context, activeServices *models.ActiveServices, input *models.ActiveServicesInput) {
+	GetActiveServices(c, activeServices)
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
@@ -55,11 +46,11 @@ func UpdateActiveServices(c *gin.Context, displayPreferences *models.ActiveServi
 	}
 
 	updatedActiveServices := hydrateActiveServices(input)
-	database.Db.Model(&displayPreferences).Updates(updatedActiveServices)
+	database.Db.Model(&activeServices).Updates(updatedActiveServices)
 }
 
-func DeleteActiveServices(c *gin.Context, displayPreferences *models.ActiveServices) {
-	if err := database.Db.First(&displayPreferences, c.Params.ByName("id")).Delete(&displayPreferences).Error; err != nil {
+func DeleteActiveServices(c *gin.Context, activeServices *models.ActiveServices) {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&ActiveServices).Delete(&activeServices).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -69,8 +60,8 @@ func DeleteActiveServices(c *gin.Context, displayPreferences *models.ActiveServi
 
 func hydrateActiveServices(input *models.ActiveServicesInput) models.ActiveServices {
 	return models.ActiveServices{
-		ActiveServicesname: input.ActiveServicesname,
-		Mail:  input.Mail,
-		Password:  input.Password,
+		UserId: input.UserId,
+		AwsServices: input.AwsServices,
+		SwServices:  input.SwServices,
 	}
 }

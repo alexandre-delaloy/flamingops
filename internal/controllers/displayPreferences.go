@@ -15,9 +15,9 @@ func CreateDisplayPreferences(c *gin.Context) {
 	c.JSON(http.StatusOK, input)
 }
 
-func GetDisplayPreferencesById(c *gin.Context) {
+func GetDisplayPreferences(c *gin.Context) {
 	var preferences models.DisplayPreferences
-	middlewares.GetDisplayPreferencesById(c, &preferences)
+	middlewares.GetDisplayPreferences(c, &preferences)
 	c.JSON(http.StatusOK, preferences)
 }
 

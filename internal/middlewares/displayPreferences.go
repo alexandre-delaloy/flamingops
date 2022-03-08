@@ -27,17 +27,8 @@ func CreateDisplayPreferences(c *gin.Context, input *models.DisplayPreferencesIn
 	}
 }
 
-func GetAllDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences) {
-	if err := database.Db.Find(&displayPreferences).Error; err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
-	}
-}
-
-func GetDisplayPreferencesById(c *gin.Context, displayPreferences *models.DisplayPreferences) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&displayPreferences).Error; err != nil {
+func GetDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences) {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&displayPreferences).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -46,7 +37,7 @@ func GetDisplayPreferencesById(c *gin.Context, displayPreferences *models.Displa
 }
 
 func UpdateDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences, input *models.DisplayPreferencesInput) {
-	GetDisplayPreferencesById(c, displayPreferences)
+	GetDisplayPreferences(c, displayPreferences)
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
@@ -59,7 +50,7 @@ func UpdateDisplayPreferences(c *gin.Context, displayPreferences *models.Display
 }
 
 func DeleteDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences) {
-	if err := database.Db.First(&displayPreferences, c.Params.ByName("id")).Delete(&displayPreferences).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("user_id")).First(&DisplayPreferences).Delete(&displayPreferences).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -69,8 +60,7 @@ func DeleteDisplayPreferences(c *gin.Context, displayPreferences *models.Display
 
 func hydrateDisplayPreferences(input *models.DisplayPreferencesInput) models.DisplayPreferences {
 	return models.DisplayPreferences{
-		DisplayPreferencesname: input.DisplayPreferencesname,
-		Mail:  input.Mail,
-		Password:  input.Password,
+		UserId: input.UserId,
+		Content: input.Content,
 	}
 }

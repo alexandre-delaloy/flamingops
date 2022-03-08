@@ -15,9 +15,9 @@ func CreateActiveServices(c *gin.Context) {
 	c.JSON(http.StatusOK, input)
 }
 
-func GetActiveServicesById(c *gin.Context) {
+func GetActiveServices(c *gin.Context) {
 	var preferences models.ActiveServices
-	middlewares.GetActiveServicesById(c, &preferences)
+	middlewares.GetActiveServices(c, &preferences)
 	c.JSON(http.StatusOK, preferences)
 }
 
