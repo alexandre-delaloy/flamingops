@@ -1,15 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/internal/router"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 )
 
 func main() {
 	setupServer()
+	setupAwsSession()
 }
 
 func setupServer() *gin.Engine {
@@ -32,4 +38,12 @@ func setupServer() *gin.Engine {
 	router.Setup(r)
 	r.Run(":3333")
 	return r
+}
+
+func setupAwsSession() {
+	sess := session.Must(session.NewSession(&aws.Config{
+		Region: aws.String("us-east-1"),
+	}))
+	fmt.Println(sess)
+	log.Info("AWS Session created")
 }

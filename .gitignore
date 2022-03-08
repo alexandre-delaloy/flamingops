@@ -1,8 +1,9 @@
 **/tmp
 **/.env
 **/.env.old
-/docker-compose.yml
+docker-compose.yml
 .vscode
+**/.aws/credentials
 
-kubeconfig
-kubeconfig.base64
+cmd/sample-api/sample-api
+main
