@@ -1,6 +1,6 @@
 apiVersion: v2
-name: flamingops-api
-description: The Flamingops API, built with Golang
+name: flamingops-ui
+description: The Flamingops Webapp, built with React.js
 type: application
 version: 0.1.0 # chart version (this actual chart, not the app inside)
 appVersion: "1.0"

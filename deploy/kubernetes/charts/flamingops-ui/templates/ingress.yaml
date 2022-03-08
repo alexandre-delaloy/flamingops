@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  {{ include "flamingops-ui.name" . }}
+  labels:
+    {{- include "flamingops-ui.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ include "flamingops-ui.name" . }}-cert
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "flamingops-ui.name" . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}
