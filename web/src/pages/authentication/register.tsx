@@ -103,7 +103,7 @@ const Register: NextPage = () => {
               }}
             >
               <NextLink
-                href="/"
+                href="/dashboard"
                 passHref
               >
                 <a>

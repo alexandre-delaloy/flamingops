@@ -100,7 +100,7 @@ const PasswordReset: NextPage = () => {
               }}
             >
               <NextLink
-                href="/"
+                href="/dashboard"
                 passHref
               >
                 <a>
