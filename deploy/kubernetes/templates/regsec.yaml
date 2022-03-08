@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ .Values.regsec.name }}
-  labels: {{- include "flamingops.labels" . | nindent 4 }}
-type: {{ .Values.regsec.type }}
-data:
-  .dockerconfigjson: {{ .Values.regsec.json }}
