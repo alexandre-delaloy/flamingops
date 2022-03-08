@@ -19,4 +19,4 @@ config:
       # -- API base URL
       url: https://api.flamingops.com/
       # -- Placeholder used to replace url in minified files
-      urlLoc: http://localhost:8000/
+      urlLoc: http://localhost:3333/
