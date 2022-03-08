@@ -13,7 +13,7 @@ type ActiveServices struct {
 }
 
 type ActiveServicesInput struct {
-	UserId 			string 	`json:"userid"`
+	UserId 			uint 		`json:"userid"`
 	AwsServices string 	`json:"content"`
 	SwServices 	string 	`json:"content"`
 }

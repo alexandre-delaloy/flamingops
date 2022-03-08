@@ -12,6 +12,6 @@ type DisplayPreferences struct {
 }
 
 type DisplayPreferencesInput struct {
-	UserId 	string `json:"userid"`
+	UserId 	uint   `json:"userid"`
 	Content string `json:"content"`
 }
