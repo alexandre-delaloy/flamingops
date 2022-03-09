@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   sample-api:
-    container_name: sample-api
     build:
       context: .
       dockerfile: build/package/sample-api/Dockerfile
@@ -15,7 +14,6 @@ services:
       - main
 
   web:
-    container_name: web
     build:
       context: .
       dockerfile: build/package/web/Dockerfile.loc

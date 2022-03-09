@@ -21,7 +21,7 @@ RUN npm install
 COPY web/ .
 
 # Build app
-RUN npm run export
+RUN npm run build-export
 
 # ----- NGINX -----
 

@@ -1,0 +1,22 @@
+# - IMAGES --------------------------------------------------- #
+image:
+  repository: ghcr.io/blyndusk/flamingops-ui
+  tag: "latest-prod"
+ingress:
+  enabled: true
+  host: flamingops.com
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+config:
+  plainText:
+    api:
+      # -- API base URL
+      url: https://api.flamingops.com/
+      # -- Placeholder used to replace url in minified files
+      urlLoc: http://localhost:3333/
