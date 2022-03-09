@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
 	Id        uint      `json:"id"`
@@ -17,4 +21,13 @@ type UserInput struct {
 	Username string `json:"username"`
 	Mail     string   `json:"mail"`
 	Password string `json:"password"`
+}
+
+func (u *User) PrepareResponse() {
+	u.Password = ""
+}
+
+func (u User) CheckPassword(pswrd string) error {
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(pswrd))
+	return err
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
+	"github.com/blyndusk/flamingops/pkg/forms"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
@@ -25,6 +26,38 @@ func CreateUser(c *gin.Context, input *models.UserInput) {
 		c.JSON(httpStatus, response)
 		return
 	}
+}
+
+func Login(c *gin.Context, input *models.Login) {
+
+	var loginForm forms.LoginForm
+	if err:= json.NewDecoder(r.Body).Decode(&loginForm); err != nil {
+		log.Println("cannot decode request body")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var user models.User
+	if err := db.Model(&models.User{}).Where("username = ?", loginForm.Username).Take(&user).Error; err != nil {
+		log.Println("user not found: " + loginForm.Username)
+		w.WriteHeader(http.StatusForbidden)
+		return
+	}
+
+	if err := user.CheckPassword(loginForm.Password); err != nil {
+		log.Println("wrong password for: " + loginForm.Username)
+		w.WriteHeader(http.StatusForbidden)
+		return
+	}
+
+	jwtToken := utils.GenerateToken(user.ID)
+
+	if err:=json.NewEncoder(w).Encode(jwtToken); err != nil {
+		log.Println("cannot encode response")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {

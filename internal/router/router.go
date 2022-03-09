@@ -13,11 +13,11 @@ func Setup(r *gin.Engine) {
 
 func usersRoute(r *gin.Engine) {
 	r.POST("/users", controllers.CreateUser)
+	r.POST("/login", controllers.Login)
+	// r.GET("/users", middlewares.JWTVerify(controllers.GetAllUsers))
+	r.GET("/users/:id", middlewares.JWTVerify(controllers.GetUserById))
 
-	r.GET("/users", controllers.GetAllUsers)
-	r.GET("/users/:id", controllers.GetUserById)
+	r.PUT("/users/:id", middlewares.JWTVerify((controllers.UpdateUser))
 
-	r.PUT("/users/:id", controllers.UpdateUser)
-
-	r.DELETE("/users/:id", controllers.DeleteUser)
+	r.DELETE("/users/:id", middlewares.JWTVerify((controllers.DeleteUser))
 }
