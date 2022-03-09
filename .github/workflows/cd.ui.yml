@@ -1,12 +1,11 @@
-name: "[CD] GO"
+name: "[CD] UI"
 
 on:
   push:
     branches:
       - main
     paths:
-      - "**/*.go"
-      - "**/go.*"
+      - "web/**"
 jobs:
   DOCKER:
     name: DOCKER
@@ -31,9 +30,8 @@ jobs:
         with:
           push: true
           context: .
-          file: build/package/sample-api/Dockerfile
-          tags: ghcr.io/blyndusk/flamingops-api:latest
-          target: prod_build
+          file: build/package/web/Dockerfile.prod
+          tags: ghcr.io/blyndusk/flamingops-ui:latest
 
         # output the logs
       - name: 4 - IMAGE DIGEST
