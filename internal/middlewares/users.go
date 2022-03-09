@@ -5,9 +5,9 @@ import (
 	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/database"
+	"github.com/blyndusk/flamingops/pkg/forms"
 	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
-	"github.com/blyndusk/flamingops/pkg/forms"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
@@ -50,7 +50,6 @@ func Login(c *gin.Context, input *models.Login) {
 		return
 	}
 
-
 	if err := database.Db.Where("Password = ?", c.Params.ByName("Password")).First(&input).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
@@ -60,12 +59,12 @@ func Login(c *gin.Context, input *models.Login) {
 
 	jwtToken := utils.GenerateToken(input.Id)
 
-	if err:=json.NewEncoder(c.Params).Encode(jwtToken); err != nil {
+	if err := json.NewEncoder(c.Params).Encode(jwtToken); err != nil {
 		log.Error(err)
 		c.JSON(httpStatus, response)
 		return
 	}
-	
+
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {

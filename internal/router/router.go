@@ -21,7 +21,6 @@ func usersRoute(r *gin.Engine) {
 	r.PUT("/users/:id", middlewares.JWTVerify(controllers.UpdateUser))
 	r.DELETE("/users/:id", middlewares.JWTVerify(controllers.DeleteUser))
 
-
 	r.POST("/users/:id/display-preferences", controllers.CreateDisplayPreferences)
 	r.GET("/users/:id/display-preferences", controllers.GetDisplayPreferences)
 	r.PUT("/users/:id/display-preferences", controllers.UpdateDisplayPreferences)

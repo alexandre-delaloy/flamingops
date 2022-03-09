@@ -1,10 +1,11 @@
 package middlewares
 
 import (
-	"basic-api/utils"
 	"encoding/json"
 	"net/http"
 	"strconv"
+
+	"github.com/blyndusk/flamingops/internal/utils"
 )
 
 func JWTVerify(next http.HandlerFunc) http.HandlerFunc {
