@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -11,6 +10,7 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"gorm.io/gorm"
 )
 
 func CreateUser(c *gin.Context, input *models.UserInput) {
@@ -44,29 +44,24 @@ func Login(c *gin.Context, input *models.Login) {
 		return
 	}
 
-	if err := database.Db.Where("Mail = ?", c.Params.ByName("Mail")).First(&input).Error; err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
-	}
-
-	if err := database.Db.Where("Password = ?", c.Params.ByName("Password")).First(&input).Error; err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
-	}
-
 	var user models.User
+
+	if err := database.Db.Where("Mail = ?", c.Params.ByName("Mail")).First(&user).Error; err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	if user.Password != input.Password {
+		httpStatus, response := helpers.GormErrorResponse(gorm.ErrInvalidField)
+		c.JSON(httpStatus, response)
+		return
+	}
+
 	jwtToken := utils.GenerateToken(user.Id)
 
-	if err := json.NewEncoder(c.Writer).Encode(jwtToken); err != nil {
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
-	}
-
+	c.JSON(http.StatusOK, jwtToken)
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {
