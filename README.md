@@ -19,17 +19,17 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/blyndusk/flamingops/actions/workflows/ci.go.yml">
-      <img src="https://github.com/blyndusk/flamingops/actions/workflows/ci.go.yml/badge.svg"/>
+  <a href="https://github.com/blyndusk/flamingops/actions/workflows/ci.api.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/ci.api.yml/badge.svg"/>
     </a>
-     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.go.yml">
-      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.go.yml/badge.svg"/>
+     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.api.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.api.yml/badge.svg"/>
     </a>
-    <a href="https://github.com/blyndusk/flamingops/actions/workflows/ci.web.yml">
-      <img src="https://github.com/blyndusk/flamingops/actions/workflows/ci.web.yml/badge.svg"/>
+    <a href="https://github.com/blyndusk/flamingops/actions/workflows/ci.ui.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/ci.ui.yml/badge.svg"/>
     </a>
-     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.web.yml">
-      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.web.yml/badge.svg"/>
+     <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.ui.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.ui.yml/badge.svg"/>
     </a>
    
 </p>
