@@ -72,7 +72,13 @@ func DeleteUser(c *gin.Context, user *models.User) {
 		return
 	}
 
-	i := strconv.ParseUint(c.Params.ByName("id"))
+	i, err := strconv.ParseUint(c.Params.ByName("id"), 10, 64)
+	if err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
+		c.JSON(httpStatus, response)
+		return
+	}
 
 	DeleteActiveServices(c, &models.ActiveServices{UserId: i})
 	DeleteSwServicesData(c, &models.SwServicesData{UserId: i})
