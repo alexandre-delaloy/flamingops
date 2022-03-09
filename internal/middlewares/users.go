@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/pkg/helpers"
@@ -25,6 +26,11 @@ func CreateUser(c *gin.Context, input *models.UserInput) {
 		c.JSON(httpStatus, response)
 		return
 	}
+
+	CreateActiveServices(c, &models.ActiveServicesInput{UserId: user.Id})
+	CreateSwServicesData(c, &models.SwServicesDataInput{UserId: user.Id})
+	CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: user.Id})
+	CreateDisplayPreferences(c, &models.DisplayPreferencesInput{UserId: user.Id})
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {
@@ -65,6 +71,21 @@ func DeleteUser(c *gin.Context, user *models.User) {
 		c.JSON(httpStatus, response)
 		return
 	}
+
+	i64, err := strconv.ParseUint(c.Params.ByName("id"), 10, 64)
+	if err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	i := uint(i64)
+
+	DeleteActiveServices(c, &models.ActiveServices{UserId: i})
+	DeleteSwServicesData(c, &models.SwServicesData{UserId: i})
+	DeleteAwsServicesData(c, &models.AwsServicesData{UserId: i})
+	DeleteDisplayPreferences(c, &models.DisplayPreferences{UserId: i})
 }
 
 func hydrateUser(input *models.UserInput) models.User {
