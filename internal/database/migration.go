@@ -12,8 +12,6 @@ func Migrate() {
 		&models.ActiveServices{},
 		&models.SwServicesData{},
 		&models.AwsServicesData{},
-		&models.SwCredential{},
-		&models.AwsCredential{},
 	)
 	logrus.Info("Migrations done !")
 }
