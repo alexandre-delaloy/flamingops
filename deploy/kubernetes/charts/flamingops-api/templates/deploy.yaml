@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "flamingops-api.name" . }}
+  labels:
+    {{- include "flamingops-api.labels" . | nindent 4 }}
+  annotations:
+    rollme: {{ randAlphaNum 5 | quote }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "flamingops-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "flamingops-api.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.image.restartPolicy }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "flamingops-api.name" . }}
+      containers:
+        - name: flamingops-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.containerPort }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          envFrom:
+             - secretRef:
+                 name: {{ include "flamingops-api.name" . }}
+          volumeMounts:
+            - mountPath: /app/.env
+              name: env-file
+              subPath: env
+              readOnly: true
+            - mountPath: /app/config/jwt
+              name: certificates
+              readOnly: true
+      volumes:
+        - name: env-file
+          configMap:
+            name: {{ include "flamingops-api.name" . }}
+        - name: certificates
+          secret:
+            secretName: {{ include "flamingops-api.name" . }}-certs
+

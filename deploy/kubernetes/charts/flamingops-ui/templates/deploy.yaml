@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "flamingops-ui.name" . }}
+  labels:
+    {{- include "flamingops-ui.labels" . | nindent 4 }}
+  annotations:
+    rollme: {{ randAlphaNum 5 | quote }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "flamingops-ui.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "flamingops-ui.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: {{ .Values.image.restartPolicy }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "flamingops-ui.name" . }}
+      containers:
+        - name: flamingops-ui
+          command:
+            - "sh"
+            - "-c"
+            - "/entrypoint.sh"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.containerPort }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          envFrom:
+          - configMapRef:
+              name: {{ include "flamingops-ui.name" . }}
+          volumeMounts:
+            - mountPath: /entrypoint.sh
+              name: entrypoint-script
+              subPath: entrypoint.sh
+              readOnly: true
+      volumes:
+        - name: entrypoint-script
+          configMap:
+            name: {{ include "flamingops-ui.name" . }}-entrypoint
+            defaultMode: 0777

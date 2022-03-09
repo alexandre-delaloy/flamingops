@@ -97,7 +97,7 @@ const PasswordRecovery: NextPage = () => {
               }}
             >
               <NextLink
-                href="/"
+                href="/dashboard"
                 passHref
               >
                 <a>

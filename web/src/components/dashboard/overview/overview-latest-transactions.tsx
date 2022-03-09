@@ -17,66 +17,95 @@ import { SeverityPill } from '../../severity-pill';
 
 interface Transaction {
   id: string;
-  amount: number;
-  currency: string;
-  date: Date;
-  sender: string;
+  name: string;
   type: string;
   status: string;
+  creationDate: string;
+  modificationDate: string;
+  cpuLoad: string;
+  ramUsage: string;
 }
 
 const transactions: Transaction[] = [
   {
     id: 'd46800328cd510a668253b45',
-    amount: 25000,
-    currency: 'usd',
-    date: new Date(),
-    sender: 'Devias',
-    type: 'receive',
-    status: 'on hold'
+    name: 'AWS',
+    type: 'IoT',
+    status: 'running',
+    creationDate: '3 months ago',
+    modificationDate: '3 months ago',
+    cpuLoad: '15%',
+    ramUsage: 'WARNING 80%'
   },
   {
-    id: 'b4b19b21656e44b487441c50',
-    amount: 6843,
-    currency: 'usd',
-    date: subDays(new Date(), 1),
-    sender: 'Zimbru',
-    type: 'send',
-    status: 'confirmed'
+    id: 'd46800328cderz0a668253b45',
+    name: 'Scaleway',
+    type: 'EC2',
+    status: 'running',
+    creationDate: '2 days ago',
+    modificationDate: '2 days ago',
+    cpuLoad: '15%',
+    ramUsage: '20%'
   },
   {
-    id: '56c09ad91f6d44cb313397db',
-    amount: 91823,
-    currency: 'usd',
-    date: subDays(new Date(), 1),
-    sender: 'Vertical Jelly',
-    type: 'send',
-    status: 'failed'
+    id: 'd4682328cd510a668253b45',
+    name: 'AWS',
+    type: 'IoT',
+    status: 'running',
+    creationDate: '1 month ago',
+    modificationDate: 'two weeks ago',
+    cpuLoad: 'WARNING 80%',
+    ramUsage: '20%'
   },
   {
-    id: 'aaeb96c5a131a55d9623f44d',
-    amount: 49550,
-    currency: 'usd',
-    date: subDays(new Date(), 3),
-    sender: 'Devias',
-    type: 'receive',
-    status: 'confirmed'
-  }
+    id: 'd46800328cd510a6682ghb45',
+    name: 'Azure',
+    type: 'IoT',
+    status: 'running',
+    creationDate: '2 weeks ago',
+    modificationDate: '1 week ago',
+    cpuLoad: '15%',
+    ramUsage: '20%'
+  },
+  {
+    id: 'd46800328cd510a668253b42',
+    name: 'AWS',
+    type: 'S3 Bucket',
+    status: 'running',
+    creationDate: '5 days ago',
+    modificationDate: '5 days ago',
+    cpuLoad: '15%',
+    ramUsage: '20%'
+  },
 ];
 
 export const OverviewLatestTransactions: FC = (props) => (
   <Card {...props}>
-    <CardHeader title="Latest Transactions" />
+    <CardHeader title="Instances" />
     <Scrollbar>
       <Table sx={{ minWidth: 600 }}>
         <TableHead>
-          <TableRow>
-            <TableCell colSpan={2}>
-              Transaction
-            </TableCell>
-            <TableCell />
+          <TableRow >
             <TableCell>
-              Amount
+              Name
+            </TableCell>
+            <TableCell>
+              Type
+            </TableCell>
+            <TableCell>
+              Status
+            </TableCell>
+            <TableCell>
+              Creation date
+            </TableCell>
+            <TableCell>
+              Modification date
+            </TableCell>
+            <TableCell>
+              CPU load
+            </TableCell>
+            <TableCell>
+              RAM usage
             </TableCell>
           </TableRow>
         </TableHead>
@@ -90,7 +119,7 @@ export const OverviewLatestTransactions: FC = (props) => (
                 }
               }}
             >
-              <TableCell width={100}>
+              <TableCell width={300}>
                 <Box
                   sx={{
                     p: 1,
@@ -106,63 +135,50 @@ export const OverviewLatestTransactions: FC = (props) => (
                     color="textSecondary"
                     variant="subtitle2"
                   >
-                    {format(transaction.date, 'LLL').toUpperCase()}
-                  </Typography>
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="h6"
-                  >
-                    {format(transaction.date, 'd')}
+                    {transaction.name}
                   </Typography>
                 </Box>
               </TableCell>
               <TableCell>
                 <div>
-                  <Typography variant="subtitle2">
-                    {transaction.sender}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="body2"
-                  >
-                    {
-                      transaction.type === 'receive'
-                        ? 'Payment received'
-                        : 'Payment sent'
-                    }
+                  <Typography >
+                    {transaction.type}
                   </Typography>
                 </div>
               </TableCell>
               <TableCell>
-                <SeverityPill
-                  color={
-                    (transaction.status === 'confirmed' && 'success')
-                    || (transaction.status === 'failed' && 'error')
-                    || 'warning'
-                  }
-                >
-                  {transaction.status}
-                </SeverityPill>
+                <div>
+                  <SeverityPill>
+                    {transaction.status}
+                  </SeverityPill>
+                </div>
               </TableCell>
               <TableCell width={180}>
                 <Typography
-                  color={
-                    transaction.type === 'receive'
-                      ? 'success.main'
-                      : 'error.main'
-                  }
                   variant="subtitle2"
                 >
-                  {transaction.type === 'receive' ? '+' : '-'}
-                  {' '}
-                  {numeral(transaction.amount).format('$0,0.00')}
+                  {transaction.creationDate}
                 </Typography>
+              </TableCell>
+              <TableCell width={180}>
                 <Typography
-                  color="textSecondary"
-                  variant="body2"
+                  variant="subtitle2"
                 >
-                  {transaction.currency.toUpperCase()}
+                  {transaction.modificationDate}
+                </Typography>
+              </TableCell>
+              <TableCell width={180}>
+                <Typography
+                  variant="subtitle2"
+                >
+                  {transaction.cpuLoad}
+                </Typography>
+              </TableCell>
+              <TableCell width={180}>
+                <Typography
+                  variant="subtitle2"
+                >
+                  {transaction.ramUsage}
                 </Typography>
               </TableCell>
             </TableRow>
