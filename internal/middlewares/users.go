@@ -1,11 +1,12 @@
 package middlewares
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/database"
-	"github.com/blyndusk/flamingops/pkg/forms"
+	"github.com/blyndusk/flamingops/internal/utils"
 	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
