@@ -9,29 +9,29 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func CreateDisplayPreferences(c *gin.Context) {
-	var input models.DisplayPreferencesInput
-	middlewares.CreateDisplayPreferences(c, &input)
+func CreateRequestedRegions(c *gin.Context) {
+	var input models.RequestedRegionsInput
+	middlewares.CreateRequestedRegions(c, &input)
 	c.JSON(http.StatusOK, input)
 }
 
-func GetDisplayPreferences(c *gin.Context) {
-	var preferences models.DisplayPreferences
-	middlewares.GetDisplayPreferences(c, &preferences)
+func GetRequestedRegions(c *gin.Context) {
+	var preferences models.RequestedRegions
+	middlewares.GetRequestedRegions(c, &preferences)
 	c.JSON(http.StatusOK, preferences)
 }
 
-func UpdateDisplayPreferences(c *gin.Context) {
-	var preferences models.DisplayPreferences
-	var input models.DisplayPreferencesInput
-	middlewares.UpdateDisplayPreferences(c, &preferences, &input)
+func UpdateRequestedRegions(c *gin.Context) {
+	var preferences models.RequestedRegions
+	var input models.RequestedRegionsInput
+	middlewares.UpdateRequestedRegions(c, &preferences, &input)
 	c.JSON(http.StatusOK, preferences)
 }
 
-func DeleteDisplayPreferences(c *gin.Context) {
-	var preferences models.DisplayPreferences
-	middlewares.DeleteDisplayPreferences(c, &preferences)
+func DeleteRequestedRegions(c *gin.Context) {
+	var preferences models.RequestedRegions
+	middlewares.DeleteRequestedRegions(c, &preferences)
 	c.JSON(http.StatusOK, gin.H{
-		"message": "DisplayPreferences deleted successfully",
+		"message": "RequestedRegions deleted successfully",
 	})
 }

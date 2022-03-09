@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type DisplayPreferences struct {
+type RequestedRegions struct {
 	Id        uint `json:"id"`
 	UserId    uint `json:"userid"`
 	User      User
@@ -11,7 +11,7 @@ type DisplayPreferences struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type DisplayPreferencesInput struct {
+type RequestedRegionsInput struct {
 	UserId  uint   `json:"userid"`
 	Content string `json:"content"`
 }

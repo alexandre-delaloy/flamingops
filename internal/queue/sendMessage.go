@@ -7,10 +7,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 
+	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/blyndusk/flamingops/pkg/helpers"
 )
 
-func main() {
+func HandleMessageCreation(user *models.User) {
 	queue := helpers.EnvVar("QUEUE_NAME")
 
 	// Create a session that gets credential values from ~/.aws/credentials
@@ -29,8 +30,15 @@ func main() {
 
 	queueURL := result.QueueUrl
 
-	test := "test"
-	err = SendMsg(sess, queueURL, "test", []*string{&test}, "test")
+	requestedServices := []*string
+	for _, service := range user.ActiveServices.AwsServices {
+		requestedServices = append(requestedServices, aws.String(service))
+	}
+	for _, service := range user.ActiveServices.SwServices {
+		requestedServices = append(requestedServices, aws.String(service))
+	}
+
+	err = SendMsg(sess, queueURL, user, requestedServices, "test")
 	if err != nil {
 		fmt.Println("Got an error sending the message:")
 		fmt.Println(err)

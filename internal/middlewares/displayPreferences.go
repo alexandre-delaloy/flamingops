@@ -10,7 +10,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateDisplayPreferences(c *gin.Context, input *models.DisplayPreferencesInput) {
+func CreateRequestedRegions(c *gin.Context, input *models.RequestedRegionsInput) {
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
@@ -18,8 +18,8 @@ func CreateDisplayPreferences(c *gin.Context, input *models.DisplayPreferencesIn
 		return
 	}
 
-	displayPreferences := hydrateDisplayPreferences(input)
-	if err := database.Db.Create(&displayPreferences).Error; err != nil {
+	requestedRegions := hydrateRequestedRegions(input)
+	if err := database.Db.Create(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -27,8 +27,8 @@ func CreateDisplayPreferences(c *gin.Context, input *models.DisplayPreferencesIn
 	}
 }
 
-func GetDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&displayPreferences).Error; err != nil {
+func GetRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions) {
+	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -36,8 +36,8 @@ func GetDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPre
 	}
 }
 
-func UpdateDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences, input *models.DisplayPreferencesInput) {
-	GetDisplayPreferences(c, displayPreferences)
+func UpdateRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions, input *models.RequestedRegionsInput) {
+	GetRequestedRegions(c, requestedRegions)
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
@@ -45,12 +45,12 @@ func UpdateDisplayPreferences(c *gin.Context, displayPreferences *models.Display
 		return
 	}
 
-	updatedDisplayPreferences := hydrateDisplayPreferences(input)
-	database.Db.Model(&displayPreferences).Updates(updatedDisplayPreferences)
+	updatedRequestedRegions := hydrateRequestedRegions(input)
+	database.Db.Model(&requestedRegions).Updates(updatedRequestedRegions)
 }
 
-func DeleteDisplayPreferences(c *gin.Context, displayPreferences *models.DisplayPreferences) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&displayPreferences).Delete(&displayPreferences).Error; err != nil {
+func DeleteRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions) {
+	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&requestedRegions).Delete(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -58,8 +58,8 @@ func DeleteDisplayPreferences(c *gin.Context, displayPreferences *models.Display
 	}
 }
 
-func hydrateDisplayPreferences(input *models.DisplayPreferencesInput) models.DisplayPreferences {
-	return models.DisplayPreferences{
+func hydrateRequestedRegions(input *models.RequestedRegionsInput) models.RequestedRegions {
+	return models.RequestedRegions{
 		UserId:  input.UserId,
 		Content: input.Content,
 	}

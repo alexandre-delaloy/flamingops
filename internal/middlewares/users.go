@@ -30,7 +30,7 @@ func CreateUser(c *gin.Context, input *models.UserInput) {
 	CreateActiveServices(c, &models.ActiveServicesInput{UserId: user.Id})
 	CreateSwServicesData(c, &models.SwServicesDataInput{UserId: user.Id})
 	CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: user.Id})
-	CreateDisplayPreferences(c, &models.DisplayPreferencesInput{UserId: user.Id})
+	CreateRequestedRegions(c, &models.RequestedRegionsInput{UserId: user.Id})
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {
@@ -85,7 +85,7 @@ func DeleteUser(c *gin.Context, user *models.User) {
 	DeleteActiveServices(c, &models.ActiveServices{UserId: i})
 	DeleteSwServicesData(c, &models.SwServicesData{UserId: i})
 	DeleteAwsServicesData(c, &models.AwsServicesData{UserId: i})
-	DeleteDisplayPreferences(c, &models.DisplayPreferences{UserId: i})
+	DeleteRequestedRegions(c, &models.RequestedRegions{UserId: i})
 }
 
 func hydrateUser(input *models.UserInput) models.User {

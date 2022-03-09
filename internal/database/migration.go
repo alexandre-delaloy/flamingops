@@ -8,7 +8,7 @@ import (
 func Migrate() {
 	_ = Db.AutoMigrate(
 		&models.User{},
-		&models.DisplayPreferences{},
+		&models.RequestedRegions{},
 		&models.ActiveServices{},
 		&models.SwServicesData{},
 		&models.AwsServicesData{},
