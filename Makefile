@@ -21,8 +21,12 @@ build: ## build the go app
 
 init:
 	make setup-env
+	make init-web
 	make start 
 	make logs
+
+init-web:
+	cd web ; npm i ; npm run build
 
 .PHONY: help
 
