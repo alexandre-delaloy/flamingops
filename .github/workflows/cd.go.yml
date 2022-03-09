@@ -32,7 +32,7 @@ jobs:
           push: true
           context: .
           file: build/package/sample-api/Dockerfile
-          tags: ghcr.io/blyndusk/flamingops_sample-api:latest
+          tags: ghcr.io/blyndusk/flamingops-api:latest
           target: prod_build
 
         # output the logs

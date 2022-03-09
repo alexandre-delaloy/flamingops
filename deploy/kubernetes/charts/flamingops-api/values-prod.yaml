@@ -1,0 +1,18 @@
+# - IMAGES --------------------------------------------------- #
+image:
+  tag: "latest-prod"
+ingress:
+  enabled: true
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+config:
+  plainText:
+    database:
+      host: "127.0.0.1"
+      name: "flamingops-db"
+      port: "3333"

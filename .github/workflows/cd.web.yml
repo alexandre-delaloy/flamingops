@@ -31,7 +31,7 @@ jobs:
           push: true
           context: .
           file: build/package/web/Dockerfile.prod
-          tags: ghcr.io/blyndusk/flamingops_web:latest
+          tags: ghcr.io/blyndusk/flamingops-ui:latest
 
         # output the logs
       - name: 4 - IMAGE DIGEST
