@@ -4,16 +4,13 @@ import "time"
 
 type AwsServicesData struct {
 	Id              uint 					`json:"id"`
-	AwsCredentialId uint 					`json:"awscredentialid"`
-	AwsCredential   AwsCredential
+	UserId    	 		uint 			  `json:"userid"`
+	User      	 		User
 	Data            string    		`json:"data"`
 	CreatedAt       time.Time 		`json:"created_at"`
 	UpdatedAt       time.Time 		`json:"updated_at"`
 }
 
-type AwsServicesDatas []AwsServicesData
-
 type AwsServicesDataInput struct {
-	AwsCredentialId string `json:"awscredentialid"`
-	Data            string `json:"data"`
+	UserId 			uint 		`json:"userid"`
 }

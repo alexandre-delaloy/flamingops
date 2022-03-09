@@ -16,21 +16,21 @@ func CreateActiveServices(c *gin.Context) {
 }
 
 func GetActiveServices(c *gin.Context) {
-	var preferences models.ActiveServices
-	middlewares.GetActiveServices(c, &preferences)
-	c.JSON(http.StatusOK, preferences)
+	var activeServices models.ActiveServices
+	middlewares.GetActiveServices(c, &activeServices)
+	c.JSON(http.StatusOK, activeServices)
 }
 
 func UpdateActiveServices(c *gin.Context) {
-	var preferences models.ActiveServices
+	var activeServices models.ActiveServices
 	var input models.ActiveServicesInput
-	middlewares.UpdateActiveServices(c, &preferences, &input)
-	c.JSON(http.StatusOK, preferences)
+	middlewares.UpdateActiveServices(c, &activeServices, &input)
+	c.JSON(http.StatusOK, activeServices)
 }
 
 func DeleteActiveServices(c *gin.Context) {
-	var preferences models.ActiveServices
-	middlewares.DeleteActiveServices(c, &preferences)
+	var activeServices models.ActiveServices
+	middlewares.DeleteActiveServices(c, &activeServices)
 	c.JSON(http.StatusOK, gin.H{
 		"message": "ActiveServices deleted successfully",
 	})
