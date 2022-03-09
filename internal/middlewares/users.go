@@ -58,10 +58,11 @@ func Login(c *gin.Context, input *models.Login) {
 		return
 	}
 
-	jwtToken := utils.GenerateToken(input.Id)
+	var user models.User
+	jwtToken := utils.GenerateToken(user.Id)
 
-	if err := json.NewEncoder(c.Params).Encode(jwtToken); err != nil {
-		log.Error(err)
+	if err := json.NewEncoder(c.Writer).Encode(jwtToken); err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
 		return
 	}

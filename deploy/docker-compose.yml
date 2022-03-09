@@ -7,7 +7,7 @@ services:
       dockerfile: build/package/sample-api/Dockerfile
       target: dev_build
     ports:
-      - 3335:3335
+      - 3333:3333
     volumes:
       - ./:/go/src/github.com/blyndusk/flamingops/
     networks:
