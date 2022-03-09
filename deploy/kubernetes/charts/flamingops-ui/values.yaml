@@ -1,0 +1,73 @@
+# -- Number of replicas to deploy. **Unused if autoscaling is enabled**
+replicaCount: 1
+
+# - SVC ------------------------------------------------------ #
+service:
+  # -- Type of the service
+  type: ClusterIP
+  # -- Port exposed by the service
+  port: 80
+  # -- Port exposed by the deployment
+  containerPort: 80
+
+autoscaling:
+  # -- Enable the autoscaling
+  enabled: false
+
+# - IMAGES --------------------------------------------------- #
+image:
+  # -- Image pull policy
+  pullPolicy: Always
+  # -- Restart policy
+  restartPolicy: Always
+  # -- Maorie API image repository
+  repository: ghcr.io/blyndusk/flamingops-ui
+  # -- Maorie API image tag
+  tag: "latest"
+
+# -- Specify docker-registry secret names as an array
+imagePullSecrets:
+  - name: registry-secret
+
+# - INGRESS -------------------------------------------------- #
+ingress:
+  # -- Enable the ingress
+  enabled: true
+  # -- Ingress annotations
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  # -- Host exposed by the service
+  host: flamingops.com
+
+serviceAccount:
+  # -- Annotations to add to the service account
+  annotations: {}
+
+# -- Resource specification for the deployment
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+config:
+  plainText:
+    api:
+      # -- API base URL
+      url: https://api.flamingops.com/
+      # -- Placeholder used to replace url in minified files
+      urlLoc: http://localhost:3333/

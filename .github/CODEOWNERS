@@ -1,0 +1,13 @@
+.github/ @blyndusk
+ops/ @blyndusk
+build/ @blyndusk
+deploy/ @blyndusk
+scripts/ @blyndusk
+
+cmd/ @lucaslehot
+config/ @lucaslehot
+internal/ @lucaslehot
+pkg/ @lucaslehot
+worker/ @lucaslehot
+
+web/ @Ban0vsky

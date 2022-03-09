@@ -1,0 +1,50 @@
+name: "[CI] UI"
+
+on: 
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'web/**'
+
+jobs:
+  BUILD:
+    name: BUILD
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      # Checkout to current workspace
+      - name: 1 - CHECKOUT
+        uses: actions/checkout@v2
+
+      # Install node with specific version
+      - name: 2 - SETUP NODE@14.X
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Cache node modules to make the build faster
+      - name: 3 - CACHE NODE MODULES
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Install dependencies
+      - name: 4 - INSTALL
+        run: |
+          npm install
+
+      # Lint the app
+      - name: 5 - LINT
+        run: |
+          npm run lint
+      
+      # Build the app
+      - name: 6 - BUILD
+        run: |
+          npm run build

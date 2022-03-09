@@ -77,5 +77,7 @@ COPY --from=prod_builder /go/src/github.com/blyndusk/flamingops/ /flamingops/
 # Set current directory
 WORKDIR /flamingops/
 
+EXPOSE 3333
+
 # Use executable
 ENTRYPOINT [ "/flamingops/tmp/main" ]
