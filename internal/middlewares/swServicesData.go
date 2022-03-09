@@ -48,6 +48,6 @@ func DeleteSwServicesData(c *gin.Context, swServicesData *models.SwServicesData)
 func hydrateSwServicesData(input *models.SwServicesDataInput) models.SwServicesData {
 	return models.SwServicesData{
 		UserId: input.UserId,
-		Data: '',
+		Data:   "",
 	}
 }

@@ -48,6 +48,6 @@ func DeleteAwsServicesData(c *gin.Context, awsServicesData *models.AwsServicesDa
 func hydrateAwsServicesData(input *models.AwsServicesDataInput) models.AwsServicesData {
 	return models.AwsServicesData{
 		UserId: input.UserId,
-		Data: '',
+		Data:   "",
 	}
 }

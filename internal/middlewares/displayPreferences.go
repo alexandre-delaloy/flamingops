@@ -60,7 +60,7 @@ func DeleteDisplayPreferences(c *gin.Context, displayPreferences *models.Display
 
 func hydrateDisplayPreferences(input *models.DisplayPreferencesInput) models.DisplayPreferences {
 	return models.DisplayPreferences{
-		UserId: input.UserId,
+		UserId:  input.UserId,
 		Content: input.Content,
 	}
 }

@@ -60,7 +60,7 @@ func DeleteActiveServices(c *gin.Context, activeServices *models.ActiveServices)
 
 func hydrateActiveServices(input *models.ActiveServicesInput) models.ActiveServices {
 	return models.ActiveServices{
-		UserId: input.UserId,
+		UserId:      input.UserId,
 		AwsServices: input.AwsServices,
 		SwServices:  input.SwServices,
 	}
