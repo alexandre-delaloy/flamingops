@@ -30,31 +30,33 @@ func CreateUser(c *gin.Context, input *models.UserInput) {
 
 func Login(c *gin.Context, input *models.Login) {
 
-	var loginForm forms.LoginForm
-	if err:= json.NewDecoder(r.Body).Decode(&loginForm); err != nil {
-		log.Println("cannot decode request body")
-		w.WriteHeader(http.StatusBadRequest)
+	if err := c.ShouldBindJSON(&input); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
+		c.JSON(httpStatus, response)
 		return
 	}
 
-	var user models.User
-	if err := db.Model(&models.User{}).Where("username = ?", loginForm.Username).Take(&user).Error; err != nil {
-		log.Println("user not found: " + loginForm.Username)
-		w.WriteHeader(http.StatusForbidden)
+	if err := database.Db.Where("Mail = ?", c.Params.ByName("Mail")).First(&input).Error; err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
 		return
 	}
 
-	if err := user.CheckPassword(loginForm.Password); err != nil {
-		log.Println("wrong password for: " + loginForm.Username)
-		w.WriteHeader(http.StatusForbidden)
+
+	if err := database.Db.Where("Password = ?", c.Params.ByName("Password")).First(&input).Error; err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
 		return
 	}
 
-	jwtToken := utils.GenerateToken(user.ID)
+	jwtToken := utils.GenerateToken(input.Id)
 
-	if err:=json.NewEncoder(w).Encode(jwtToken); err != nil {
-		log.Println("cannot encode response")
-		w.WriteHeader(http.StatusInternalServerError)
+	if err:=json.NewEncoder(c.Params).Encode(jwtToken); err != nil {
+		log.Error(err)
+		c.JSON(httpStatus, response)
 		return
 	}
 	
