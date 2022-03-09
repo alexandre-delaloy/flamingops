@@ -28,5 +28,8 @@ init:
 init-web:
 	cd web ; npm i ; npm run build
 
+wiki:
+	cp -r ./.wiki ../flamingops.wiki
+
 .PHONY: help
 
