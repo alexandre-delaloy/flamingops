@@ -39,6 +39,8 @@ func usersRoute(r *gin.Engine) {
 	r.POST("/users/:id/aws-services-data", controllers.CreateAwsServicesData)
 	r.GET("/users/:id/aws-services-data", controllers.GetAwsServicesData)
 	r.DELETE("/users/:id/aws-services-data", controllers.DeleteAwsServicesData)
+
+	r.POST("/users/:id/send-message", controllers.ManuallySendMessage)
 }
 
 func secretsManagerRoute(r *gin.Engine) {

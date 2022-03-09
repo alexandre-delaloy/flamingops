@@ -1,14 +1,19 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 
+	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/internal/queue"
 	"github.com/blyndusk/flamingops/pkg/models"
+	log "github.com/sirupsen/logrus"
 )
 
 func ManuallySendMessage(c *gin.Context) {
-	queue.HandleMessageCreation(c, &input)
+	var user models.User
+	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&user).Error; err != nil {
+		log.Error(err)
+		return
+	}
+	queue.HandleMessageCreation(&user)
 }

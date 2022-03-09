@@ -60,7 +60,8 @@ func DeleteRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRe
 
 func hydrateRequestedRegions(input *models.RequestedRegionsInput) models.RequestedRegions {
 	return models.RequestedRegions{
-		UserId:  input.UserId,
-		Content: input.Content,
+		UserId:    input.UserId,
+		AwsRegion: input.AwsRegion,
+		SwRegion:  input.SwRegion,
 	}
 }

@@ -6,9 +6,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	log "github.com/sirupsen/logrus"
 
-	"github.com/blyndusk/flamingops/pkg/models"
+	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/pkg/helpers"
+	"github.com/blyndusk/flamingops/pkg/models"
 )
 
 func HandleMessageCreation(user *models.User) {
@@ -30,15 +32,29 @@ func HandleMessageCreation(user *models.User) {
 
 	queueURL := result.QueueUrl
 
-	requestedServices := []*string
-	for _, service := range user.ActiveServices.AwsServices {
-		requestedServices = append(requestedServices, aws.String(service))
-	}
-	for _, service := range user.ActiveServices.SwServices {
-		requestedServices = append(requestedServices, aws.String(service))
+	var requestedServices []*string
+	var activeServices models.ActiveServices
+	if err := database.Db.Where("user_id = ?", user.Id).First(&activeServices).Error; err != nil {
+		log.Error(err)
+		return
 	}
 
-	err = SendMsg(sess, queueURL, user, requestedServices, "test")
+	for _, service := range activeServices.AwsServices {
+		service := string(service)
+		requestedServices = append(requestedServices, &service)
+	}
+	for _, service := range activeServices.SwServices {
+		service := string(service)
+		requestedServices = append(requestedServices, &service)
+	}
+
+	var requestedRegions models.RequestedRegions
+	if err := database.Db.Where("user_id = ?", user.Id).First(&requestedRegions).Error; err != nil {
+		log.Error(err)
+		return
+	}
+
+	err = SendMsg(sess, queueURL, user.Username, requestedServices, requestedRegions.AwsRegion, requestedRegions.SwRegion)
 	if err != nil {
 		fmt.Println("Got an error sending the message:")
 		fmt.Println(err)
@@ -62,7 +78,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 	return result, nil
 }
 
-func SendMsg(sess *session.Session, queueURL *string, clientName string, requestedServices []*string, requestedRegion string) error {
+func SendMsg(sess *session.Session, queueURL *string, clientName string, requestedServices []*string, requestedAwsRegion string, requestedSwRegion string) error {
 	// Create an SQS service client
 	// snippet-start:[sqs.go.send_message.call]
 	svc := sqs.New(sess)
@@ -78,9 +94,13 @@ func SendMsg(sess *session.Session, queueURL *string, clientName string, request
 				DataType:         aws.String("StringList"),
 				StringListValues: requestedServices,
 			},
-			"RequestedRegion": {
+			"RequestedAwsRegion": {
 				DataType:    aws.String("String"),
-				StringValue: aws.String(requestedRegion),
+				StringValue: aws.String(requestedAwsRegion),
+			},
+			"RequestedSwRegion": {
+				DataType:    aws.String("String"),
+				StringValue: aws.String(requestedSwRegion),
 			},
 		},
 		MessageBody: aws.String(""),
