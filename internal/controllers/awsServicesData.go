@@ -9,22 +9,22 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func CreateAwqServicesData(c *gin.Context) {
-	var input models.AwqServicesDataInput
-	middlewares.CreateAwqServicesData(c, &input)
+func CreateAwsServicesData(c *gin.Context) {
+	var input models.AwsServicesDataInput
+	middlewares.CreateAwsServicesData(c, &input)
 	c.JSON(http.StatusOK, input)
 }
 
-func GetAwqServicesData(c *gin.Context) {
-	var awsServicesData models.AwqServicesData
-	middlewares.GetAwqServicesData(c, &awsServicesData)
+func GetAwsServicesData(c *gin.Context) {
+	var awsServicesData models.AwsServicesData
+	middlewares.GetAwsServicesData(c, &awsServicesData)
 	c.JSON(http.StatusOK, awsServicesData)
 }
 
-func DeleteAwqServicesData(c *gin.Context) {
-	var awsServicesData models.AwqServicesData
-	middlewares.DeleteAwqServicesData(c, &awsServicesData)
+func DeleteAwsServicesData(c *gin.Context) {
+	var awsServicesData models.AwsServicesData
+	middlewares.DeleteAwsServicesData(c, &awsServicesData)
 	c.JSON(http.StatusOK, gin.H{
-		"message": "AwqServicesData deleted successfully",
+		"message": "AwsServicesData deleted successfully",
 	})
 }
