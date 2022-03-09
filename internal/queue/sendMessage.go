@@ -54,7 +54,7 @@ func HandleMessageCreation(user *models.User) {
 		return
 	}
 
-	err = SendMsg(sess, queueURL, user.Username, requestedServices, requestedRegions.AwsRegion, requestedRegions.SwRegion)
+	err = SendMsg(sess, queueURL, user.Username, user.Id, requestedServices, requestedRegions.AwsRegion, requestedRegions.SwRegion)
 	if err != nil {
 		fmt.Println("Got an error sending the message:")
 		fmt.Println(err)
@@ -78,7 +78,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 	return result, nil
 }
 
-func SendMsg(sess *session.Session, queueURL *string, clientName string, requestedServices []*string, requestedAwsRegion string, requestedSwRegion string) error {
+func SendMsg(sess *session.Session, queueURL *string, clientName string, clientId uint, requestedServices []*string, requestedAwsRegion string, requestedSwRegion string) error {
 	// Create an SQS service client
 	// snippet-start:[sqs.go.send_message.call]
 	svc := sqs.New(sess)
@@ -89,6 +89,10 @@ func SendMsg(sess *session.Session, queueURL *string, clientName string, request
 			"ClientName": {
 				DataType:    aws.String("String"),
 				StringValue: aws.String(clientName),
+			},
+			"ClientId": {
+				DataType:    aws.String("Number"),
+				StringValue: aws.String(fmt.Sprintf("%d", clientId)),
 			},
 			"RequestedServices": {
 				DataType:         aws.String("StringList"),

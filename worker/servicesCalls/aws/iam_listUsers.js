@@ -3,12 +3,13 @@ var AWS = require('aws-sdk');
 
 /**
  * Returns a list of aws IAM users from a given region
- *
+ * @param {string} accessKeyId 
+ * @param {string} secretAccessKey 
  * @param {string} region 
  * @return {object} 
  */
-export default function(region) {
-    AWS.config.update({region});
+ export default function(accessKeyId, secretAccessKey, region) {
+    AWS.config.update({accessKeyId, secretAccessKey, region});
     
     var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 

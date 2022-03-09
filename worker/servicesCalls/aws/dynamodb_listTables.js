@@ -3,12 +3,13 @@ var AWS = require('aws-sdk');
 
 /**
  * Returns aws dynamo DB tables from a given region
- *
+ * @param {string} accessKeyId 
+ * @param {string} secretAccessKey 
  * @param {string} region 
  * @return {object} 
  */
-export default function(region) {
-    AWS.config.update({region});
+ export default function(accessKeyId, secretAccessKey, region) {
+    AWS.config.update({accessKeyId, secretAccessKey, region});
     var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
     let result

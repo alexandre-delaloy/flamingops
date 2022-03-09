@@ -3,12 +3,13 @@ var AWS = require('aws-sdk');
 
 /**
  * Returns a list of aws ses identities as mail adresses from a given region
- *
+ * @param {string} accessKeyId 
+ * @param {string} secretAccessKey 
  * @param {string} region 
  * @return {object} 
  */
-export default function(region) {
-    AWS.config.update({region});
+ export default function(accessKeyId, secretAccessKey, region) {    
+    AWS.config.update({accessKeyId, secretAccessKey, region});
     var listIDsPromise = new AWS.SES({apiVersion: '2010-12-01'}).promise();
 
     var params = {
