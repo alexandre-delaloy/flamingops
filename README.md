@@ -40,7 +40,6 @@
 
 ## I - Introduction
 
-
 This repository provides **commit writting** and **branch naming conventions**, **issues** and **pull request templates**, and a **custom issues labels preset**.
 
 But also **CI/CD** and **release** using [GitHub Actions](https://github.com/features/actions), [GitHub Container Registry](https://github.com/features/packages) and [Docker](https://www.docker.com/).
@@ -172,7 +171,6 @@ After that, you can check the release at `https://github.com/<username>/<reposit
 
 The **labeler** workflow consists in **assigning specific labels** on **pull requests** according to the files that have been modified in the **commits attached to this pull request**.
 
-
 ## VI - Project setup
 
 The project use **Docker** and **Docker Compose** to build and run local and distant images in our workspace.
@@ -183,7 +181,7 @@ All the images use the **same network**, more informations at [docker-compose.ym
 
 | CONTAINER | PORT        | IMAGE                                                                    |
 | :-------- | :---------- | :----------------------------------------------------------------------- |
-| GOLANG    | `3335:3335` | [build/pakage/sample-api/Dockerfile](build/pakage/sample-api/Dockerfile) |
+| GOLANG    | `3333:3333` | [build/pakage/sample-api/Dockerfile](build/pakage/sample-api/Dockerfile) |
 | ADMINER   | `3334:8080` | [build/package/adminer/Dockerfile](build/package/adminer/Dockerfile)     |
 | POSTGRES  | `5432:5432` | [postgres:latest](https://hub.docker.com/_/postgres)                     |
 
