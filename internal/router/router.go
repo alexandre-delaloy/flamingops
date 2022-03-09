@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/blyndusk/flamingops/internal/controllers"
+	"github.com/blyndusk/flamingops/internal/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,13 +15,11 @@ func Setup(r *gin.Engine) {
 
 func usersRoute(r *gin.Engine) {
 	r.POST("/users", controllers.CreateUser)
-
+	r.POST("/login", controllers.Login)
 	r.GET("/users", controllers.GetAllUsers)
-	r.GET("/users/:id", controllers.GetUserById)
-
-	r.PUT("/users/:id", controllers.UpdateUser)
-
-	r.DELETE("/users/:id", controllers.DeleteUser)
+	r.GET("/users/:id", middlewares.JWTVerify(controllers.GetUserById))
+	// r.PUT("/users/:id", middlewares.JWTVerify(controllers.UpdateUser))
+	// r.DELETE("/users/:id", middlewares.JWTVerify(controllers.DeleteUser))
 
 	r.POST("/users/:id/display-preferences", controllers.CreateDisplayPreferences)
 	r.GET("/users/:id/display-preferences", controllers.GetDisplayPreferences)

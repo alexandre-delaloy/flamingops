@@ -124,11 +124,13 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
             payload: {
               isAuthenticated,
               user: {
-                id: user.sub,
-                avatar: user.picture,
-                email: user.email,
-                name: 'Anika Visser',
-                plan: 'Premium'
+                id: 12,
+                username: 'Michel',
+                full_name: 'Michel',
+                email: 'Michel',
+                disabled: true,
+                role_label: 'Michel',
+                role_action: ['Michel'],
               }
             }
           });
@@ -171,11 +173,13 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
         type: 'LOGIN',
         payload: {
           user: {
-            id: user.sub,
-            avatar: user.picture,
-            email: user.email,
-            name: 'Anika Visser',
-            plan: 'Premium'
+                id: 12,
+                username: 'Michel',
+                full_name: 'Michel',
+                email: 'Michel',
+                disabled: true,
+                role_label: 'Michel',
+                role_action: ['Michel'],
           }
         }
       });

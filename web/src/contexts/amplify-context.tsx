@@ -153,11 +153,13 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
           payload: {
             isAuthenticated: true,
             user: {
-              id: user.sub,
-              avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
-              email: user.attributes.email,
-              name: 'Anika Visser',
-              plan: 'Premium'
+              id: 12,
+              username: 'Michel',
+              full_name: 'Michel',
+              email: 'Michel',
+              disabled: true,
+              role_label: 'Michel',
+              role_action: ['Michel'],
             }
           }
         });
@@ -187,11 +189,13 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
       type: 'LOGIN',
       payload: {
         user: {
-          id: user.attributes.sub,
-          avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
-          email: user.attributes.email,
-          name: 'Anika Visser',
-          plan: 'Premium'
+          id: 12,
+              username: 'Michel',
+              full_name: 'Michel',
+              email: 'Michel',
+              disabled: true,
+              role_label: 'Michel',
+              role_action: ['Michel'],
         }
       }
     });

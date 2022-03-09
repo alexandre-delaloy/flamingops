@@ -5,10 +5,12 @@ import (
 	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/database"
+	"github.com/blyndusk/flamingops/internal/utils"
 	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"gorm.io/gorm"
 )
 
 func CreateUser(c *gin.Context, input *models.UserInput) {
@@ -31,6 +33,35 @@ func CreateUser(c *gin.Context, input *models.UserInput) {
 	CreateSwServicesData(c, &models.SwServicesDataInput{UserId: user.Id})
 	CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: user.Id})
 	CreateDisplayPreferences(c, &models.DisplayPreferencesInput{UserId: user.Id})
+}
+
+func Login(c *gin.Context, input *models.Login) {
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	var user models.User
+
+	if err := database.Db.Where("Mail = ?", c.Params.ByName("Mail")).First(&user).Error; err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	if user.Password != input.Password {
+		httpStatus, response := helpers.GormErrorResponse(gorm.ErrInvalidField)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	jwtToken := utils.GenerateToken(user.Id)
+
+	c.JSON(http.StatusOK, jwtToken)
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {

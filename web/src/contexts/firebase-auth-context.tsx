@@ -78,11 +78,13 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
         payload: {
           isAuthenticated: true,
           user: {
-            id: user.uid,
-            avatar: user.photoURL,
-            email: user.email,
-            name: 'Anika Visser',
-            plan: 'Premium'
+            id: 12,
+              username: 'Michel',
+                full_name: 'Michel',
+                email: 'Michel',
+                disabled: true,
+                role_label: 'Michel',
+                role_action: ['Michel'],
           }
         }
       });

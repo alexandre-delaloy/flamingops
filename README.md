@@ -40,7 +40,6 @@
 
 ## I - Introduction
 
-
 This repository provides **commit writting** and **branch naming conventions**, **issues** and **pull request templates**, and a **custom issues labels preset**.
 
 But also **CI/CD** and **release** using [GitHub Actions](https://github.com/features/actions), [GitHub Container Registry](https://github.com/features/packages) and [Docker](https://www.docker.com/).
@@ -171,7 +170,6 @@ After that, you can check the release at `https://github.com/<username>/<reposit
 [![LABELER](https://github.com/blyndusk/flamingops/actions/workflows/ci.labeler.yml/badge.svg)](https://github.com/blyndusk/flamingops/actions/workflows/ci.labeler.yml)
 
 The **labeler** workflow consists in **assigning specific labels** on **pull requests** according to the files that have been modified in the **commits attached to this pull request**.
-
 
 ## VI - Project setup
 

@@ -15,6 +15,12 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, input)
 }
 
+func Login(c *gin.Context) {
+	var input models.Login
+	middlewares.Login(c, &input)
+	c.JSON(http.StatusOK, input)
+}
+
 func GetAllUsers(c *gin.Context) {
 	var users models.Users
 	middlewares.GetAllUsers(c, &users)
