@@ -35,21 +35,21 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
-             - secretRef:
-                 name: {{ include "flamingops-api.name" . }}
+            - secretRef:
+                name: {{ include "flamingops-api.name" . }}
           volumeMounts:
             - mountPath: /app/.env
               name: env-file
               subPath: env
               readOnly: true
-            - mountPath: /app/config/jwt
-              name: certificates
-              readOnly: true
+            # - mountPath: /app/config/jwt
+            #   name: certificates
+            #   readOnly: true
       volumes:
         - name: env-file
           configMap:
             name: {{ include "flamingops-api.name" . }}
-        - name: certificates
-          secret:
-            secretName: {{ include "flamingops-api.name" . }}-certs
+        # - name: certificates
+        #   secret:
+        #     secretName: {{ include "flamingops-api.name" . }}-certs
 
