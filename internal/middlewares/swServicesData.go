@@ -28,7 +28,7 @@ func CreateSwServicesData(c *gin.Context, input *models.SwServicesDataInput) {
 }
 
 func GetSwServicesData(c *gin.Context, swServicesData *models.SwServicesData) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&swServicesData).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&swServicesData).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -37,7 +37,7 @@ func GetSwServicesData(c *gin.Context, swServicesData *models.SwServicesData) {
 }
 
 func DeleteSwServicesData(c *gin.Context, swServicesData *models.SwServicesData) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&swServicesData).Delete(&swServicesData).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&swServicesData).Delete(&swServicesData).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)

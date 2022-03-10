@@ -28,7 +28,7 @@ func CreateRequestedRegions(c *gin.Context, input *models.RequestedRegionsInput)
 }
 
 func GetRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&requestedRegions).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -50,7 +50,7 @@ func UpdateRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRe
 }
 
 func DeleteRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&requestedRegions).Delete(&requestedRegions).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&requestedRegions).Delete(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)

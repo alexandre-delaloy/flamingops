@@ -28,7 +28,7 @@ func CreateAwsServicesData(c *gin.Context, input *models.AwsServicesDataInput) {
 }
 
 func GetAwsServicesData(c *gin.Context, awsServicesData *models.AwsServicesData) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&awsServicesData).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&awsServicesData).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -37,7 +37,7 @@ func GetAwsServicesData(c *gin.Context, awsServicesData *models.AwsServicesData)
 }
 
 func DeleteAwsServicesData(c *gin.Context, awsServicesData *models.AwsServicesData) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&awsServicesData).Delete(&awsServicesData).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&awsServicesData).Delete(&awsServicesData).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
