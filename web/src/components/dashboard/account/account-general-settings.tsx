@@ -6,8 +6,11 @@ import {
   Card,
   CardContent,
   Divider,
+  FormControlLabel,
   Grid,
-  Switch,
+  Paper,
+  Radio,
+  RadioGroup,
   TextField,
   Typography
 } from '@mui/material';
@@ -20,6 +23,19 @@ export const AccountGeneralSettings: FC = (props) => {
     avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
     name: 'Anika Visser'
   };
+
+  const typeOptions = [
+    {
+      description: 'Display your datas from your online AWS cloud provider',
+      title: 'AWS',
+      value: 'AWS'
+    },
+    {
+      description: 'Display your datas from your online Scaleway cloud provider',
+      title: 'Scaleway',
+      value: 'Scaleway'
+    }
+  ];
 
   return (
     <Box
@@ -127,7 +143,7 @@ export const AccountGeneralSettings: FC = (props) => {
               xs={12}
             >
               <Typography variant="h6">
-                Public profile
+                Choice of provider
               </Typography>
             </Grid>
             <Grid
@@ -136,53 +152,57 @@ export const AccountGeneralSettings: FC = (props) => {
               sm={12}
               xs={12}
             >
-              <Box
+            <Divider />
+                <RadioGroup
                 sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mb: 3
+                  '& > *:not(:last-child)': {
+                    mb: 2
+                  }
                 }}
               >
-                <div>
-                  <Typography variant="subtitle1">
-                    Make Contact Info Public
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    sx={{ mt: 1 }}
-                    variant="body2"
+                {typeOptions.map((typeOption, index) => (
+                  <Paper
+                    key={typeOption.value}
+                    sx={{
+                      alignItems: 'flex-start',
+                      display: 'flex',
+                      padding: 2
+                    }}
+                    variant="outlined"
                   >
-                    Means that anyone viewing your profile will be able to see your contacts
-                    details.
-                  </Typography>
-                </div>
-                <Switch />
-              </Box>
-              <Divider />
-              <Box
-                sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mt: 3
-                }}
-              >
-                <div>
-                  <Typography variant="subtitle1">
-                    Available to hire
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    sx={{ mt: 1 }}
-                    variant="body2"
-                  >
-                    Toggling this will let your teammates know that you are available for
-                    acquiring new projects.
-                  </Typography>
-                </div>
-                <Switch defaultChecked />
-              </Box>
+                    <FormControlLabel
+                      control={<Radio />}
+                      disabled={index === 2 && true}
+                      key={typeOption.value}
+                      label={(
+                        <Box sx={{ ml: 2 }}>
+                          <Typography
+                            sx={{
+                              color: index === 2
+                                ? 'action.disabled'
+                                : 'text.primary'
+                            }}
+                            variant="subtitle2"
+                          >
+                            {typeOption.title}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              color: index === 2
+                                ? 'action.disabled'
+                                : 'text.secondary'
+                            }}
+                            variant="body2"
+                          >
+                            {typeOption.description}
+                          </Typography>
+                        </Box>
+                      )}
+                      value={typeOption.value}
+                    />
+                  </Paper>
+                ))}
+              </RadioGroup>
             </Grid>
           </Grid>
         </CardContent>
