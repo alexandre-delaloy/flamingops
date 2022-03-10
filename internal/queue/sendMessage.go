@@ -26,7 +26,7 @@ func HandleMessageCreation(user *models.User) {
 		log.Error(err)
 		return
 	}
-	if awsServicesData.UpdatedAt.After(time.Now().Add(-30*time.Minute)) && swServicesData.UpdatedAt.After(time.Now().Add(-30*time.Minute)) {
+	if awsServicesData.UpdatedAt.After(time.Now().Add(-2*time.Minute)) && swServicesData.UpdatedAt.After(time.Now().Add(-2*time.Minute)) {
 		return
 	}
 
@@ -36,21 +36,22 @@ func HandleMessageCreation(user *models.User) {
 		log.Error(err)
 		return
 	}
-
+	
 	if len(activeServices.AwsServices) == 0 && len(activeServices.SwServices) == 0 {
 		return
 	}
-
+	
 	var requestedRegions models.RequestedRegions
 	if err := database.Db.Where("user_id = ?", user.Id).First(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		return
 	}
-
+	
 	if requestedRegions.AwsRegion == "" && requestedRegions.SwRegion == "" {
 		return
 	}
-
+	
+	fmt.Println("hey")
 	// Create a session that gets credential values from ~/.aws/credentials
 	// and the default region from ~/.aws/config
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
