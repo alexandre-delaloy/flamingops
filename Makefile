@@ -29,7 +29,11 @@ init-web:
 	cd web ; npm i ; npm run build
 
 wiki:
-	cp -r ./.wiki ../flamingops.wiki
+	cp -r docs/wiki ../flamingops.wiki
+	cd ../flamingops.wiki
+	git add . 
+	git commit -m "wiki"
+	git push
 
 .PHONY: help
 
