@@ -6,7 +6,9 @@ The structure of this project follows [these conventions](https://github.com/gol
 - `/cmd`: main files
 - `/build`: Dockerfiles
 - `/config`: Environment files
-- `/deploy`: Docker Compose files
+- `/deploy`: Docker Compose, K8s and Terraform files
 - `/internal`: "private" code
 - `/pkg`: "public" code
 - `/scripts`: Makefile bash scripts for setup/install/start
+- `/web`: UI / Webapp files
+- `/worker`: Nodejs Lambda
