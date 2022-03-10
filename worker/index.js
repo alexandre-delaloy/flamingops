@@ -1,5 +1,5 @@
 import serviceToFunction from './servicesCalls/serviceToFunction.js';
-import SecretsManager from './servicesCalls/aws/SecretsManager.js';
+import SecretsManager from './secretsManager.js';
 import { setConnection, updateDb } from './dbConnection.js'
 
 // 1. - Récupérer le payload du message
@@ -45,7 +45,13 @@ exports.handler = async function(event) {
   });
 
   // 4. - Stocker les résultats dans rds
-  const client = setConnection();
+
+  const dbHostname = await SecretsManager.getSecret('flamingops-db-hostname', 'eu-west-3');
+  const dbPort = await SecretsManager.getSecret('flamingops-db-hostname', 'eu-west-3');
+  const dbUsername = await SecretsManager.getSecret('flamingops-db-username', 'eu-west-3');
+  const dbName = await SecretsManager.getSecret('flamingops-db-name', 'eu-west-3');
+
+  const client = setConnection(dbHostname, dbPort, dbUsername, dbName);
   await client.connect();
   await updateDb(client, 'awsServicesDatas', clientId, servicesData.aws);
   await updateDb(client, 'swServicesDatas', clientId, servicesData.sw);
