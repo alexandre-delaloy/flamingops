@@ -2,7 +2,7 @@ package queue
 
 import (
 	"time"
-	
+
 	log "github.com/sirupsen/logrus"
 
 	"github.com/blyndusk/flamingops/internal/database"
