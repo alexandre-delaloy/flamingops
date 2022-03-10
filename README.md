@@ -88,9 +88,6 @@ First, do this:
 ```bash
 make init
 ```
-
-Congratulations. You can now access to ...
-
 Now with your browser of choice get to `127.0.0.1:3000` to access UI.
 
 And get to `127.0.0.1:3333` to access API.
