@@ -4,7 +4,7 @@
 
 Flamingops
 ====
-***Cloud Providers Aggregator***
+***Cloud Instances Aggregator***
 
 <p align="center">
     <br/>
