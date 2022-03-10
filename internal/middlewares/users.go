@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"errors"
-	"net/http"
 	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/database"
@@ -71,17 +70,16 @@ func GetUserById(c *gin.Context, user *models.User) {
 	}
 }
 
-func UpdateUser(c *gin.Context, user *models.User, input *models.UserInput) {
+func UpdateUser(c *gin.Context, user *models.User, input *models.UserInput) error {
 	GetUserById(c, user)
-	if err := c.ShouldBindJSON(&input); err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
-	}
 
 	updatedUser := hydrateUser(input)
-	database.Db.Model(&user).Updates(updatedUser)
+	if err := database.Db.Model(&user).Updates(updatedUser).Error; err != nil{
+		log.Error(err)
+		return err
+	}
+
+	return nil
 }
 
 func DeleteUser(c *gin.Context, user *models.User) error {

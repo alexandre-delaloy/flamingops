@@ -84,8 +84,24 @@ func GetUserById(c *gin.Context) {
 func UpdateUser(c *gin.Context) {
 	var user models.User
 	var input models.UserInput
-	middlewares.UpdateUser(c, &user, &input)
-	c.JSON(http.StatusOK, user)
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	if err := middlewares.UpdateUser(c, &user, &input); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "User updated successfully",
+	})
 }
 
 func DeleteUser(c *gin.Context) {
