@@ -45,13 +45,14 @@ exports.handler = async function(event) {
   });
 
   // 4. - Stocker les résultats dans rds
+  const dbHostname = process.env.DB_HOSTNAME;
+  const dbPort = process.env.DB_PORT;
+  const dbUsername = process.env.DB_USERNAME;
+  const dbName = process.env.DB_NAME;
+  const dbPassword = process.env.DB_PASSWORD;
+  const dbRegion = process.env.DB_REGION;
 
-  const dbHostname = await SecretsManager.getSecret('flamingops-db-hostname', 'eu-west-3');
-  const dbPort = await SecretsManager.getSecret('flamingops-db-hostname', 'eu-west-3');
-  const dbUsername = await SecretsManager.getSecret('flamingops-db-username', 'eu-west-3');
-  const dbName = await SecretsManager.getSecret('flamingops-db-name', 'eu-west-3');
-
-  const client = setConnection(dbHostname, dbPort, dbUsername, dbName);
+  const client = setConnection(dbHostname, dbPort, dbUsername, dbName, dbPassword, dbRegion);
   await client.connect();
   await updateDb(client, 'awsServicesDatas', clientId, servicesData.aws);
   await updateDb(client, 'swServicesDatas', clientId, servicesData.sw);

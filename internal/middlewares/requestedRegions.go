@@ -10,25 +10,17 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateRequestedRegions(c *gin.Context, input *models.RequestedRegionsInput) {
-	if err := c.ShouldBindJSON(&input); err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
-	}
-
+func CreateRequestedRegions(c *gin.Context, input *models.RequestedRegionsInput) (error) {
 	requestedRegions := hydrateRequestedRegions(input)
 	if err := database.Db.Create(&requestedRegions).Error; err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
+		return err
 	}
+	return nil
 }
 
 func GetRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&requestedRegions).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -50,7 +42,7 @@ func UpdateRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRe
 }
 
 func DeleteRequestedRegions(c *gin.Context, requestedRegions *models.RequestedRegions) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&requestedRegions).Delete(&requestedRegions).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&requestedRegions).Delete(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)

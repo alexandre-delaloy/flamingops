@@ -4,21 +4,69 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/blyndusk/flamingops/internal/middlewares"
+	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
 func CreateUser(c *gin.Context) {
 	var input models.UserInput
-	middlewares.CreateUser(c, &input)
-	c.JSON(http.StatusOK, input)
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	res, err := middlewares.CreateUser(c, &input)
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateActiveServices(c, &models.ActiveServicesInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateSwServicesData(c, &models.SwServicesDataInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateRequestedRegions(c, &models.RequestedRegionsInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	c.JSON(http.StatusOK, &res)
 }
 
 func Login(c *gin.Context) {
 	var input models.Login
-	middlewares.Login(c, &input)
-	c.JSON(http.StatusOK, input)
+	res, err := middlewares.Login(c, &input)
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+	c.JSON(http.StatusOK, &res)
 }
 
 func GetAllUsers(c *gin.Context) {
@@ -36,13 +84,36 @@ func GetUserById(c *gin.Context) {
 func UpdateUser(c *gin.Context) {
 	var user models.User
 	var input models.UserInput
-	middlewares.UpdateUser(c, &user, &input)
-	c.JSON(http.StatusOK, user)
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	if err := middlewares.UpdateUser(c, &user, &input); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "User updated successfully",
+	})
 }
 
 func DeleteUser(c *gin.Context) {
 	var user models.User
-	middlewares.DeleteUser(c, &user)
+
+	if err := middlewares.DeleteUser(c, &user); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User deleted successfully",
 	})

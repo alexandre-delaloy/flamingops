@@ -2,6 +2,7 @@ package queue
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -14,7 +15,41 @@ import (
 )
 
 func HandleMessageCreation(user *models.User) {
-	queue := helpers.EnvVar("QUEUE_NAME")
+	// stops if the user services have been updated recently
+	var awsServicesData models.AwsServicesData
+	if err := database.Db.Where("user_id = ?", user.Id).First(&awsServicesData).Error; err != nil {
+		log.Error(err)
+		return
+	}
+	var swServicesData models.SwServicesData
+	if err := database.Db.Where("user_id = ?", user.Id).First(&swServicesData).Error; err != nil {
+		log.Error(err)
+		return
+	}
+	if awsServicesData.UpdatedAt.After(time.Now().Add(-30*time.Minute)) && swServicesData.UpdatedAt.After(time.Now().Add(-30*time.Minute)) {
+		return
+	}
+
+	var requestedServices []*string
+	var activeServices models.ActiveServices
+	if err := database.Db.Where("user_id = ?", user.Id).First(&activeServices).Error; err != nil {
+		log.Error(err)
+		return
+	}
+
+	if len(activeServices.AwsServices) == 0 && len(activeServices.SwServices) == 0 {
+		return
+	}
+
+	var requestedRegions models.RequestedRegions
+	if err := database.Db.Where("user_id = ?", user.Id).First(&requestedRegions).Error; err != nil {
+		log.Error(err)
+		return
+	}
+
+	if requestedRegions.AwsRegion == "" && requestedRegions.SwRegion == "" {
+		return
+	}
 
 	// Create a session that gets credential values from ~/.aws/credentials
 	// and the default region from ~/.aws/config
@@ -23,6 +58,7 @@ func HandleMessageCreation(user *models.User) {
 	}))
 
 	// Get URL of queue
+	queue := helpers.EnvVar("QUEUE_NAME")
 	result, err := GetQueueURL(sess, &queue)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
@@ -32,13 +68,6 @@ func HandleMessageCreation(user *models.User) {
 
 	queueURL := result.QueueUrl
 
-	var requestedServices []*string
-	var activeServices models.ActiveServices
-	if err := database.Db.Where("user_id = ?", user.Id).First(&activeServices).Error; err != nil {
-		log.Error(err)
-		return
-	}
-
 	for _, service := range activeServices.AwsServices {
 		service := string(service)
 		requestedServices = append(requestedServices, &service)
@@ -46,12 +75,6 @@ func HandleMessageCreation(user *models.User) {
 	for _, service := range activeServices.SwServices {
 		service := string(service)
 		requestedServices = append(requestedServices, &service)
-	}
-
-	var requestedRegions models.RequestedRegions
-	if err := database.Db.Where("user_id = ?", user.Id).First(&requestedRegions).Error; err != nil {
-		log.Error(err)
-		return
 	}
 
 	err = SendMsg(sess, queueURL, user.Username, user.Id, requestedServices, requestedRegions.AwsRegion, requestedRegions.SwRegion)
