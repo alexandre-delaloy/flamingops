@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/blyndusk/flamingops/internal/middlewares"
+	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
@@ -17,8 +18,13 @@ func CreateUser(c *gin.Context) {
 
 func Login(c *gin.Context) {
 	var input models.Login
-	middlewares.Login(c, &input)
-	c.JSON(http.StatusOK, input)
+	res, err := middlewares.Login(c, &input)
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+	c.JSON(http.StatusOK, &res)
 }
 
 func GetAllUsers(c *gin.Context) {

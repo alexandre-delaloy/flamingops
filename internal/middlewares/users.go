@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -10,7 +11,6 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"gorm.io/gorm"
 )
 
 func CreateUser(c *gin.Context, input *models.UserInput) {
@@ -29,39 +29,34 @@ func CreateUser(c *gin.Context, input *models.UserInput) {
 		return
 	}
 
-	CreateActiveServices(c, &models.ActiveServicesInput{UserId: user.Id})
+	CreateActiveServices(c, &models.ActiveServicesInput{UserId: user.Id}) //todo complete
 	CreateSwServicesData(c, &models.SwServicesDataInput{UserId: user.Id})
 	CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: user.Id})
 	CreateRequestedRegions(c, &models.RequestedRegionsInput{UserId: user.Id})
 }
 
-func Login(c *gin.Context, input *models.Login) {
+func Login(c *gin.Context, input *models.Login) (string, error) {
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
+		return "", err
 	}
 
 	var user models.User
+	// log.Error(c)
 
-	if err := database.Db.Where("Mail = ?", c.Params.ByName("Mail")).First(&user).Error; err != nil {
+	if err := database.Db.Where("Mail = ?", &input.Mail).First(&user).Error; err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
+		return "", err
 	}
 
 	if user.Password != input.Password {
-		httpStatus, response := helpers.GormErrorResponse(gorm.ErrInvalidField)
-		c.JSON(httpStatus, response)
-		return
+		return "", errors.New("passwords don't match")
 	}
 
 	jwtToken := utils.GenerateToken(user.Id)
 
-	c.JSON(http.StatusOK, jwtToken)
+	return jwtToken, nil
 }
 
 func GetAllUsers(c *gin.Context, users *models.Users) {
