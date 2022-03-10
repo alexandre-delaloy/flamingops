@@ -9,10 +9,6 @@ import (
 	// "github.com/blyndusk/flamingops/pkg/models"
 )
 
-func GetSecretByName(c *gin.Context) {
-	middlewares.GetSecretByName(c)
-}
-
 func CreateSecret(c *gin.Context) {
 	middlewares.CreateSecret(c)
 }
