@@ -42,7 +42,7 @@ func setupServer() *gin.Engine {
 
 func setupAwsSession() {
 	sess := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String("us-east-1"),
+		Region: aws.String("eu-west-3"),
 	}))
 	fmt.Println(sess)
 	log.Info("AWS Session created")
