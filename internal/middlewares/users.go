@@ -13,26 +13,31 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateUser(c *gin.Context, input *models.UserInput) {
+func CreateUser(c *gin.Context, input *models.UserInput) (*models.User, error) {
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
+		return nil, err
+	}
+
+	var mailCheck models.User
+
+	if err := database.Db.Where("Mail = ?", &input.Mail).First(&mailCheck).Error; err == nil  {
+		log.Error("e-mail already used")
+		return nil, errors.New("e-mail already used")
 	}
 
 	user := hydrateUser(input)
 	if err := database.Db.Create(&user).Error; err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
+		return nil, err
 	}
 
 	CreateActiveServices(c, &models.ActiveServicesInput{UserId: user.Id}) //todo complete
 	CreateSwServicesData(c, &models.SwServicesDataInput{UserId: user.Id})
 	CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: user.Id})
 	CreateRequestedRegions(c, &models.RequestedRegionsInput{UserId: user.Id})
+
+	return &user, nil
 }
 
 func Login(c *gin.Context, input *models.Login) (string, error) {
@@ -43,7 +48,6 @@ func Login(c *gin.Context, input *models.Login) (string, error) {
 	}
 
 	var user models.User
-	// log.Error(c)
 
 	if err := database.Db.Where("Mail = ?", &input.Mail).First(&user).Error; err != nil {
 		log.Error(err)

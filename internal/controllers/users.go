@@ -12,8 +12,13 @@ import (
 
 func CreateUser(c *gin.Context) {
 	var input models.UserInput
-	middlewares.CreateUser(c, &input)
-	c.JSON(http.StatusOK, input)
+	res, err := middlewares.CreateUser(c, &input)
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+	c.JSON(http.StatusOK, &res)
 }
 
 func Login(c *gin.Context) {
