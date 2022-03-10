@@ -16,7 +16,7 @@ export const Auth0Login: FC = (props) => {
       await loginWithPopup();
 
       if (isMounted()) {
-        const returnUrl = (router.query.returnUrl as string) || '/dashboard';
+        const returnUrl = '/dashboard';
         router.push(returnUrl);
       }
     } catch (err) {

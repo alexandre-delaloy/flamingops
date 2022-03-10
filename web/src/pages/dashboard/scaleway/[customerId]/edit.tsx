@@ -4,13 +4,13 @@ import NextLink from 'next/link';
 import Head from 'next/head';
 import { Avatar, Box, Chip, Container, Link, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { customerApi } from '../../../../api/customer-api';
+// import { customerApi } from '../../../../api/customer-api';
 import { AuthGuard } from '../../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../../components/dashboard/dashboard-layout';
 import { CustomerEditForm } from '../../../../components/dashboard/scaleway/customer-edit-form';
 import { useMounted } from '../../../../hooks/use-mounted';
 import { gtm } from '../../../../lib/gtm';
-import type { Customer } from '../../../../types/customer';
+// import type { Customer } from '../../../../types/customer';
 import { getInitials } from '../../../../utils/get-initials';
 
 const CustomerEdit: NextPage = () => {

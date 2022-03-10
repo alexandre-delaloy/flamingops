@@ -16,10 +16,10 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { customerApi } from '../../../api/customer-api';
+// import { customerApi } from '../../../api/customer-api';
 import { useMounted } from '../../../hooks/use-mounted';
 import { ArrowRight as ArrowRightIcon } from '../../../icons/arrow-right';
-import type { CustomerEmail } from '../../../types/customer';
+// import type { CustomerEmail } from '../../../types/customer';
 
 const emailOptions = [
   'Resend last invoice',

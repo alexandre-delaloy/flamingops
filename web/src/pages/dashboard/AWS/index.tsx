@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { Box, Button, Card, Container, Grid, Typography } from '@mui/material';
-import { productApi } from '../../../api/product-api';
+// import { productApi } from '../../../api/product-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { ProjectListFilters } from '../../../components/dashboard/AWS/product-list-filters';
@@ -14,7 +14,7 @@ import { Download as DownloadIcon } from '../../../icons/download';
 import { Upload as UploadIcon } from '../../../icons/upload';
 import { Plus as PlusIcon } from '../../../icons/plus';
 import { gtm } from '../../../lib/gtm';
-import type { Product } from '../../../types/product';
+// import type { Product } from '../../../types/product';
 
 const applyFilters = (
   products: Product[],

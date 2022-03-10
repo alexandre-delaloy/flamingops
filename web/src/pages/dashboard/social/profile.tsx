@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import AddPhotoIcon from '@mui/icons-material/AddPhotoAlternate';
-import { socialApi } from '../../../api/social-api';
+// import { socialApi } from '../../../api/social-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { SocialConnections } from '../../../components/dashboard/social/social-connections';
@@ -27,7 +27,7 @@ import { Chat as ChatIcon } from '../../../icons/chat';
 import { DotsHorizontal as DotsHorizontalIcon } from '../../../icons/dots-horizontal';
 import { UserAdd as UserAddIcon } from '../../../icons/user-add';
 import { gtm } from '../../../lib/gtm';
-import type { Profile } from '../../../types/social';
+// import type { Profile } from '../../../types/social';
 
 const tabs = [
   { label: 'Timeline', value: 'timeline' },
