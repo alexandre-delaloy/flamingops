@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/blyndusk/flamingops/internal/middlewares"
 	"github.com/blyndusk/flamingops/pkg/helpers"
@@ -89,7 +90,14 @@ func UpdateUser(c *gin.Context) {
 
 func DeleteUser(c *gin.Context) {
 	var user models.User
-	middlewares.DeleteUser(c, &user)
+
+	if err := middlewares.DeleteUser(c, &user); err != nil {
+		log.Error(err)
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User deleted successfully",
 	})

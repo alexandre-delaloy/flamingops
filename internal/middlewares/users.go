@@ -84,20 +84,16 @@ func UpdateUser(c *gin.Context, user *models.User, input *models.UserInput) {
 	database.Db.Model(&user).Updates(updatedUser)
 }
 
-func DeleteUser(c *gin.Context, user *models.User) {
-	if err := database.Db.First(&user, c.Params.ByName("id")).Delete(&user).Error; err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
-	}
-
+func DeleteUser(c *gin.Context, user *models.User) error {
 	i64, err := strconv.ParseUint(c.Params.ByName("id"), 10, 64)
 	if err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
+		return err
+	}
+	
+	if err := database.Db.First(&user, c.Params.ByName("id")).First(&user).Error; err != nil {
+		log.Error(err)
+		return err
 	}
 
 	i := uint(i64)
@@ -106,6 +102,13 @@ func DeleteUser(c *gin.Context, user *models.User) {
 	DeleteSwServicesData(c, &models.SwServicesData{UserId: i})
 	DeleteAwsServicesData(c, &models.AwsServicesData{UserId: i})
 	DeleteRequestedRegions(c, &models.RequestedRegions{UserId: i})
+
+	if err := database.Db.First(&user, c.Params.ByName("id")).Delete(&user).Error; err != nil {
+		log.Error(err)
+		return err
+	}
+	
+	return nil
 }
 
 func hydrateUser(input *models.UserInput) models.User {
