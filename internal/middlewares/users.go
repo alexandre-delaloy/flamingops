@@ -14,14 +14,10 @@ import (
 )
 
 func CreateUser(c *gin.Context, input *models.UserInput) (*models.User, error) {
-	if err := c.ShouldBindJSON(&input); err != nil {
-		log.Error(err)
-		return nil, err
-	}
-
+	// Check if user already exists
 	var mailCheck models.User
-
-	if err := database.Db.Where("Mail = ?", &input.Mail).First(&mailCheck).Error; err == nil  {
+	database.Db.Where("Mail = ?", &input.Mail).First(&mailCheck)
+	if mailCheck.Id != 0 { 
 		log.Error("e-mail already used")
 		return nil, errors.New("e-mail already used")
 	}
@@ -31,11 +27,6 @@ func CreateUser(c *gin.Context, input *models.UserInput) (*models.User, error) {
 		log.Error(err)
 		return nil, err
 	}
-
-	CreateActiveServices(c, &models.ActiveServicesInput{UserId: user.Id}) //todo complete
-	CreateSwServicesData(c, &models.SwServicesDataInput{UserId: user.Id})
-	CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: user.Id})
-	CreateRequestedRegions(c, &models.RequestedRegionsInput{UserId: user.Id})
 
 	return &user, nil
 }
@@ -48,7 +39,6 @@ func Login(c *gin.Context, input *models.Login) (string, error) {
 	}
 
 	var user models.User
-
 	if err := database.Db.Where("Mail = ?", &input.Mail).First(&user).Error; err != nil {
 		log.Error(err)
 		return "", err

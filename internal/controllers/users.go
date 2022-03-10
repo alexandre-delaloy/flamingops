@@ -12,12 +12,48 @@ import (
 
 func CreateUser(c *gin.Context) {
 	var input models.UserInput
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
 	res, err := middlewares.CreateUser(c, &input)
 	if err != nil {
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
 		return
 	}
+
+	err = middlewares.CreateActiveServices(c, &models.ActiveServicesInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateAwsServicesData(c, &models.AwsServicesDataInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateSwServicesData(c, &models.SwServicesDataInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
+	err = middlewares.CreateRequestedRegions(c, &models.RequestedRegionsInput{UserId: res.Id})
+	if err != nil {
+		httpStatus, response := helpers.GormErrorResponse(err)
+		c.JSON(httpStatus, response)
+		return
+	}
+
 	c.JSON(http.StatusOK, &res)
 }
 

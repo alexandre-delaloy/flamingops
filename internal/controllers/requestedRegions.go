@@ -9,12 +9,6 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func CreateRequestedRegions(c *gin.Context) {
-	var input models.RequestedRegionsInput
-	middlewares.CreateRequestedRegions(c, &input)
-	c.JSON(http.StatusOK, input)
-}
-
 func GetRequestedRegions(c *gin.Context) {
 	var preferences models.RequestedRegions
 	middlewares.GetRequestedRegions(c, &preferences)

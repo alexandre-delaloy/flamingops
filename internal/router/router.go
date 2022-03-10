@@ -21,21 +21,17 @@ func usersRoute(r *gin.Engine) {
 	// r.PUT("/users/:id", middlewares.JWTVerify(controllers.UpdateUser))
 	// r.DELETE("/users/:id", middlewares.JWTVerify(controllers.DeleteUser))
 
-	r.POST("/users/:id/requested-regions", controllers.CreateRequestedRegions)
 	r.GET("/users/:id/requested-regions", controllers.GetRequestedRegions)
 	r.PUT("/users/:id/requested-regions", controllers.UpdateRequestedRegions)
 	r.DELETE("/users/:id/requested-regions", controllers.DeleteRequestedRegions)
 
-	r.POST("/users/:id/active-services", controllers.CreateActiveServices)
 	r.GET("/users/:id/active-services", controllers.GetActiveServices)
 	r.PUT("/users/:id/active-services", controllers.UpdateActiveServices)
 	r.DELETE("/users/:id/active-services", controllers.DeleteActiveServices)
 
-	r.POST("/users/:id/sw-services-data", controllers.CreateSwServicesData)
 	r.GET("/users/:id/sw-services-data", controllers.GetSwServicesData)
 	r.DELETE("/users/:id/sw-services-data", controllers.DeleteSwServicesData)
 
-	r.POST("/users/:id/aws-services-data", controllers.CreateAwsServicesData)
 	r.GET("/users/:id/aws-services-data", controllers.GetAwsServicesData)
 	r.DELETE("/users/:id/aws-services-data", controllers.DeleteAwsServicesData)
 
