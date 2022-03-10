@@ -29,7 +29,7 @@ const Account: NextPage = () => {
     <>
       <Head>
         <title>
-          Dashboard: Account | Material Kit Pro
+          Dashboard: Account
         </title>
       </Head>
       <Box

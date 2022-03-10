@@ -17,7 +17,6 @@ import {
   Typography
 } from '@mui/material';
 // import { customerApi } from '../../../api/customer-api';
-import { useMounted } from '../../../hooks/use-mounted';
 import { ArrowRight as ArrowRightIcon } from '../../../icons/arrow-right';
 // import type { CustomerEmail } from '../../../types/customer';
 
@@ -28,25 +27,7 @@ const emailOptions = [
 ];
 
 export const CustomerEmailsSummary: FC = (props) => {
-  const isMounted = useMounted();
   const [emailOption, setEmailOption] = useState<string>(emailOptions[0]);
-  const [emails, setEmails] = useState<CustomerEmail[]>([]);
-
-  const getEmails = useCallback(async () => {
-    try {
-      const data = await customerApi.getCustomerEmails();
-
-      if (isMounted()) {
-        setEmails(data);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }, [isMounted]);
-
-  useEffect(() => {
-    getEmails();
-  }, [getEmails]);
 
   return (
     <Card {...props}>
@@ -93,23 +74,6 @@ export const CustomerEmailsSummary: FC = (props) => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {emails.map((email) => (
-            <TableRow
-              key={email.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell>
-                <Typography variant="subtitle2">
-                  {email.description}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                {format(email.createdAt, 'dd/MM/yyyy | HH:mm')}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
       </Table>
     </Card>
   );
