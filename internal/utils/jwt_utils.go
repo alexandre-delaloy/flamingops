@@ -2,9 +2,10 @@ package utils
 
 import (
 	"errors"
-	"log"
 	"os"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
@@ -28,11 +29,9 @@ func GetJWTSecretKey() string {
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-
-	return os.Getenv("JWT_KEY")
+	return os.Getenv("JWT_SECRET_KEY")
 }
 
-// GenerateToken generates a jwt token
 func (j *JwtWrapper) SignToken(userid uint) (signedToken string, err error) {
 	claims := &JwtClaim{
 		UserID: userid,
