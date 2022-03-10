@@ -9,14 +9,14 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func main() {
+func Start() {
 	ticker := time.NewTicker(24 * time.Hour)
 	for ; true; <-ticker.C {
-		sendMessages()
+		SendMessages()
 	}
 }
 
-func sendMessages() {
+func SendMessages() {
 	var users []models.User
 	if err := database.Db.Find(&users).Error; err != nil {
 		log.Error(err)

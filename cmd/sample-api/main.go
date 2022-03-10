@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/blyndusk/flamingops/internal/database"
+	"github.com/blyndusk/flamingops/internal/queue"
 	"github.com/blyndusk/flamingops/internal/router"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -16,6 +17,7 @@ import (
 func main() {
 	setupServer()
 	setupAwsSession()
+	queue.Start()
 }
 
 func setupServer() *gin.Engine {
