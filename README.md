@@ -59,7 +59,6 @@ Flamingops
   - [Ops](#ops)
   - [Back-end](#back-end)
   - [Front-end](#front-end)
-  - [Other](#other)
 - [Team Members](#team-members)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
@@ -85,8 +84,6 @@ These instructions will get you a copy of the project up and running on your loc
 * Make
 
 ## Installation
-> TODO: Write local installation instructions.
-
 First, do this:
 ```bash
 make init
@@ -109,6 +106,7 @@ See the Flamingops [Developer Documentation](https://github.com/blyndusk/flaming
 * [Docker](https://www.docker.com/) - PaaS product to deliver software in packages
 * [GitHub Actions](https://github.com/features/actions) - Automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub
 * [Go-yave](https://github.com/blyndusk/go-yave) - A Golang project-managed repository template
+* [Amazon Web Services (AWS)](https://aws.amazon.com/) - On-demand cloud computing platforms
 
 ## Back-end
 * [Golang](https://golang.org/) - Open source programming language
@@ -119,9 +117,6 @@ See the Flamingops [Developer Documentation](https://github.com/blyndusk/flaming
 
 ## Front-end
 * [Create React App](https://create-react-app.dev/) - Officially supported way to create single-page React applications
-
-## Other
-* [Amazon Web Services (AWS)](https://aws.amazon.com/) - On-demand cloud computing platforms
 
 # Team Members
 * **Alexandre Delaloy** - [blyndusk](https://github.com/blyndusk)
