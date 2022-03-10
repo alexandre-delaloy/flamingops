@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import AddPhotoIcon from '@mui/icons-material/AddPhotoAlternate';
-import { socialApi } from '../../../__fake-api__/social-api';
+import { socialApi } from '../../../api/social-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { SocialConnections } from '../../../components/dashboard/social/social-connections';

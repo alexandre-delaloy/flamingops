@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Grid } from '@mui/material';
-import { socialApi } from '../../../__fake-api__/social-api';
+import { socialApi } from '../../../api/social-api';
 import { useMounted } from '../../../hooks/use-mounted';
 import type { Profile, Post } from '../../../types/social';
 import { SocialPostAdd } from './social-post-add';

@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { format } from 'date-fns';
 import { Box, Button, Container, Grid, Link, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { orderApi } from '../../../__fake-api__/order-api';
+import { orderApi } from '../../../api/order-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { OrderItems } from '../../../components/dashboard/azure/order-items';

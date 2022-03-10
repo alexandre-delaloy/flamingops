@@ -18,7 +18,7 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { jobApi } from '../../../../__fake-api__/job-api';
+import { jobApi } from '../../../../api/job-api';
 import { AuthGuard } from '../../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../../components/dashboard/dashboard-layout';
 import { CompanyOverview } from '../../../../components/dashboard/jobs/company-overview';

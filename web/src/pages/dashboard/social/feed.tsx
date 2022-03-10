@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
-import { socialApi } from '../../../__fake-api__/social-api';
+import { socialApi } from '../../../api/social-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { SocialPostAdd } from '../../../components/dashboard/social/social-post-add';
