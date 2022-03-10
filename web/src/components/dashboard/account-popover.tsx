@@ -40,7 +40,7 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
     try {
       onClose?.();
       await logout();
-      router.push('/');
+      router.push('/dashboard');
     } catch (err) {
       console.error(err);
       toast.error('Unable to logout.');
