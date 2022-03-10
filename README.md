@@ -54,14 +54,11 @@ Flamingops
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Installation](#installation)
-  - [Deployment](#deployment)
 - [Documentation](#documentation)
-- [Known Issues](#known-issues)
 - [Built With](#built-with)
   - [Ops](#ops)
   - [Back-end](#back-end)
   - [Front-end](#front-end)
-  - [Other](#other)
 - [Team Members](#team-members)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
@@ -81,39 +78,32 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Requirements
 * Docker
+* Docker Compose
+* Golang
+* Node
+* Make
 
 ## Installation
-> TODO: Write local installation instructions.
-
 First, do this:
 ```bash
-docker run --rm -it -v ${PWD}:${PWD} -w ${PWD} koddr/cgapp:latest [COMMAND]
+make init
 ```
-then this:
-```
-# even more commands
-```
+Now with your browser of choice get to `127.0.0.1:3000` to access UI.
 
-Congratulations. You can now access to ...
-
-Now with your browser of choice get to `127.0.0.1/signup` to create an account. 
-
-Then go to `127.0.0.1/login` to enter your credentials and configure your account.
-
-## Deployment
-> TODO: Write deployment instructions.
+And get to `127.0.0.1:3333` to access API.
 
 # Documentation
 See the Flamingops [Developer Documentation](https://github.com/blyndusk/flamingops/wiki/) for information on classes and utility functions.
 
-# Known Issues
-- 
 
 # Built With
 ## Ops
+* [Kubernetes](https://kubernetes.io/) - Open-source system for automating deployment, scaling, and management of containerized applications
 * [Terraform](https://www.terraform.io/) - Open-source infrastructure as code software tool
 * [Docker](https://www.docker.com/) - PaaS product to deliver software in packages
+* [GitHub Actions](https://github.com/features/actions) - Automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub
 * [Go-yave](https://github.com/blyndusk/go-yave) - A Golang project-managed repository template
+* [Amazon Web Services (AWS)](https://aws.amazon.com/) - On-demand cloud computing platforms
 
 ## Back-end
 * [Golang](https://golang.org/) - Open source programming language
@@ -124,9 +114,6 @@ See the Flamingops [Developer Documentation](https://github.com/blyndusk/flaming
 
 ## Front-end
 * [Create React App](https://create-react-app.dev/) - Officially supported way to create single-page React applications
-
-## Other
-* [Amazon Web Services (AWS)](https://aws.amazon.com/) - On-demand cloud computing platforms
 
 # Team Members
 * **Alexandre Delaloy** - [blyndusk](https://github.com/blyndusk)
