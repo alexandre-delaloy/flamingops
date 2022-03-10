@@ -1,0 +1,6 @@
+* [Home](https://github.com/blyndusk/flamingops/blob/main/wiki/Home)
+* [Folder Structure](https://github.com/blyndusk/flamingops/blob/main/wiki/folder_structure)
+* [Project Setup](https://github.com/blyndusk/flamingops/blob/main/wiki/project_setup)
+* [Contributing](https://github.com/blyndusk/flamingops/blob/main/assets/docs/contributing)
+* [CI/CD, release and container registry](https://github.com/blyndusk/flamingops/blob/main/wiki/CI_CD)
+* [Conventions](https://github.com/blyndusk/flamingops/blob/main/wiki/conventions)
