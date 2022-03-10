@@ -38,6 +38,10 @@ Flamingops
      <a href="https://github.com/blyndusk/flamingops/actions/workflows/cd.ui.yml">
       <img src="https://github.com/blyndusk/flamingops/actions/workflows/cd.ui.yml/badge.svg"/>
     </a>
+     <a href="https://github.com/blyndusk/flamingops/actions/workflows/md.release.yml">
+      <img src="https://github.com/blyndusk/flamingops/actions/workflows/md.release.yml/badge.svg"/>
+    </a>
+
 </p>
 
 # Project Status
