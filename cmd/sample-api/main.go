@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/blyndusk/flamingops/internal/database"
+	"github.com/blyndusk/flamingops/internal/queue"
 	"github.com/blyndusk/flamingops/internal/router"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -16,6 +17,7 @@ import (
 func main() {
 	setupServer()
 	setupAwsSession()
+	queue.Start()
 }
 
 func setupServer() *gin.Engine {
@@ -42,7 +44,7 @@ func setupServer() *gin.Engine {
 
 func setupAwsSession() {
 	sess := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String("us-east-1"),
+		Region: aws.String("eu-west-3"),
 	}))
 	fmt.Println(sess)
 	log.Info("AWS Session created")
