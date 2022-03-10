@@ -2,14 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
-import { socialApi } from '../../../api/social-api';
+// import { socialApi } from '../../../api/social-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { SocialPostAdd } from '../../../components/dashboard/social/social-post-add';
 import { SocialPostCard } from '../../../components/dashboard/social/social-post-card';
 import { useMounted } from '../../../hooks/use-mounted';
 import { gtm } from '../../../lib/gtm';
-import type { Post } from '../../../types/social';
+// import type { Post } from '../../../types/social';
 
 const SocialFeed: NextPage = () => {
   const isMounted = useMounted();

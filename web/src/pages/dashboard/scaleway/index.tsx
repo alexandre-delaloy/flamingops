@@ -8,14 +8,14 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { customerApi } from '../../../api/customer-api';
+// import { customerApi } from '../../../api/customer-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 // import { OverviewLatestTransactions } from '../../../components/dashboard/overview/overview-latest-transactions';
 import { OverviewLatestTransactionsScaleway } from '../../../components/dashboard/overview/overview-latest-transactions-scaleway';
 import { useMounted } from '../../../hooks/use-mounted';
 import { gtm } from '../../../lib/gtm';
-import type { Customer } from '../../../types/customer';
+// import type { Customer } from '../../../types/customer';
 
 interface Filters {
   query?: string;

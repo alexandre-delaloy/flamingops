@@ -14,10 +14,10 @@ import {
   TablePagination,
   TableRow
 } from '@mui/material';
-import { customerApi } from '../../../api/customer-api';
+// import { customerApi } from '../../../api/customer-api';
 import { useMounted } from '../../../hooks/use-mounted';
 import { ArrowRight as ArrowRightIcon } from '../../../icons/arrow-right';
-import type { CustomerInvoice } from '../../../types/customer';
+// import type { CustomerInvoice } from '../../../types/customer';
 import { MoreMenu } from '../../more-menu';
 import { Scrollbar } from '../../scrollbar';
 import { SeverityPill } from '../../severity-pill';

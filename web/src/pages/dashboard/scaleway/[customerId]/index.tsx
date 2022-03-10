@@ -17,7 +17,7 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { customerApi } from '../../../../api/customer-api';
+// import { customerApi } from '../../../../api/customer-api';
 import { AuthGuard } from '../../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../../components/dashboard/dashboard-layout';
 import { CustomerBasicDetails } from '../../../../components/dashboard/scaleway/customer-basic-details';
@@ -30,7 +30,7 @@ import { useMounted } from '../../../../hooks/use-mounted';
 import { ChevronDown as ChevronDownIcon } from '../../../../icons/chevron-down';
 import { PencilAlt as PencilAltIcon } from '../../../../icons/pencil-alt';
 import { gtm } from '../../../../lib/gtm';
-import type { Customer } from '../../../../types/customer';
+// import type { Customer } from '../../../../types/customer';
 import { getInitials } from '../../../../utils/get-initials';
 
 const tabs = [

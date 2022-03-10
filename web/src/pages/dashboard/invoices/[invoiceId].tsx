@@ -15,7 +15,7 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { invoiceApi } from '../../../api/invoice-api';
+// import { invoiceApi } from '../../../api/invoice-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { InvoicePDF } from '../../../components/dashboard/invoice/invoice-pdf';
@@ -23,7 +23,7 @@ import { InvoicePreview } from '../../../components/dashboard/invoice/invoice-pr
 import { useMounted } from '../../../hooks/use-mounted';
 import { ArrowLeft as ArrowLeftIcon } from '../../../icons/arrow-left';
 import { gtm } from '../../../lib/gtm';
-import type { Invoice } from '../../../types/invoice';
+// import type { Invoice } from '../../../types/invoice';
 import { getInitials } from '../../../utils/get-initials';
 
 const InvoiceDetails: NextPage = () => {

@@ -11,9 +11,9 @@ import {
   TableCell,
   TableRow
 } from '@mui/material';
-import { customerApi } from '../../../api/customer-api';
+// import { customerApi } from '../../../api/customer-api';
 import { useMounted } from '../../../hooks/use-mounted';
-import type { CustomerLog } from '../../../types/customer';
+// import type { CustomerLog } from '../../../types/customer';
 import { MoreMenu } from '../../more-menu';
 import { Scrollbar } from '../../scrollbar';
 import { SeverityPill } from '../../severity-pill';
