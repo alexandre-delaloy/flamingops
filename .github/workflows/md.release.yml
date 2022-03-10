@@ -81,7 +81,6 @@ jobs:
           context: .
           file: build/package/web/Dockerfile.prod
           tags: ghcr.io/blyndusk/flamingops-ui:${{ github.event.inputs.tag }}
-          target: prod_build
 
         # output the logs
       - name: 4 - IMAGE DIGEST
