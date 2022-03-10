@@ -116,13 +116,13 @@ See the Flamingops [Developer Documentation](https://github.com/blyndusk/flaming
 * [Create React App](https://create-react-app.dev/) - Officially supported way to create single-page React applications
 
 # Team Members
-* **Alexandre Delaloy** - [blyndusk](https://github.com/blyndusk)
-* **Lucas Lehot** - [lucaslehot](https://github.com/lucaslehot)
-* **Cyrille Banovsky** - [Ban0vsky](https://github.com/Ban0vsky)
-* **Florian Brunet** - [Floadas](https://github.com/Floadas)
-* **Armand Benichou** - [ArmandBeni](https://github.com/ArmandBeni)
-* **Quentin Maillard** - [Tichyus](https://github.com/Tichyus)
-* **Corentin Boulanouar** - [Shawnuke](https://github.com/Shawnuke)
+* **Alexandre Delaloy** - [blyndusk](https://github.com/blyndusk) - DevOps (SRE) / Repository manager
+* **Lucas Lehot** - [lucaslehot](https://github.com/lucaslehot) - Lead Dev Back
+* **Cyrille Banovsky** - [Ban0vsky](https://github.com/Ban0vsky) - Lead Dev Front
+* **Florian Brunet** - [Floadas](https://github.com/Floadas) - Fullstack (Back-oriented)
+* **Armand Benichou** - [ArmandBeni](https://github.com/ArmandBeni) - Dev Front
+* **Quentin Maillard** - [Tichyus](https://github.com/Tichyus) - Fullstack (Back-oriented)
+* **Corentin Boulanouar** - [Shawnuke](https://github.com/Shawnuke) - Dev Front / Documenter 
 
 # Acknowledgments
 
