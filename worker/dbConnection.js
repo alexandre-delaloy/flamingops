@@ -1,27 +1,26 @@
 const { Client } = require('pg');
-const { RDS } = require('aws-sdk'); 
+// const { RDS } = require('aws-sdk'); 
 
-function setConnection(dbHostname, dbPort, dbUsername, dbName){
-  // TODO : use a config file
+function setConnection(dbHostname, dbPort, dbUsername, dbName, dbPassword, dbRegion){
   const signerOptions = {
     // credentials: {
     //   accessKeyId: 'YOUR-ACCESS-KEY',
     //   secretAccessKey: 'YOUR-SECRET-ACCESS-KEY',
     // },
-    region: 'eu-west-3',
+    region: dbRegion,
     hostname: dbHostname, //'example.aslfdewrlk.eu-west-3.rds.amazonaws.com'
     port: dbPort, //5432
     username: dbUsername, //'api-user'
   };
 
-  const signer = new RDS.Signer()
-  const getPassword = () => signer.getAuthToken(signerOptions)
+  // const signer = new RDS.Signer()
+  // const getPassword = () => signer.getAuthToken(signerOptions)
   const client = new Client({
     host: signerOptions.hostname,
     port: signerOptions.port,
     user: signerOptions.username,
     database: dbName,
-    password: getPassword,
+    password: dbPassword,
   });
   return client;
 }
