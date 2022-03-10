@@ -16,24 +16,24 @@ logs: ## Display logs of your containers
 lint: ## Lint go files
 	gofmt -e -l -s -w .
 
-build: ## build the go app
+build: ## Build the go app
 	go build cmd/sample-api/main.go
 
-init:
+init-web: ## Init the web app 
+	cd web ; npm i ; npm run build
+
+init: ## Init the app
 	make setup-env
 	make init-web
 	make start 
 	make logs
 
-init-web:
-	cd web ; npm i ; npm run build
 
-wiki:
-	cp -r docs/wiki ../flamingops.wiki
+wiki: ## Sync the wiki
+	cp -r docs/wiki/ ../flamingops.wiki/
 	cd ../flamingops.wiki
 	git add . 
 	git commit -m "wiki"
 	git push
 
 .PHONY: help
-
