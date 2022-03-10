@@ -21,10 +21,10 @@ func usersRoute(r *gin.Engine) {
 	// r.PUT("/users/:id", middlewares.JWTVerify(controllers.UpdateUser))
 	// r.DELETE("/users/:id", middlewares.JWTVerify(controllers.DeleteUser))
 
-	r.POST("/users/:id/display-preferences", controllers.CreateDisplayPreferences)
-	r.GET("/users/:id/display-preferences", controllers.GetDisplayPreferences)
-	r.PUT("/users/:id/display-preferences", controllers.UpdateDisplayPreferences)
-	r.DELETE("/users/:id/display-preferences", controllers.DeleteDisplayPreferences)
+	r.POST("/users/:id/display-preferences", controllers.CreateRequestedRegions)
+	r.GET("/users/:id/display-preferences", controllers.GetRequestedRegions)
+	r.PUT("/users/:id/display-preferences", controllers.UpdateRequestedRegions)
+	r.DELETE("/users/:id/display-preferences", controllers.DeleteRequestedRegions)
 
 	r.POST("/users/:id/active-services", controllers.CreateActiveServices)
 	r.GET("/users/:id/active-services", controllers.GetActiveServices)
@@ -38,6 +38,8 @@ func usersRoute(r *gin.Engine) {
 	r.POST("/users/:id/aws-services-data", controllers.CreateAwsServicesData)
 	r.GET("/users/:id/aws-services-data", controllers.GetAwsServicesData)
 	r.DELETE("/users/:id/aws-services-data", controllers.DeleteAwsServicesData)
+
+	r.POST("/users/:id/send-message", controllers.ManuallySendMessage)
 }
 
 func secretsManagerRoute(r *gin.Engine) {

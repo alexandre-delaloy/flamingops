@@ -7,7 +7,7 @@ import listIotHubs from "./listIotHubs"
 import listK8sClusters from "./listK8sClusters"
 import listLoadBalancers from "./listLoadBalancers"
 import listNamespaces from "./listNamespaces"
-import listRdbInstaces from "./listRdbInstaces"
+import listRdbInstances from "./listRdbInstances"
 import listVpcNetworks from "./listVpcNetworks"
 import serverlessContainers from "./serverlessContainers"
 import serverlessFunctions from "./serverlessFunctions"
@@ -22,7 +22,7 @@ export default {
     listK8sClusters,
     listLoadBalancers,
     listNamespaces,
-    listRdbInstaces,
+    listRdbInstances,
     listVpcNetworks,
     serverlessContainers,
     serverlessFunctions,

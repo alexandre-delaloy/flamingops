@@ -3,12 +3,13 @@ var AWS = require('aws-sdk');
 
 /**
  * Returns a list of aws s3 buckets from a given region
- *
+ * @param {string} accessKeyId 
+ * @param {string} secretAccessKey 
  * @param {string} region 
  * @return {object} 
  */
-export default function(region) {
-    AWS.config.update({region});
+ export default function(accessKeyId, secretAccessKey, region) {
+    AWS.config.update({accessKeyId, secretAccessKey, region});
     var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
     var params = {};

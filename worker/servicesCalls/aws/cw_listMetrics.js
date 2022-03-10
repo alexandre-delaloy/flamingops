@@ -2,13 +2,14 @@ var AWS = require('aws-sdk');
 
 /**
  * Returns aws cloudwatch metrics from a given region
- *
+ * @param {string} accessKeyId 
+ * @param {string} secretAccessKey 
  * @param {string} region 
  * @return {object} 
  */
-export default function(region) {
+export default function(accessKeyId, secretAccessKey, region) {
     // Set the region 
-    AWS.config.update({region});
+    AWS.config.update({accessKeyId, secretAccessKey, region});
     // Create CloudWatch service object
     var cw = new AWS.CloudWatch({apiVersion: '2010-08-01'});
 
