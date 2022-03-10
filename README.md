@@ -58,6 +58,9 @@ Flamingops
 - [Documentation](#documentation)
 - [Known Issues](#known-issues)
 - [Built With](#built-with)
+  - [Ops](#ops)
+  - [Back-end](#back-end)
+  - [Front-end](#front-end)
   - [Other](#other)
 - [Team Members](#team-members)
 - [Acknowledgments](#acknowledgments)
@@ -107,20 +110,19 @@ See the Flamingops [Developer Documentation](https://github.com/blyndusk/flaming
 - 
 
 # Built With
-The devops aspect of this project was made possible thanks to:
+## Ops
 * [Terraform](https://www.terraform.io/) - Open-source infrastructure as code software tool
 * [Docker](https://www.docker.com/) - PaaS product to deliver software in packages
+* [Go-yave](https://github.com/blyndusk/go-yave) - A Golang project-managed repository template
 
-The back-end part of this application is powered by:
+## Back-end
 * [Golang](https://golang.org/) - Open source programming language
-
-Hat tip to the following Golang dependencies:
 * [AWS SDK for Go](https://github.com/aws/aws-sdk-go) - Official AWS SDK for the Go programming language
 * [sw sdk]() - Unofficial ScaleWay SDK for the Go programming language
 * [Jwt-go](https://github.com/dgrijalva/jwt-go) - Golang implementation of JSON Web Tokens
 * [gin-gonic](https://github.com/gin-gonic/gin) - HTTP web framework written in Go
 
-The front-end part of this application is powered by:
+## Front-end
 * [Create React App](https://create-react-app.dev/) - Officially supported way to create single-page React applications
 
 ## Other
