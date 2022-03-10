@@ -173,14 +173,19 @@ const CustomerList: NextPage = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Grid item>
-            <Typography variant="h4">
-              Scaleway
-              {/* {data.name === 'Scaleway' && <Scaleway />}
-              {data.name === 'AWS' && <AWS />}
-              {data.name === 'OVH' && <OVH />} */}
-            </Typography>
-          </Grid>
+          <Box sx={{ mb: 4 }}>
+              <Grid
+                container
+                justifyContent="space-between"
+                spacing={3}
+              >
+                <Grid item>
+                  <Typography variant="h4">
+                    Scaleway
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
           <OverviewLatestTransactionsScaleway />
         </Container>
       </Box>

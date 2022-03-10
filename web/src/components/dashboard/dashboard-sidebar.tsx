@@ -44,11 +44,6 @@ const getSections = (t: TFunction): Section[] => [
         icon: <HomeIcon fontSize="small" />
       },
       {
-        title: t('Analytics'),
-        path: '/dashboard/analytics',
-        icon: <ChartBarIcon fontSize="small" />
-      },
-      {
         title: t('Account'),
         path: '/dashboard/account',
         icon: <UserCircleIcon fontSize="small" />
@@ -67,10 +62,6 @@ const getSections = (t: TFunction): Section[] => [
             title: t('List'),
             path: '/dashboard/scaleway'
           },
-          // {
-          //   title: t('Details'),
-          //   path: '/dashboard/scaleway/1'
-          // },
         ]
       },
       {
@@ -82,17 +73,8 @@ const getSections = (t: TFunction): Section[] => [
             title: t('List'),
             path: '/dashboard/AWS'
           },
-          // {
-          //   title: t('Details'),
-          //   path: '/dashboard/AWS/1'
-          // },
         ]
       },
-      {
-        title: t('GCP settings'),
-        path: '/dashboard/invoices',
-        icon: <ReceiptTaxIcon fontSize="small" />,
-      }
     ]
   },
 ];
@@ -178,13 +160,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = (props) => {
                     Corentin Boulanouar
                   </Typography>
                 </div>
-                {/* <SelectorIcon
-                  sx={{
-                    color: 'neutral.500',
-                    width: 14,
-                    height: 14
-                  }}
-                /> */}
               </Box>
             </Box>
           </div>

@@ -6,57 +6,58 @@ import { Box, Button, Card, Container, Grid, Typography } from '@mui/material';
 // import { productApi } from '../../../api/product-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
-import { ProjectListFilters } from '../../../components/dashboard/AWS/product-list-filters';
-import type { Filters } from '../../../components/dashboard/AWS/product-list-filters';
-import { ProductListTable } from '../../../components/dashboard/AWS/product-list-table';
+// import { ProjectListFilters } from '../../../components/dashboard/AWS/product-list-filters';
+// import type { Filters } from '../../../components/dashboard/AWS/product-list-filters';
+// import { ProductListTable } from '../../../components/dashboard/AWS/product-list-table';
 import { useMounted } from '../../../hooks/use-mounted';
 import { Download as DownloadIcon } from '../../../icons/download';
 import { Upload as UploadIcon } from '../../../icons/upload';
 import { Plus as PlusIcon } from '../../../icons/plus';
 import { gtm } from '../../../lib/gtm';
+import { OverviewLatestTransactions } from 'src/components/dashboard/overview/overview-latest-transactions';
 // import type { Product } from '../../../types/product';
 
-const applyFilters = (
-  products: Product[],
-  filters: Filters
-): Product[] => products.filter((product) => {
-  if (filters.name) {
-    const nameMatched = product.name.toLowerCase().includes(filters.name.toLowerCase());
+// const applyFilters = (
+//   products: Product[],
+//   filters: Filters
+// ): Product[] => products.filter((product) => {
+//   if (filters.name) {
+//     const nameMatched = product.name.toLowerCase().includes(filters.name.toLowerCase());
 
-    if (!nameMatched) {
-      return false;
-    }
-  }
+//     if (!nameMatched) {
+//       return false;
+//     }
+//   }
 
-  // It is possible to select multiple category options
-  if (filters.category?.length > 0) {
-    const categoryMatched = filters.category.includes(product.category);
+//   // It is possible to select multiple category options
+//   if (filters.category?.length > 0) {
+//     const categoryMatched = filters.category.includes(product.category);
 
-    if (!categoryMatched) {
-      return false;
-    }
-  }
+//     if (!categoryMatched) {
+//       return false;
+//     }
+//   }
 
-  // It is possible to select multiple status options
-  if (filters.status?.length > 0) {
-    const statusMatched = filters.status.includes(product.status);
+//   // It is possible to select multiple status options
+//   if (filters.status?.length > 0) {
+//     const statusMatched = filters.status.includes(product.status);
 
-    if (!statusMatched) {
-      return false;
-    }
-  }
+//     if (!statusMatched) {
+//       return false;
+//     }
+//   }
 
-  // Present only if filter required
-  if (typeof filters.inStock !== 'undefined') {
-    const stockMatched = product.inStock === filters.inStock;
+//   // Present only if filter required
+//   if (typeof filters.inStock !== 'undefined') {
+//     const stockMatched = product.inStock === filters.inStock;
 
-    if (!stockMatched) {
-      return false;
-    }
-  }
+//     if (!stockMatched) {
+//       return false;
+//     }
+//   }
 
-  return true;
-});
+//   return true;
+// });
 
 const applyPagination = (
   products: Product[],
@@ -113,14 +114,14 @@ const ProductList: NextPage = () => {
   };
 
   // Usually query is done on backend with indexing solutions
-  const filteredProducts = applyFilters(products, filters);
-  const paginatedProducts = applyPagination(filteredProducts, page, rowsPerPage);
+  // const filteredProducts = applyFilters(products, filters);
+  // const paginatedProducts = applyPagination(filteredProducts, page, rowsPerPage);
 
   return (
     <>
       <Head>
         <title>
-          Dashboard: Product List | Material Kit Pro
+          Dashboard: Product List
         </title>
       </Head>
       <Box
@@ -139,54 +140,13 @@ const ProductList: NextPage = () => {
             >
               <Grid item>
                 <Typography variant="h4">
-                  Products
+                  AWS
                 </Typography>
               </Grid>
-              <Grid item>
-                <NextLink
-                  href="/dashboard/products/new"
-                  passHref
-                >
-                  <Button
-                    component="a"
-                    startIcon={<PlusIcon fontSize="small" />}
-                    variant="contained"
-                  >
-                    Add
-                  </Button>
-                </NextLink>
-              </Grid>
             </Grid>
-            <Box
-              sx={{
-                m: -1,
-                mt: 3
-              }}
-            >
-              <Button
-                startIcon={<UploadIcon fontSize="small" />}
-                sx={{ m: 1 }}
-              >
-                Import
-              </Button>
-              <Button
-                startIcon={<DownloadIcon fontSize="small" />}
-                sx={{ m: 1 }}
-              >
-                Export
-              </Button>
-            </Box>
           </Box>
           <Card>
-            <ProjectListFilters onChange={handleFiltersChange} />
-            <ProductListTable
-              onPageChange={handlePageChange}
-              onRowsPerPageChange={handleRowsPerPageChange}
-              page={page}
-              products={paginatedProducts}
-              productsCount={filteredProducts.length}
-              rowsPerPage={rowsPerPage}
-            />
+            <OverviewLatestTransactions />
           </Card>
         </Container>
       </Box>
