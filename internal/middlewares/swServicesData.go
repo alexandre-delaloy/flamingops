@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"net/http"
 
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/pkg/helpers"
@@ -10,21 +9,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateSwServicesData(c *gin.Context, input *models.SwServicesDataInput) {
-	if err := c.ShouldBindJSON(&input); err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
-	}
-
+func CreateSwServicesData(c *gin.Context, input *models.SwServicesDataInput) (error) {
 	swServicesData := hydrateSwServicesData(input)
 	if err := database.Db.Create(&swServicesData).Error; err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
+		return err
 	}
+	return nil
 }
 
 func GetSwServicesData(c *gin.Context, swServicesData *models.SwServicesData) {

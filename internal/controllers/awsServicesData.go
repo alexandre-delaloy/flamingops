@@ -9,12 +9,6 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func CreateAwsServicesData(c *gin.Context) {
-	var input models.AwsServicesDataInput
-	middlewares.CreateAwsServicesData(c, &input)
-	c.JSON(http.StatusOK, input)
-}
-
 func GetAwsServicesData(c *gin.Context) {
 	var awsServicesData models.AwsServicesData
 	middlewares.GetAwsServicesData(c, &awsServicesData)

@@ -9,12 +9,6 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func CreateSwServicesData(c *gin.Context) {
-	var input models.SwServicesDataInput
-	middlewares.CreateSwServicesData(c, &input)
-	c.JSON(http.StatusOK, input)
-}
-
 func GetSwServicesData(c *gin.Context) {
 	var swServicesData models.SwServicesData
 	middlewares.GetSwServicesData(c, &swServicesData)

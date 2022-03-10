@@ -10,21 +10,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateActiveServices(c *gin.Context, input *models.ActiveServicesInput) {
-	if err := c.ShouldBindJSON(&input); err != nil {
-		log.Error(err)
-		httpStatus, response := helpers.ErrorToJson(http.StatusBadRequest, err.Error())
-		c.JSON(httpStatus, response)
-		return
-	}
-
+func CreateActiveServices(c *gin.Context, input *models.ActiveServicesInput) error {
 	activeServices := hydrateActiveServices(input)
 	if err := database.Db.Create(&activeServices).Error; err != nil {
 		log.Error(err)
-		httpStatus, response := helpers.GormErrorResponse(err)
-		c.JSON(httpStatus, response)
-		return
+		return err
 	}
+	return nil
 }
 
 func GetActiveServices(c *gin.Context, activeServices *models.ActiveServices) {

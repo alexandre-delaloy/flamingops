@@ -9,12 +9,6 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 )
 
-func CreateActiveServices(c *gin.Context) {
-	var input models.ActiveServicesInput
-	middlewares.CreateActiveServices(c, &input)
-	c.JSON(http.StatusOK, input)
-}
-
 func GetActiveServices(c *gin.Context) {
 	var activeServices models.ActiveServices
 	middlewares.GetActiveServices(c, &activeServices)
