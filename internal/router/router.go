@@ -21,10 +21,10 @@ func usersRoute(r *gin.Engine) {
 	// r.PUT("/users/:id", middlewares.JWTVerify(controllers.UpdateUser))
 	// r.DELETE("/users/:id", middlewares.JWTVerify(controllers.DeleteUser))
 
-	r.POST("/users/:id/display-preferences", controllers.CreateRequestedRegions)
-	r.GET("/users/:id/display-preferences", controllers.GetRequestedRegions)
-	r.PUT("/users/:id/display-preferences", controllers.UpdateRequestedRegions)
-	r.DELETE("/users/:id/display-preferences", controllers.DeleteRequestedRegions)
+	r.POST("/users/:id/requested-regions", controllers.CreateRequestedRegions)
+	r.GET("/users/:id/requested-regions", controllers.GetRequestedRegions)
+	r.PUT("/users/:id/requested-regions", controllers.UpdateRequestedRegions)
+	r.DELETE("/users/:id/requested-regions", controllers.DeleteRequestedRegions)
 
 	r.POST("/users/:id/active-services", controllers.CreateActiveServices)
 	r.GET("/users/:id/active-services", controllers.GetActiveServices)
