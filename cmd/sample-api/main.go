@@ -47,4 +47,3 @@ func setupAwsSession() {
 	fmt.Println(sess)
 	log.Info("AWS Session created")
 }
-
