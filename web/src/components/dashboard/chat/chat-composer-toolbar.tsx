@@ -16,7 +16,7 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { chatApi } from '../../../__fake-api__/chat-api';
+import { chatApi } from '../../../api/chat-api';
 import { Search as SearchIcon } from '../../../icons/search';
 import type { Contact } from '../../../types/chat';
 import { Scrollbar } from '../../scrollbar';

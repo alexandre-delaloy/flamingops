@@ -16,7 +16,7 @@ import {
   Paper,
   Typography
 } from '@mui/material';
-import { socialApi } from '../../../__fake-api__/social-api';
+import { socialApi } from '../../../api/social-api';
 import { useMounted } from '../../../hooks/use-mounted';
 import { DotsHorizontal as DotsHorizontalIcon } from '../../../icons/dots-horizontal';
 import { Search as SearchIcon } from '../../../icons/search';

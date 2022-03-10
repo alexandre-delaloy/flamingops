@@ -14,7 +14,7 @@ import {
   Link,
   Typography
 } from '@mui/material';
-import { jobApi } from '../../../__fake-api__/job-api';
+import { jobApi } from '../../../api/job-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { JobsBrowseFilter } from '../../../components/dashboard/jobs/jobs-browse-filter';

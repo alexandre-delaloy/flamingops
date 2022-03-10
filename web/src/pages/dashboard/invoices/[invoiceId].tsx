@@ -15,7 +15,7 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { invoiceApi } from '../../../__fake-api__/invoice-api';
+import { invoiceApi } from '../../../api/invoice-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { InvoicePDF } from '../../../components/dashboard/invoice/invoice-pdf';

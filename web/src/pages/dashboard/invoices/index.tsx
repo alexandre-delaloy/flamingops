@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import type { Theme } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { invoiceApi } from '../../../__fake-api__/invoice-api';
+import { invoiceApi } from '../../../api/invoice-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 import { InvoiceListFilters } from '../../../components/dashboard/invoice/invoice-list-filters';

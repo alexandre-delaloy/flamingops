@@ -11,7 +11,7 @@ import type { Participant, Thread } from '../../../types/chat';
 import { ChatMessageAdd } from './chat-message-add';
 import { ChatMessages } from './chat-messages';
 import { ChatThreadToolbar } from './chat-thread-toolbar';
-import { chatApi } from '../../../__fake-api__/chat-api';
+import { chatApi } from '../../../api/chat-api';
 
 interface ChatThreadProps {
   threadKey: string;

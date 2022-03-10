@@ -8,7 +8,7 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { customerApi } from '../../../__fake-api__/customer-api';
+import { customerApi } from '../../../api/customer-api';
 import { AuthGuard } from '../../../components/authentication/auth-guard';
 import { DashboardLayout } from '../../../components/dashboard/dashboard-layout';
 // import { OverviewLatestTransactions } from '../../../components/dashboard/overview/overview-latest-transactions';
