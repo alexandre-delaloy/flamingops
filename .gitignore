@@ -7,3 +7,4 @@ docker-compose.yml
 
 cmd/sample-api/sample-api
 main
+**/.DS_Store
