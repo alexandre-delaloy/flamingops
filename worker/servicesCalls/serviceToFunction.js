@@ -1,5 +1,5 @@
-import awsServicesCalls from "./servicesCalls/aws";
-import swServicesCalls from "./servicesCalls/sw";
+import awsServicesCalls from "./aws/index.js";
+import swServicesCalls from "./scw/index.js";
 
 export default {
   cloudwatch: {

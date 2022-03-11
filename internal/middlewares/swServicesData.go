@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/pkg/helpers"
 	"github.com/blyndusk/flamingops/pkg/models"
@@ -9,7 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func CreateSwServicesData(c *gin.Context, input *models.SwServicesDataInput) (error) {
+func CreateSwServicesData(c *gin.Context, input *models.SwServicesDataInput) error {
 	swServicesData := hydrateSwServicesData(input)
 	if err := database.Db.Create(&swServicesData).Error; err != nil {
 		log.Error(err)

@@ -1,6 +1,8 @@
 import serviceToFunction from './servicesCalls/serviceToFunction.js';
-import SecretsManager from './secretsManager.js';
-import { setConnection, updateDb } from './dbConnection.js'
+import SecretsManager from './secretsManager.cjs';
+import updateDb from './dbConnection.cjs';
+import setConnection from './dbConnection.cjs';
+
 
 // 1. - Récupérer le payload du message
 // 2. - Récupérer les credentials de l'utilisateur sur Secrets Manager
@@ -8,6 +10,7 @@ import { setConnection, updateDb } from './dbConnection.js'
 // 4. - Stocker les résultats dans rds
 
 exports.handler = async function(event) {
+  
   // 1. - Récupérer le payload du message
   const clientName = event.clientName;
   const clientId = event.clientId;
@@ -26,7 +29,7 @@ exports.handler = async function(event) {
     aws: {},
     sw: {},
   };
-  foreach(requestedServices, function(service) {
+  requestedServices.foreach(async function(service) {
     switch (serviceToFunction[service].cloud) {
       case 'aws':
         servicesData.aws[service] = await serviceToFunction[service].function(
