@@ -26,15 +26,15 @@ func usersRoute(r *gin.Engine) {
 	r.PUT("/user/requested-regions", middlewares.JWTVerify(controllers.UpdateRequestedRegions))
 	r.DELETE("/user/requested-regions", middlewares.JWTVerify(controllers.DeleteRequestedRegions))
 
-	r.GET("/user/active-services",  middlewares.JWTVerify(controllers.GetActiveServices))
-	r.PUT("/user/active-services",  middlewares.JWTVerify(controllers.UpdateActiveServices))
-	r.DELETE("/user/active-services",  middlewares.JWTVerify(controllers.DeleteActiveServices))
+	r.GET("/user/active-services", middlewares.JWTVerify(controllers.GetActiveServices))
+	r.PUT("/user/active-services", middlewares.JWTVerify(controllers.UpdateActiveServices))
+	r.DELETE("/user/active-services", middlewares.JWTVerify(controllers.DeleteActiveServices))
 
-	r.GET("/user/sw-services-data",  middlewares.JWTVerify(controllers.GetSwServicesData))
-	r.DELETE("/user/sw-services-data",  middlewares.JWTVerify(controllers.DeleteSwServicesData))
+	r.GET("/user/sw-services-data", middlewares.JWTVerify(controllers.GetSwServicesData))
+	r.DELETE("/user/sw-services-data", middlewares.JWTVerify(controllers.DeleteSwServicesData))
 
 	r.GET("/user/aws-services-data", middlewares.JWTVerify(controllers.GetAwsServicesData))
-	r.DELETE("/user/aws-services-data",  middlewares.JWTVerify(controllers.DeleteAwsServicesData))
+	r.DELETE("/user/aws-services-data", middlewares.JWTVerify(controllers.DeleteAwsServicesData))
 
 	r.POST("/user/send-message", middlewares.JWTVerify(controllers.ManuallySendMessage))
 }

@@ -28,5 +28,5 @@ func JWTVerify(next gin.HandlerFunc) gin.HandlerFunc {
 
 		c.Set("userId", Claims.UserID)
 		next(c)
-	}		
+	}
 }

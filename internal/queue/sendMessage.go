@@ -2,8 +2,8 @@ package queue
 
 import (
 	"fmt"
-	"time"
 	"strings"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -36,21 +36,21 @@ func HandleMessageCreation(user *models.User) {
 		log.Error(err)
 		return
 	}
-	
+
 	if len(activeServices.AwsServices) == 0 && len(activeServices.SwServices) == 0 {
 		return
 	}
-	
+
 	var requestedRegions models.RequestedRegions
 	if err := database.Db.Where("user_id = ?", user.Id).First(&requestedRegions).Error; err != nil {
 		log.Error(err)
 		return
 	}
-	
+
 	if requestedRegions.AwsRegion == "" && requestedRegions.SwRegion == "" {
 		return
 	}
-	
+
 	// Create a session that gets credential values from ~/.aws/credentials
 	// and the default region from ~/.aws/config
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
@@ -135,9 +135,9 @@ func SendMsg(sess *session.Session, queueURL *string, clientName string, clientI
 				StringValue: aws.String(requestedSwRegion),
 			},
 		},
-		MessageBody: aws.String("This is the message body."),
-		QueueUrl:    queueURL,
-		MessageGroupId: aws.String("1"),
+		MessageBody:            aws.String("This is the message body."),
+		QueueUrl:               queueURL,
+		MessageGroupId:         aws.String("1"),
 		MessageDeduplicationId: aws.String(clientName),
 	})
 
