@@ -10,8 +10,8 @@ import { AccountTeamSettings } from '../../components/dashboard/account/account-
 import { gtm } from '../../lib/gtm';
 
 const tabs = [
-  { label: 'General', value: 'general' },
-  { label: 'Team', value: 'team' },
+  { label: 'Secret manager', value: 'Secret manager' },
+  { label: 'Preferences', value: 'Preferences' },
 ];
 
 const Account: NextPage = () => {
@@ -61,8 +61,8 @@ const Account: NextPage = () => {
             ))}
           </Tabs>
           <Divider sx={{ mb: 3 }} />
-          {currentTab === 'general' && <AccountGeneralSettings />}
-          {currentTab === 'team' && <AccountTeamSettings />}
+          {currentTab === 'Secret manager' && <AccountGeneralSettings />}
+          {currentTab === 'Preferences' && <AccountTeamSettings />}
         </Container>
       </Box>
     </>

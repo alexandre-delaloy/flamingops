@@ -3,16 +3,6 @@
 
 // import { wait } from '../utils/wait';
 
-// const users = [
-//     {
-//         id: '5e86809283e28b96d2d38537',
-//         avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
-//         email: 'johndoe',
-//         name: 'francis  valla',
-//         password: 'secret',
-//         plan: 'Premium',
-//     },
-// ];
 
 // class AuthApi {
 //     async login({ username, mail, password }): Promise<any> {
