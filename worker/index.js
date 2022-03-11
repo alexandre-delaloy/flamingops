@@ -1,7 +1,7 @@
 import serviceToFunction from './servicesCalls/serviceToFunction.js';
-import SecretsManager from './secretsManager.js';
-import updateDb from './dbConnection.js';
-import setConnection from './dbConnection.js';
+import SecretsManager from './secretsManager.cjs';
+import updateDb from './dbConnection.cjs';
+import setConnection from './dbConnection.cjs';
 
 
 // 1. - Récupérer le payload du message
