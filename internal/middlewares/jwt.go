@@ -3,7 +3,6 @@ package middlewares
 import (
 	"net/http"
 	"strings"
-	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/utils"
 	"github.com/gin-gonic/gin"
@@ -19,7 +18,7 @@ func JWTVerify(next gin.HandlerFunc) gin.HandlerFunc {
 			Issuer:    "AuthService",
 		}
 
-		claims, err := jwtWrapper.ValidateToken(jwtString)
+		Claims, err := jwtWrapper.ValidateToken(jwtString)
 		log.Error(err)
 
 		if err != nil {
@@ -27,18 +26,7 @@ func JWTVerify(next gin.HandlerFunc) gin.HandlerFunc {
 			return
 		}
 
-
-		i64, err := strconv.ParseUint(c.Params.ByName("id"), 10, 64)
-		if err != nil {
-			c.JSON(http.StatusUnauthorized, "mistakes were made")
-			return
-		}
-
-		if claims.UserID != uint(i64) {
-			c.JSON(http.StatusUnauthorized, "wrong id")
-			return
-		}
-
+		c.Set("userId", Claims.UserID)
 		next(c)
-	}
+	}		
 }
