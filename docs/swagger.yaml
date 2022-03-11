@@ -13,45 +13,18 @@ info:
 
 # tags are used for organizing operations
 tags:
-- name: users
+- name: user
   description: Regular user using web service
+- name: web-service
+  description: AWS + SCW  
+- name: secrets
+  description: Secrets used for lambda
 
 paths:
-  /register:
-    post:
-      tags:
-      - users
-      summary: register 
-      operationId: register
-      description: |
-        Registers a new user
-      parameters:
-      - in: query
-        name: username
-        description: The desired username for the new user
-        required: true
-        type: string
-      - in: query
-        name: mail
-        description: The desired mail for the new user
-        required: true
-        type: string        
-      - in: query
-        name: password
-        description: The desired password's hash for the new user
-        required: true
-        type: string
-      responses:
-        201:
-          description: user created
-        400:
-          description: invalid input, object invalid
-        409:
-          description: an existing user already exists
   /login:
     post:
       tags:
-      - users
+      - login
       summary: login   
       operationId: login
       description: |
@@ -59,7 +32,7 @@ paths:
       parameters:
       - in: query
         name: username
-        description: The user's usernam
+        description: The user's username
         required: true
         type: string
       - in: query
@@ -70,187 +43,330 @@ paths:
       responses:
         201:
           description: login successful
-        400:
-          description: invalid input, object invalid
-  /user/update:
+          
+  /secrets:
+    post:
+      tags:
+      - secrets
+      summary: secrets 
+      operationId: CreateSecret
+      description: |
+        Create secret
+      parameters:
+      - in: query
+        name: name
+        description: The desired name for the secret creation
+        required: true
+        type: string
+      - in: query
+        name: secretString
+        description: The desired string for the secret creation
+        required: true
+        type: string
+      responses:
+        201:
+          description: secret request succeed
     put:
       tags:
-      - users
-      summary: update user 
-      operationId: userUpdate
+      - secrets
+      summary: secrets 
+      operationId: UpdateSecret
       description: |
-        Registers a new user
+        Update secret
+      parameters:
+      - in: query
+        name: secretName
+        description: The desired name for the secret update
+        required: true
+        type: string
+      - in: query
+        name: name
+        description: The desired name for the secret update
+        required: true
+        type: string
+      - in: query
+        name: secretString
+        description: The desired string for the secret update
+        required: true
+        type: string
+      responses:
+        201:
+          description: secret successfully updated
+    delete:
+      tags:
+      - secrets
+      summary: secrets 
+      operationId: DeleteSecret
+      description: |
+        Delete user
+      parameters:
+      - in: query
+        name: secretName
+        description: The desired name for the secret update
+        required: true
+        type: string
+      responses:
+        201:
+          description: secret successfully deleted          
+
+  /user:
+    get:
+      tags:
+      - user
+      summary: user 
+      operationId: GetUser
+      description: |
+        Get user by ID
       parameters:
       - in: query
         name: id
-        description: The requested user's id
+        description: The desired id for the requested user
         required: true
-        type: integer
+        type: string
+      responses:
+        201:
+          description: user request succeed
+    post:
+      tags:
+      - user
+      summary: user 
+      operationId: CreateUser
+      description: |
+        Create user
+      parameters:
+      - in: query
+        name: username
+        description: The desired username for the created user
+        required: true
+        type: string
+      - in: query
+        name: password
+        description: The desired password for the created user
+        required: true
+        type: string
+      - in: query
+        name: mail
+        description: The desired mail for the created user
+        required: true
+        type: string
+      responses:
+        201:
+          description: user successfully requested
+    put:
+      tags:
+      - user
+      summary: user 
+      operationId: UpdateUser
+      description: |
+        Update user
+      parameters:
+      - in: query
+        name: id
+        description: The desired id for the updated user
+        required: true
+        type: string
       - in: query
         name: username
         description: The desired username for the updated user
-        required: false
+        required: true
+        type: string
+      - in: query
+        name: password
+        description: The desired password for the updated user
+        required: true
         type: string
       - in: query
         name: mail
         description: The desired mail for the updated user
-        required: false
-        type: string        
-      - in: query
-        name: password
-        description: The desired password's hash for the updated user
-        required: false
+        required: true
         type: string
       responses:
         201:
-          description: user updated
-        400:
-          description: invalid input, object invalid
-          
-  /user/providers:
-    post:
-      tags:
-      - users
-      summary: create provider connection
-      operationId: createProvider
-      description: |
-        Registers a new provider connection
-      parameters:
-      - in: query
-        name: id
-        description: The requested user's id
-        required: true
-        type: integer
-      - in: query
-        name: provider
-        description: The requested provider
-        required: true
-        type: string
-      - in: query
-        name: credentials
-        description: The required credentials
-        required: true
-        type: array
-        items: {}
-      responses:
-        201:
-          description: provider connection created
-        400:
-          description: invalid input, object invalid
-        
-    put:
-      tags:
-      - users
-      summary: update provider connection
-      operationId: updateProvider
-      description: |
-        Updates an existing provider connection
-      parameters:
-      - in: query
-        name: id
-        description: The requested user's id
-        required: true
-        type: integer
-      - in: query
-        name: provider
-        description: The requested provider
-        required: true
-        type: string
-      - in: query
-        name: credentials
-        description: The required credentials
-        required: true
-        type: array
-        items: {}
-      responses:
-        201:
-          description: provider connection updated
-        400:
-          description: invalid input, object invalid
-          
+          description: user successfully updated
     delete:
       tags:
-      - users
-      summary: delete provider connection
-      operationId: deleteProvider
+      - user
+      summary: user 
+      operationId: DeleteUser
       description: |
-        Deletes an existing provider connection
+        Delete user
       parameters:
       - in: query
         name: id
-        description: The requested user's id
-        required: true
-        type: integer
-      - in: query
-        name: provider
-        description: The requested provider
+        description: The desired id for the requested user
         required: true
         type: string
       responses:
         201:
-          description: provider connection deleted
-        400:
-          description: invalid input, object invalid
-          
-  /active-services:
+          description: user successfully deleted
+        
+        
+  /user/requested-regions:
     get:
       tags:
-      - users
-      summary: get active services
-      operationId: getActiveServices
+      - user
+      summary: user 
+      operationId: GetUserRequestedRegions
       description: |
-        Gets all users' active services
+        Get region by user ID
       parameters:
       - in: query
-        name: id
-        description: The requested user's id
+        name: user_id
+        description: The desired user id for the requested region
         required: true
-        type: integer
+        type: string
       responses:
         201:
-          description: provider connection created
-        400:
-          description: invalid input, object invalid
-  
-  /active-services/refresh:
-    post:
+          description: region request succeed
+    put:
       tags:
-      - users
-      summary: refresh active services
-      operationId: refreshActiveServices
+      - user
+      summary: user 
+      operationId: UpdateUserRequestedRegions
       description: |
-        Sends a job to the workers queue
+        Update region
       parameters:
       - in: query
-        name: id
-        description: The requested user's id
+        name: user_id
+        description: The desired id for the requested region
         required: true
-        type: integer
+        type: string
       responses:
         201:
-          description: job successfully sent
-        400:
-          description: invalid input, object invalid
-
-  /active-services/check-update:
+          description: region successfully updated
+    delete:
+      tags:
+      - user
+      summary: user 
+      operationId: DeleteUserRequestedRegions
+      description: |
+        Delete region
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired id for the requested region
+        required: true
+        type: string
+      responses:
+        201:
+          description: region successfully deleted
+        
+  /user/active-services:
     get:
       tags:
-      - users
-      summary: check user status
-      operationId: checkUserStatus
+      - user
+      summary: user 
+      operationId: GetUserActiveService
       description: |
-        Sends a job to the workers queue
+        Get active service by ID
       parameters:
       - in: query
-        name: id
-        description: The requested user's id
+        name: user_id
+        description: The desired user id for the active service
         required: true
-        type: integer
+        type: string
       responses:
         201:
-          description: job successfully sent
-        400:
-          description: invalid input, object invalid
+          description: active service request succeed
+    put:
+      tags:
+      - user
+      summary: user 
+      operationId: UpdateUserActiveService
+      description: |
+        Update active service
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired id for the active service
+        required: true
+        type: string
+      responses:
+        201:
+          description: active service successfully updated
+    delete:
+      tags:
+      - user
+      summary: user 
+      operationId: DeleteUserActiveService
+      description: |
+        Delete user
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired id for the active service
+        required: true
+        type: string
+      responses:
+        201:
+          description: active service successfully deleted
+        
+  /user/aws-service-data:
+    get:
+      tags:
+      - web-service
+      summary: web-service
+      operationId: GetAwsServiceData
+        Get AWS service data by ID
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired user id for the AWS service data
+        required: true
+        type: string
+      responses:
+        201:
+          description: AWS service data request succeed
+    delete:
+      tags:
+      - web-service
+      summary: web-service 
+      operationId: DeleteAwsServiceData
+      description: |
+        Delete user
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired id for the active serAWS service datavice
+        required: true
+        type: string
+      responses:
+        201:
+          description: AWS service data successfully deleted
+        
+  /user/sw-service-data:
+    get:
+      tags:
+      - web-service
+      summary: web-service
+      operationId: GetScwServiceData
+      description: |
+        Get SCW service data by ID
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired user id for the SCW service data
+        required: true
+        type: string
+      responses:
+        201:
+          description: SCW service data request succeed
+    delete:
+      tags:
+      - web-service
+      summary: web-service 
+      operationId: DeleteScwServiceData
+      description: |
+        Delete user
+      parameters:
+      - in: query
+        name: user_id
+        description: The desired id for the SCW service data
+        required: true
+        type: string
+      responses:
+        201:
+          description: SCW service data successfully deleted
         
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
