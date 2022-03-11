@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"errors"
-	"strconv"
 
 	"github.com/blyndusk/flamingops/internal/database"
 	"github.com/blyndusk/flamingops/internal/utils"
@@ -16,7 +15,7 @@ func CreateUser(c *gin.Context, input *models.UserInput) (*models.User, error) {
 	// Check if user already exists
 	var mailCheck models.User
 	database.Db.Where("Mail = ?", &input.Mail).First(&mailCheck)
-	if mailCheck.Id != 0 { 
+	if mailCheck.Id != 0 {
 		log.Error("e-mail already used")
 		return nil, errors.New("e-mail already used")
 	}
@@ -62,7 +61,7 @@ func GetAllUsers(c *gin.Context, users *models.Users) {
 }
 
 func GetUserById(c *gin.Context, user *models.User) {
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&user).Error; err != nil {
+	if err := database.Db.Where("id = ?", c.GetUint("userId")).First(&user).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -74,7 +73,7 @@ func UpdateUser(c *gin.Context, user *models.User, input *models.UserInput) erro
 	GetUserById(c, user)
 
 	updatedUser := hydrateUser(input)
-	if err := database.Db.Model(&user).Updates(updatedUser).Error; err != nil{
+	if err := database.Db.Model(&user).Updates(updatedUser).Error; err != nil {
 		log.Error(err)
 		return err
 	}
@@ -83,29 +82,24 @@ func UpdateUser(c *gin.Context, user *models.User, input *models.UserInput) erro
 }
 
 func DeleteUser(c *gin.Context, user *models.User) error {
-	i64, err := strconv.ParseUint(c.Params.ByName("id"), 10, 64)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-	
-	if err := database.Db.First(&user, c.Params.ByName("id")).First(&user).Error; err != nil {
-		log.Error(err)
-		return err
-	}
 
-	i := uint(i64)
+	i := c.GetUint("userId")
+
+	if err := database.Db.First(&user, &i).First(&user).Error; err != nil {
+		log.Error(err)
+		return err
+	}
 
 	DeleteActiveServices(c, &models.ActiveServices{UserId: i})
 	DeleteSwServicesData(c, &models.SwServicesData{UserId: i})
 	DeleteAwsServicesData(c, &models.AwsServicesData{UserId: i})
 	DeleteRequestedRegions(c, &models.RequestedRegions{UserId: i})
 
-	if err := database.Db.First(&user, c.Params.ByName("id")).Delete(&user).Error; err != nil {
+	if err := database.Db.First(&user, c.GetUint("userId")).Delete(&user).Error; err != nil {
 		log.Error(err)
 		return err
 	}
-	
+
 	return nil
 }
 
