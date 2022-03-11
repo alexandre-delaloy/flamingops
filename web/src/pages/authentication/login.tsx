@@ -6,9 +6,6 @@ import { useRouter } from 'next/router';
 import { Box, Card, Container, Divider, Link, Typography } from '@mui/material';
 import { GuestGuard } from '../../components/authentication/guest-guard';
 import { AuthBanner } from '../../components/authentication/auth-banner';
-import { AmplifyLogin } from '../../components/authentication/amplify-login';
-import { Auth0Login } from '../../components/authentication/auth0-login';
-import { FirebaseLogin } from '../../components/authentication/firebase-login';
 import { JWTLogin } from '../../components/authentication/jwt-login';
 import { Logo } from '../../components/logo';
 import { useAuth } from '../../hooks/use-auth';
@@ -103,7 +100,7 @@ const Login: NextPage = () => {
               }}
             >
               <NextLink
-                href="/dashboard"
+                href="/preferences"
                 passHref
               >
                 <a>
@@ -132,9 +129,6 @@ const Login: NextPage = () => {
                 mt: 3
               }}
             >
-              {platform === 'Amplify' && <AmplifyLogin />}
-              {platform === 'Auth0' && <Auth0Login />}
-              {platform === 'Firebase' && <FirebaseLogin />}
               {platform === 'JWT' && <JWTLogin />}
             </Box>
             <Divider sx={{ my: 3 }} />
