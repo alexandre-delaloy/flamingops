@@ -9,6 +9,7 @@ import (
 	"github.com/blyndusk/flamingops/pkg/models"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func CreateUser(c *gin.Context, input *models.UserInput) (*models.User, error) {
@@ -42,7 +43,8 @@ func Login(c *gin.Context, input *models.Login) (string, error) {
 		return "", err
 	}
 
-	if user.Password != input.Password {
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password)); err != nil {
+		log.Error("wrong password")
 		return "", errors.New("passwords don't match")
 	}
 
@@ -104,9 +106,10 @@ func DeleteUser(c *gin.Context, user *models.User) error {
 }
 
 func hydrateUser(input *models.UserInput) models.User {
+	hashed, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 8)
 	return models.User{
 		Username: input.Username,
 		Mail:     input.Mail,
-		Password: input.Password,
+		Password: string(hashed),
 	}
 }
