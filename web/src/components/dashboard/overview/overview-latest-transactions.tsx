@@ -1,6 +1,4 @@
 import type { FC } from 'react';
-import { format, subDays } from 'date-fns';
-import numeral from 'numeral';
 import {
   Box,
   Card,

@@ -126,11 +126,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
               user: {
                 id: 12,
                 username: 'Michel',
-                full_name: 'Michel',
                 email: 'Michel',
-                disabled: true,
-                role_label: 'Michel',
-                role_action: ['Michel'],
               }
             }
           });
@@ -175,11 +171,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
           user: {
                 id: 12,
                 username: 'Michel',
-                full_name: 'Michel',
                 email: 'Michel',
-                disabled: true,
-                role_label: 'Michel',
-                role_action: ['Michel'],
           }
         }
       });

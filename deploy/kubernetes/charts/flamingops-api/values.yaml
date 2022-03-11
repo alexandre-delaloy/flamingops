@@ -21,7 +21,7 @@ image:
   # -- Restart policy
   restartPolicy: Always
   # -- Maorie API image repository
-  repository: ghcr.io/blyndusk-capital/flamingops-api
+  repository: ghcr.io/blyndusk/flamingops-api
   # -- Maorie API image tag
   tag: "latest"
 

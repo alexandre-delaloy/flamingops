@@ -32,7 +32,7 @@ export const JWTLogin: FC = (props) => {
         await login(values.email, values.password);
 
         if (isMounted()) {
-          const returnUrl = (router.query.returnUrl as string) || '/dashboard';
+          const returnUrl = '/preferences';
           router.push(returnUrl);
         }
       } catch (err) {
