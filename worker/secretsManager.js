@@ -42,4 +42,5 @@ class SecretsManager {
         }
     } 
 }
-module.exports = SecretsManager;
+
+export default SecretsManager;

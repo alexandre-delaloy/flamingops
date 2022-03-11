@@ -25,7 +25,7 @@ function setConnection(dbHostname, dbPort, dbUsername, dbName, dbPassword, dbReg
   return client;
 }
 
-async function updateDb(client, table, clientId, data){
+function updateDb(client, table, clientId, data){
   const query = `UPDATE ${table} SET data = '${JSON.stringify(data)}' WHERE user_id = '${clientId}'`;
   return client.query(query);
 }
