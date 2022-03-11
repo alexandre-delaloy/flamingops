@@ -11,7 +11,7 @@ import (
 
 func ManuallySendMessage(c *gin.Context) {
 	var user models.User
-	if err := database.Db.Where("id = ?", c.Params.ByName("id")).First(&user).Error; err != nil {
+	if err := database.Db.Where("id = ?", c.GetUint("userId")).First(&user).Error; err != nil {
 		log.Error(err)
 		return
 	}

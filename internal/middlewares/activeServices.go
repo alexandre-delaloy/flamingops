@@ -20,7 +20,7 @@ func CreateActiveServices(c *gin.Context, input *models.ActiveServicesInput) err
 }
 
 func GetActiveServices(c *gin.Context, activeServices *models.ActiveServices) {
-	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&activeServices).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.GetUint("userId")).First(&activeServices).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
@@ -42,7 +42,7 @@ func UpdateActiveServices(c *gin.Context, activeServices *models.ActiveServices,
 }
 
 func DeleteActiveServices(c *gin.Context, activeServices *models.ActiveServices) {
-	if err := database.Db.Where("user_id = ?", c.Params.ByName("id")).First(&activeServices).Delete(&activeServices).Error; err != nil {
+	if err := database.Db.Where("user_id = ?", c.GetUint("userId")).First(&activeServices).Delete(&activeServices).Error; err != nil {
 		log.Error(err)
 		httpStatus, response := helpers.GormErrorResponse(err)
 		c.JSON(httpStatus, response)
