@@ -16,7 +16,7 @@ func Setup(r *gin.Engine) {
 func usersRoute(r *gin.Engine) {
 	r.POST("/user", controllers.CreateUser)
 	r.POST("/login", controllers.Login)
-	r.GET("/users", controllers.GetAllUsers)
+	// r.GET("/users", controllers.GetAllUsers)
 
 	r.GET("/user", middlewares.JWTVerify(controllers.GetUserById))
 	r.PUT("/user", middlewares.JWTVerify(controllers.UpdateUser))
